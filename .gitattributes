@@ -1,2 +1,7 @@
+# Script Maven
 /mvnw text eol=lf
 *.cmd text eol=crlf
+
+
+# Tutti i file di testo
+* text=auto
