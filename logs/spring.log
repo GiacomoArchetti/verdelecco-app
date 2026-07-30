@@ -343,3 +343,49 @@ Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema valid
 	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436) ~[spring-orm-7.0.8.jar:7.0.8]
 	... 22 common frames omitted
 
+2026-07-30T19:01:24.807+02:00  INFO 23780 --- [giardini] [restartedMain] c.g.giardini.GiardiniApplication         : Starting GiardiniApplication using Java 25.0.3 with PID 23780 (C:\Users\arche\Desktop\ProjectWork\giardini\giardini\target\classes started by arche in c:\Users\arche\Desktop\ProjectWork\giardini\giardini)
+2026-07-30T19:01:24.811+02:00  INFO 23780 --- [giardini] [restartedMain] c.g.giardini.GiardiniApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-30T19:01:24.861+02:00  INFO 23780 --- [giardini] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-07-30T19:01:24.861+02:00  INFO 23780 --- [giardini] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-07-30T19:01:25.566+02:00  INFO 23780 --- [giardini] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-07-30T19:01:25.649+02:00  INFO 23780 --- [giardini] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73 ms. Found 6 JPA repository interfaces.
+2026-07-30T19:01:26.239+02:00  INFO 23780 --- [giardini] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-07-30T19:01:26.255+02:00  INFO 23780 --- [giardini] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-30T19:01:26.256+02:00  INFO 23780 --- [giardini] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-07-30T19:01:26.309+02:00  INFO 23780 --- [giardini] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1447 ms
+2026-07-30T19:01:26.581+02:00  INFO 23780 --- [giardini] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-07-30T19:01:26.736+02:00  INFO 23780 --- [giardini] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4b398a17
+2026-07-30T19:01:26.739+02:00  INFO 23780 --- [giardini] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-07-30T19:01:26.770+02:00  INFO 23780 --- [giardini] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC (MySQL 8.0)
+2026-07-30T19:01:26.850+02:00  INFO 23780 --- [giardini] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.029s)
+2026-07-30T19:01:26.867+02:00  INFO 23780 --- [giardini] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema `gestionale_giardiniere`: 2
+2026-07-30T19:01:26.871+02:00  INFO 23780 --- [giardini] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema `gestionale_giardiniere` is up to date. No migration necessary.
+2026-07-30T19:01:26.976+02:00  INFO 23780 --- [giardini] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-07-30T19:01:27.023+02:00  INFO 23780 --- [giardini] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-07-30T19:01:27.403+02:00  INFO 23780 --- [giardini] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-07-30T19:01:27.488+02:00  INFO 23780 --- [giardini] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.46
+	Default catalog/schema: gestionale_giardiniere/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-07-30T19:01:28.339+02:00  INFO 23780 --- [giardini] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-07-30T19:01:28.382+02:00  INFO 23780 --- [giardini] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-07-30T19:01:28.446+02:00  WARN 23780 --- [giardini] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-30T19:01:28.670+02:00  WARN 23780 --- [giardini] [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2026-07-30T19:01:28.785+02:00  INFO 23780 --- [giardini] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-07-30T19:01:28.955+02:00  WARN 23780 --- [giardini] [restartedMain] .s.a.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c9c5f9de-dbf8-4473-aca6-a842257dd7b9
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-07-30T19:01:29.008+02:00  INFO 23780 --- [giardini] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-07-30T19:01:29.208+02:00  INFO 23780 --- [giardini] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-07-30T19:01:29.215+02:00  INFO 23780 --- [giardini] [restartedMain] c.g.giardini.GiardiniApplication         : Started GiardiniApplication in 4.839 seconds (process running for 5.304)
