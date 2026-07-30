@@ -30,7 +30,7 @@ public class Recensione {
     private Prenotazione prenotazione;
 
     @Column(name = "voto", nullable = false)
-    private Integer voto;
+    private Byte voto; // Hibernate è settato su validate quindi Integer lato java per lui è INTEGER lato DB quindi manda in errore -> ho cambiato a Byte
 
     @Column(name = "commento", columnDefinition = "TEXT")
     private String commento;
