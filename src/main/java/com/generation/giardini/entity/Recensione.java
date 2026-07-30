@@ -2,6 +2,8 @@ package com.generation.giardini.entity;
 
 import java.time.LocalDateTime;
 
+import com.generation.giardini.entity.prenotazione.Prenotazione;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

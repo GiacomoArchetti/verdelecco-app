@@ -1,8 +1,6 @@
-package com.generation.giardini.entity;
+package com.generation.giardini.entity.servizio;
 
 import java.math.BigDecimal;
-
-import com.generation.giardini.entity.enums.NomeServizio;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

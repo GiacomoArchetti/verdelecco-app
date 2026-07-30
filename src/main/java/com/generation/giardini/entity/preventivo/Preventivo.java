@@ -1,4 +1,4 @@
-package com.generation.giardini.entity;
+package com.generation.giardini.entity.preventivo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.generation.giardini.entity.enums.StatoPreventivo;
+import com.generation.giardini.entity.DettaglioPreventivo;
+import com.generation.giardini.entity.utente.Utente;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

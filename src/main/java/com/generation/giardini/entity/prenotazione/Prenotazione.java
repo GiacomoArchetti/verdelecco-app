@@ -1,8 +1,8 @@
-package com.generation.giardini.entity;
+package com.generation.giardini.entity.prenotazione;
 
 import java.time.LocalDateTime;
 
-import com.generation.giardini.entity.enums.StatoPrenotazione;
+import com.generation.giardini.entity.preventivo.Preventivo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

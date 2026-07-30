@@ -1,9 +1,9 @@
-package com.generation.giardini.entity;
+package com.generation.giardini.entity.utente;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.generation.giardini.entity.enums.Ruolo;
+import com.generation.giardini.entity.preventivo.Preventivo;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

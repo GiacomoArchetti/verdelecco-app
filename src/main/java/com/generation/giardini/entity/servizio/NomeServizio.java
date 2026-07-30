@@ -1,4 +1,4 @@
-package com.generation.giardini.entity.enums;
+package com.generation.giardini.entity.servizio;
 
 public enum NomeServizio {
     TAGLIO_ERBA,
