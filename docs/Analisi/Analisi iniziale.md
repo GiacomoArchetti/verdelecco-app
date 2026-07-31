@@ -83,7 +83,7 @@ I ruoli gestiti dal sistema sono tre:
 
 ---
 
-## 5. Requisiti Trasversali e UX/UI
+## 5. Requisiti Trasversali e UX/UI (extra non presenti nella versione di rilascio)
 * **Responsive Design:** L'intera interfaccia web è progettata mobile-first per garantire una fruizione ottimale da smartphone e tablet.
 * **Componenti d'Interazione:** Presenza del pulsante "Torna su" (Back to top) in fondo alle pagine a scorrimento lungo.
 * **Elementi Multimediali:** Uso di immagini ad alta risoluzione (foto e prima/dopo) ed elementi video per presentare al meglio i lavori svolti.
