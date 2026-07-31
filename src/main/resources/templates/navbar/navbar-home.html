@@ -1,0 +1,58 @@
+navbar-home.html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<nav class="navbar" th:fragment="navbar">
+
+    <div class="navbar-container">
+
+        <div class="logo">
+            <a th:href="@{/}">
+                VerdeGiardino
+            </a>
+        </div>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#hero">Home</a>
+            </li>
+
+            <li>
+                <a href="#about">Chi siamo</a>
+            </li>
+
+            <li>
+                <a href="#servizi">Servizi</a>
+            </li>
+
+            <li>
+                <a href="#gallery">Gallery</a>
+            </li>
+
+            <li>
+                <a href="#recensioni">Recensioni</a>
+            </li>
+
+            <li>
+                <a href="#preventivo" class="nav-btn">
+                    Preventivo
+                </a>
+            </li>
+
+        </ul>
+
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+
+    </div>
+
+</nav>
+
+</html>
