@@ -17,9 +17,7 @@
 <section class="preventivo-page">
     <div class="page-header">
         <h1>Richiedi il tuo preventivo</h1>
-        <p>Compila il modulo e ti contatteremo al piÃ¹ presto con una proposta personalizzata.</p>
-    </div>
-
+            <p>Compila il modulo e ti contatteremo al più presto con una proposta personalizzata.</p>
     <div class="preventivo-card">
         <div th:if="${successMessage}" class="alert success">
             <p th:text="${successMessage}"></p>
@@ -41,7 +39,7 @@
                 </label>
                 <label>
                     Indirizzo
-                    <input type="text" th:field="*{indirizzo}" placeholder="Via, cittÃ " required>
+                    <input type="text" th:field="*{indirizzo}" placeholder="Via, città" required>
                 </label>
                 <label>
                     Servizio richiesto
@@ -55,7 +53,7 @@
                 </label>
                 <label>
                     Dimensioni del giardino
-                    <input type="text" th:field="*{dimensioni}" placeholder="Es. 150 mÂ²" required>
+                    <input type="text" th:field="*{dimensioni}" placeholder="Es. 150 m²" required>
                 </label>
             </div>
 
