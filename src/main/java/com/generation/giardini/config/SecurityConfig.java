@@ -10,7 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -21,7 +20,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // 1. AREA PUBBLICA(con pagina autenticazione)
-                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/preventivo/**", "/login", "/registrazione").permitAll()
+                .requestMatchers("/", "/css/**", "/js/**", "/preventivo/**", "/images/**", "/webjars/**", "/login", "/registrazione").permitAll()
                 
                 
                 // 2. AREA UTENTE

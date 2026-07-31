@@ -1,0 +1,38 @@
+﻿<!-- Navbar template: admin navigation bar -->
+<nav class="navbar" th:fragment="navbar">
+
+    <div class="navbar-container">
+
+        <div class="logo">
+            <a th:href="@{/}">
+                MarcoArchetti
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a th:href="@{/admin}">Dashboard</a>
+            </li>
+            <li>
+                <a th:href="@{/admin#clienti}">Clienti</a>
+            </li>
+            <li>
+                <a th:href="@{/admin#preventivi}">Preventivi</a>
+            </li>
+            <li>
+                <a th:href="@{/admin#prenotazioni}">Prenotazioni</a>
+            </li>
+            <li>
+                <a th:href="@{/logout}" class="nav-btn secondary">Logout</a>
+            </li>
+        </ul>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+
+</nav>

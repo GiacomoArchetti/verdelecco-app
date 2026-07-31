@@ -1,0 +1,79 @@
+﻿<!-- Preventivo template: quote request page with submission form -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Richiedi Preventivo</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar-home.css}">
+</head>
+
+<body>
+<div th:replace="~{navbar/navbar-home :: navbar}"></div>
+
+<section class="preventivo-page">
+    <div class="page-header">
+        <h1>Richiedi il tuo preventivo</h1>
+            <p>Compila il modulo e ti contatteremo al più presto con una proposta personalizzata.</p>
+    <div class="preventivo-card">
+        <div th:if="${successMessage}" class="alert success">
+            <p th:text="${successMessage}"></p>
+        </div>
+
+        <form th:action="@{/preventivo}" th:object="${preventivoRequest}" method="post" class="preventivo-form">
+            <div class="form-grid">
+                <label>
+                    Nome
+                    <input type="text" th:field="*{nome}" placeholder="Nome e Cognome" required>
+                </label>
+                <label>
+                    Email
+                    <input type="email" th:field="*{email}" placeholder="tuo@email.com" required>
+                </label>
+                <label>
+                    Telefono
+                    <input type="tel" th:field="*{telefono}" placeholder="+39 123 456 7890" required>
+                </label>
+                <label>
+                    Indirizzo
+                    <input type="text" th:field="*{indirizzo}" placeholder="Via, città" required>
+                </label>
+                <label>
+                    Servizio richiesto
+                    <select th:field="*{servizio}" required>
+                        <option value="">Seleziona un servizio</option>
+                        <option value="Manutenzione giardino">Manutenzione giardino</option>
+                        <option value="Progettazione giardino">Progettazione giardino</option>
+                        <option value="Irrigazione">Irrigazione</option>
+                        <option value="Potatura">Potatura</option>
+                    </select>
+                </label>
+                <label>
+                    Dimensioni del giardino
+                    <input type="text" th:field="*{dimensioni}" placeholder="Es. 150 m²" required>
+                </label>
+            </div>
+
+            <label class="full-width">
+                Dettagli aggiuntivi
+                <textarea th:field="*{dettagli}" rows="6" placeholder="Descrivi il lavoro desiderato"></textarea>
+            </label>
+
+            <button type="submit" class="btn-primary">Invia richiesta</button>
+        </form>
+    </div>
+</section>
+
+<div th:replace="~{fragment/footer :: footer}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/scrollButton.js}"></script>
+</body>
+
+</html>
+
+
+

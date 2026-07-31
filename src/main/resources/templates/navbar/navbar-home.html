@@ -1,14 +1,12 @@
+﻿<!-- Navbar template: navigation bar shared by public pages -->
 navbar-home.html
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
 <nav class="navbar" th:fragment="navbar">
 
     <div class="navbar-container">
 
         <div class="logo">
             <a th:href="@{/}">
-                VerdeGiardino
+                MarcoArchetti
             </a>
         </div>
 
@@ -16,28 +14,38 @@ navbar-home.html
         <ul class="nav-links">
 
             <li>
-                <a href="#hero">Home</a>
+                <a href="/#hero">Home</a>
             </li>
 
             <li>
-                <a href="#about">Chi siamo</a>
+                <a href="/#about">Chi siamo</a>
             </li>
 
             <li>
-                <a href="#servizi">Servizi</a>
+                <a href="/#servizi">Servizi</a>
             </li>
 
             <li>
-                <a href="#gallery">Gallery</a>
+                <a href="/#contatti">Contatti</a>
             </li>
 
             <li>
-                <a href="#recensioni">Recensioni</a>
+                <a href="/#recensioni">Recensioni</a>
             </li>
 
             <li>
-                <a href="#preventivo" class="nav-btn">
+                <a href="/#faq">FAQ</a>
+            </li>
+
+            <li>
+                <a th:href="@{/preventivo}" class="nav-btn">
                     Preventivo
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/registrazione}" class="nav-btn secondary">
+                    Accedi/Registrati
                 </a>
             </li>
 
@@ -55,4 +63,3 @@ navbar-home.html
 
 </nav>
 
-</html>

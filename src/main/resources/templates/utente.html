@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo Utente</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar-home.css}">
+</head>
+
+<body>
+
+<div th:replace="~{navbar/navbar-utente :: navbar}"></div>
+
+<main class="user-dashboard">
+    <section class="dashboard-hero">
+        <div class="dashboard-hero-content">
+            <h1>Benvenuto nel tuo profilo</h1>
+            <p>Qui puoi vedere i tuoi preventivi, prenotazioni e aggiornare le tue informazioni.</p>
+        </div>
+    </section>
+
+    <section id="servizi" class="dashboard-section">
+        <h2>Servizi</h2>
+        <div class="user-box">
+            <p>Prossimo appuntamento</p>
+            <p>Preventivi in attesa</p>
+            <p>Ultime comunicazioni</p>
+        </div>
+    </section>
+
+    <section id="profilo" class="dashboard-section">
+        <h2>Profilo</h2>
+        <div class="user-box">
+            <p>Dati personali</p>
+            <p>Privacy</p>
+            <p>Documenti</p>
+            <p>Password</p>
+        </div>
+    </section>
+</main>
+
+</body>
+
+</html>
