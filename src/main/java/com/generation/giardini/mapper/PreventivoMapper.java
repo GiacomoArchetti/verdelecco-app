@@ -45,20 +45,21 @@ public class PreventivoMapper {
 
     public Preventivo toEntity(PreventivoDTO dto) {
         if(dto == null) return null;
-        Preventivo preventivo = new Preventivo();
-        preventivo.setIdPreventivo(dto.idPreventivo());
-        preventivo.setIndirizzo(dto.indirizzo());
-        preventivo.setSuperficieMq(dto.superficieMq());
-        preventivo.setCostoStimato(dto.costoStimato());
-        preventivo.setDescrizione(dto.descrizione());
-        preventivo.setDataIntervento(dto.dataIntervento());
-        preventivo.setDataEmissione(dto.dataEmissione());
-        preventivo.setDataScadenza(dto.dataScadenza());
+        Preventivo entity = new Preventivo();
+
+        entity.setIdPreventivo(dto.idPreventivo());
+        entity.setIndirizzo(dto.indirizzo());
+        entity.setSuperficieMq(dto.superficieMq());
+        entity.setCostoStimato(dto.costoStimato());
+        entity.setDescrizione(dto.descrizione());
+        entity.setDataIntervento(dto.dataIntervento());
+        entity.setDataEmissione(dto.dataEmissione());
+        entity.setDataScadenza(dto.dataScadenza());
         if(dto.stato() != null) {
-            preventivo.setStatoPreventivo(dto.stato());
+            entity.setStatoPreventivo(dto.stato());
         }
 
-        return preventivo;
+        return entity;
     }
 
 }

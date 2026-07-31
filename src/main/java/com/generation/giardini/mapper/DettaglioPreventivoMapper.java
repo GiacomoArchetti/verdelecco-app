@@ -9,9 +9,11 @@ import com.generation.giardini.entity.DettaglioPreventivo;
 public class DettaglioPreventivoMapper {
 
     public DettaglioPreventivoDTO toDto(DettaglioPreventivo entity) {
+
         if(entity == null) {
             return null;
         }
+
         return new DettaglioPreventivoDTO(
             entity.getIdDettaglio(),
             entity.getPreventivo() != null ? entity.getPreventivo().getIdPreventivo() : null,
@@ -22,14 +24,17 @@ public class DettaglioPreventivoMapper {
     }
 
     public DettaglioPreventivo toEntity(DettaglioPreventivoDTO dto) {
+        
         if(dto == null) {
             return null;
         }
-        DettaglioPreventivo dettaglio = new DettaglioPreventivo();
-        dettaglio.setIdDettaglio(dto.idDettaglio());
-        dettaglio.setQuantita(dto.quantita());
 
-        return dettaglio;
+        DettaglioPreventivo entity = new DettaglioPreventivo();
+
+        entity.setIdDettaglio(dto.idDettaglio());
+        entity.setQuantita(dto.quantita());
+
+        return entity;
     }
 
 }

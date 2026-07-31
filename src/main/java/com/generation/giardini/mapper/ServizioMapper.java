@@ -26,18 +26,18 @@ public class ServizioMapper {
         if(dto == null) {
             return null;
         }
-        Servizio servizio = new Servizio();
-        servizio.setIdServizio(dto.idServizio());
-        servizio.setNome(dto.nome());
-        servizio.setPrezzoAlMq(dto.prezzoAlMq());
-        servizio.setMinutiAlMq(dto.minutiAlMq());
-        servizio.setDescrizione(dto.descrizione());
+        Servizio entity = new Servizio();
+        entity.setIdServizio(dto.idServizio());
+        entity.setNome(dto.nome());
+        entity.setPrezzoAlMq(dto.prezzoAlMq());
+        entity.setMinutiAlMq(dto.minutiAlMq());
+        entity.setDescrizione(dto.descrizione());
         if(dto.attivo() != null) {
-            servizio.setAttivo(dto.attivo());
+            entity.setAttivo(dto.attivo());
         }
         // Controllo per prevenire il fatto che se attivo o ruolo sono null, il valore di default non viene sovrascritto con null
 
-        return servizio;
+        return entity;
     }
 
 }

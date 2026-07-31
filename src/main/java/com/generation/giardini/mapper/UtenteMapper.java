@@ -27,21 +27,21 @@ public class UtenteMapper {
         if(dto == null) {
             return null;
         }
-        Utente utente = new Utente();
-        utente.setIdUtente(dto.idUtente());
-        utente.setNome(dto.nome());
-        utente.setCognome(dto.cognome());
-        utente.setEmail(dto.email());
-        utente.setTelefono(dto.telefono());
+        Utente entity = new Utente();
+        entity.setIdUtente(dto.idUtente());
+        entity.setNome(dto.nome());
+        entity.setCognome(dto.cognome());
+        entity.setEmail(dto.email());
+        entity.setTelefono(dto.telefono());
         if(dto.attivo() != null) {
-            utente.setAttivo(dto.attivo());
+            entity.setAttivo(dto.attivo());
         }
         if(dto.ruolo() != null) {
-            utente.setRuolo(dto.ruolo());
+            entity.setRuolo(dto.ruolo());
         }
         // Controlli per prevenire il fatto che se attivo o ruolo sono null, il valore di default non viene sovrascritto con null
         
-        return utente;
+        return entity;
     }
 
 }
