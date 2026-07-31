@@ -1,4 +1,5 @@
-﻿// Main JS: menu toggling and FAQ accordion interactions `r`nconst hamburger = document.querySelector('.hamburger');
+﻿// Main JS: menu toggling and FAQ accordion interactions
+const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 
 if (hamburger && navLinks) {

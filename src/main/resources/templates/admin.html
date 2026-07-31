@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar-home.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+
+<body>
+
+<div th:replace="~{navbar/navbar-admin :: navbar}"></div>
+
+<main class="admin-dashboard">
+    <section class="dashboard-hero">
+        <div class="dashboard-hero-content">
+            <h1>Dashboard Admin</h1>
+            <p>Benvenuto nella tua area amministrativa. Qui puoi gestire clienti, preventivi, prenotazioni e recensioni.</p>
+        </div>
+    </section>
+
+    <section id="clienti" class="dashboard-section">
+        <div class="section-header">
+            <h3>Clienti</h3>
+            <p>Pagina <span th:text="${clienti.number + 1}"></span> di <span th:text="${clienti.totalPages}"></span></p>
+        </div>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>Ruolo</th>
+                        <th>Attivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${clienti.content}">
+                        <td th:text="${cliente.idUtente}"></td>
+                        <td th:text="${cliente.nome}"></td>
+                        <td th:text="${cliente.cognome}"></td>
+                        <td th:text="${cliente.email}"></td>
+                        <td th:text="${cliente.telefono}"></td>
+                        <td th:text="${cliente.ruolo}"></td>
+                        <td th:text="${cliente.attivo} ? 'Si' : 'No'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <a th:href="@{/admin(clientiPage=${clienti.number - 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}" th:if="${clienti.hasPrevious}">Precedente</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number + 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}" th:if="${clienti.hasNext}">Successivo</a>
+        </div>
+    </section>
+
+    <section id="preventivi" class="dashboard-section">
+        <div class="section-header">
+            <h3>Preventivi</h3>
+            <p>Pagina <span th:text="${preventivi.number + 1}"></span> di <span th:text="${preventivi.totalPages}"></span></p>
+        </div>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Utente</th>
+                        <th>Indirizzo</th>
+                        <th>Superficie (mq)</th>
+                        <th>Costo stimato</th>
+                        <th>Stato</th>
+                        <th>Data intervento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="preventivo : ${preventivi.content}">
+                        <td th:text="${preventivo.idPreventivo}"></td>
+                        <td th:text="${preventivo.utente.email}"></td>
+                        <td th:text="${preventivo.indirizzo}"></td>
+                        <td th:text="${preventivo.superficieMq}"></td>
+                        <td th:text="${preventivo.costoStimato}"></td>
+                        <td th:text="${preventivo.statoPreventivo}"></td>
+                        <td th:text="${preventivo.dataIntervento}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}" th:if="${preventivi.hasPrevious}">Precedente</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}" th:if="${preventivi.hasNext}">Successivo</a>
+        </div>
+    </section>
+
+    <section id="prenotazioni" class="dashboard-section">
+        <div class="section-header">
+            <h3>Prenotazioni</h3>
+            <p>Pagina <span th:text="${prenotazioni.number + 1}"></span> di <span th:text="${prenotazioni.totalPages}"></span></p>
+        </div>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Preventivo</th>
+                        <th>Indirizzo</th>
+                        <th>Data intervento</th>
+                        <th>Stato</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="prenotazione : ${prenotazioni.content}">
+                        <td th:text="${prenotazione.idPrenotazione}"></td>
+                        <td th:text="${prenotazione.preventivo.idPreventivo}"></td>
+                        <td th:text="${prenotazione.indirizzo}"></td>
+                        <td th:text="${prenotazione.dataIntervento}"></td>
+                        <td th:text="${prenotazione.stato}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1}, recensioniPage=${recensioni.number})}" th:if="${prenotazioni.hasPrevious}">Precedente</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1}, recensioniPage=${recensioni.number})}" th:if="${prenotazioni.hasNext}">Successivo</a>
+        </div>
+    </section>
+
+    <section id="recensioni" class="dashboard-section">
+        <div class="section-header">
+            <h3>Recensioni</h3>
+            <p>Pagina <span th:text="${recensioni.number + 1}"></span> di <span th:text="${recensioni.totalPages}"></span></p>
+        </div>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Voto</th>
+                        <th>Commento</th>
+                        <th>Data recensione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="recensione : ${recensioni.content}">
+                        <td th:text="${recensione.idRecensione}"></td>
+                        <td th:text="${recensione.voto}"></td>
+                        <td th:text="${recensione.commento}"></td>
+                        <td th:text="${recensione.dataRecensione}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number - 1})}" th:if="${recensioni.hasPrevious}">Precedente</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number + 1})}" th:if="${recensioni.hasNext}">Successivo</a>
+        </div>
+    </section>
+</main>
+
+<button id="scrollButton" class="scroll-button" type="button" aria-label="Scorri su o giù">↓</button>
+<script th:src="@{/js/scrollButton.js}"></script>
+</body>
+
+</html>
