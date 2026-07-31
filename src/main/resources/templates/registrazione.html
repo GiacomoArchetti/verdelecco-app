@@ -1,0 +1,62 @@
+﻿<!-- Registrazione template: client portal registration page -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Registrazione</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar-home.css}">
+</head>
+
+<body>
+<div th:replace="~{navbar/navbar-home :: navbar}"></div>
+
+<section class="registration-page">
+    <div class="registration-card">
+        <h1>Registrati al Portale Clienti</h1>
+        <p>Compila il modulo per creare il tuo account e tenere traccia delle richieste.</p>
+
+        <form class="registration-form" th:action="@{/registrazione}" method="post">
+            <label>
+                Nome completo
+                <input type="text" name="nome" placeholder="Nome e cognome" required>
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" placeholder="tuo@email.com" required>
+            </label>
+            <label>
+                Telefono
+                <input type="tel" name="telefono" placeholder="+39 123 456 7890" required>
+            </label>
+            <label>
+                Password
+                <input type="password" name="password" placeholder="Password" required>
+            </label>
+            <label>
+                Conferma password
+                <input type="password" name="passwordConfirm" placeholder="Conferma password" required>
+            </label>
+            <button type="submit" class="btn-primary">Registrati</button>
+        </form>
+
+        <div class="success-actions">
+            <span>Hai già un account?</span>
+            <a th:href="@{/accedi}" class="btn-primary secondary">Vai a Accedi</a>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragment/footer :: footer}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/scrollButton.js}"></script>
+</body>
+
+</html>
+
+
+
