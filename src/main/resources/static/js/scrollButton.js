@@ -1,4 +1,4 @@
-const scrollButton = document.getElementById("scrollButton");
+﻿// Scroll button JS: show/hide and scroll-to-top behavior `r`nconst scrollButton = document.getElementById("scrollButton");
 
 window.addEventListener("scroll", () => {
 
@@ -10,9 +10,9 @@ window.addEventListener("scroll", () => {
 
     // Cambia la freccia in base alla posizione
     if (window.scrollY > document.body.scrollHeight / 2) {
-        scrollButton.innerHTML = "↑";
+        scrollButton.innerHTML = "â†‘";
     } else {
-        scrollButton.innerHTML = "↓";
+        scrollButton.innerHTML = "â†“";
     }
 
 });

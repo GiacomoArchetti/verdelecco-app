@@ -1,14 +1,15 @@
-<section class="hero" th:fragment="hero">
+﻿<!-- Hero fragment: main landing banner section -->
+<section id="hero" class="hero" th:fragment="hero">
 
     <div class="hero-left">
 
         <h1>Il tuo giardiniere di fiducia</h1>
 
         <p>
-            Realizzazione e manutenzione di giardini.
+           Non ho scelto solo un mestiere: ho trovato un mondo da conoscere, rispettare e trasformare in bellezza.
         </p>
 
-        <a href="#preventivo" class="btn-primary">
+        <a th:href="@{/preventivo}" class="btn-primary">
             Richiedi Preventivo
         </a>
 
@@ -16,8 +17,9 @@
 
     <div class="hero-right">
 
-        <img th:src="@{/images/frontman.jpg}" alt="Giardiniere">
+        <img th:src="@{/images/gardener.jpg}" alt="Giardiniere">
 
     </div>
 
 </section>
+

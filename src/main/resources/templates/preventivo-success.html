@@ -1,0 +1,39 @@
+﻿<!-- Preventivo success template: confirmation page after sending a request -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Richiesta inviata</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar-home.css}">
+</head>
+
+<body>
+<div th:replace="~{navbar/navbar-home :: navbar}"></div>
+
+<section class="preventivo-success-page">
+    <div class="success-card">
+        <div class="success-icon">âœ“</div>
+        <h1>Grazie!</h1>
+        <p>Abbiamo ricevuto la tua richiesta di preventivo.</p>
+        <p>Ti contatteremo il prima possibile.</p>
+        <div class="success-actions">
+            <a th:href="@{/}" class="btn-primary">Torna alla Home</a>
+            <a th:href="@{/registrazione}" class="btn-primary secondary">Registrati</a>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragment/footer :: footer}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/scrollButton.js}"></script>
+</body>
+
+</html>
+
+
+
