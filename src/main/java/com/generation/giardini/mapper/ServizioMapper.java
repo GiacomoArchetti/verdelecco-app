@@ -35,7 +35,7 @@ public class ServizioMapper {
         if(dto.attivo() != null) {
             entity.setAttivo(dto.attivo());
         }
-        // Controllo per prevenire il fatto che se attivo o ruolo sono null, il valore di default non viene sovrascritto con null
+        // Controllo per prevenire il fatto che se attivo è null, il valore di default non viene sovrascritto con null
 
         return entity;
     }

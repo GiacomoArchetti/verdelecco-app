@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.generation.giardini.dto.PrenotazioneDTO;
 import com.generation.giardini.entity.prenotazione.Prenotazione;
+import com.generation.giardini.entity.prenotazione.StatoPrenotazione;
 
 
 @Component
@@ -20,7 +21,8 @@ public class PrenotazioneMapper {
             entity.getPreventivo() != null ? entity.getPreventivo().getIdPreventivo() : null,
             entity.getDataIntervento(),
             entity.getIndirizzo(),
-            entity.getStato());
+            entity.getStato() != null ? entity.getStato().name() : null
+        );
     }
 
     public Prenotazione toEntity(PrenotazioneDTO dto){
@@ -34,7 +36,17 @@ public class PrenotazioneMapper {
         entity.setIdPrenotazione(dto.idPrenotazione());
         entity.setDataIntervento(dto.dataIntervento());
         entity.setIndirizzo(dto.indirizzo());
-        entity.setStato(dto.stato());
+
+        if (dto.stato() == null) {
+            entity.setStato(StatoPrenotazione.PROGRAMMATA);
+        } else {
+            entity.setStato(switch (dto.stato().toUpperCase()) {
+                case "CONFERMATA" -> StatoPrenotazione.CONFERMATA;
+                case "COMPLETATA" -> StatoPrenotazione.COMPLETATA;
+                case "ANNULLATA" -> StatoPrenotazione.ANNULLATA;
+                default -> StatoPrenotazione.PROGRAMMATA;
+            }); //Sintassi switch da java 14+
+        }
 
         return entity;
     }

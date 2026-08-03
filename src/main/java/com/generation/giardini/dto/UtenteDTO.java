@@ -1,7 +1,5 @@
 package com.generation.giardini.dto;
 
-import com.generation.giardini.entity.utente.Ruolo;
-
 public record UtenteDTO(
     Long idUtente,
     String nome,
@@ -9,7 +7,7 @@ public record UtenteDTO(
     String email,
     String telefono,
     Boolean attivo,
-    Ruolo ruolo
+    String ruolo
 ) {
 
 }

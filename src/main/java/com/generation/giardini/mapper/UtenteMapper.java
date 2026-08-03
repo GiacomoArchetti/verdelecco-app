@@ -3,6 +3,7 @@ package com.generation.giardini.mapper;
 import org.springframework.stereotype.Component;
 
 import com.generation.giardini.dto.UtenteDTO;
+import com.generation.giardini.entity.utente.Ruolo;
 import com.generation.giardini.entity.utente.Utente;
 
 @Component
@@ -19,7 +20,7 @@ public class UtenteMapper {
             entity.getEmail(),
             entity.getTelefono(),
             entity.getAttivo(),
-            entity.getRuolo()
+            entity.getRuolo() != null ? entity.getRuolo().name() : null 
         );
     }
 
@@ -36,8 +37,13 @@ public class UtenteMapper {
         if(dto.attivo() != null) {
             entity.setAttivo(dto.attivo());
         }
-        if(dto.ruolo() != null) {
-            entity.setRuolo(dto.ruolo());
+        if(dto.ruolo() == null) {
+            entity.setRuolo(Ruolo.UTENTE);
+        }else{
+            entity.setRuolo(switch (dto.ruolo().toUpperCase()){
+                case "ADMIN" -> Ruolo.ADMIN;
+                default -> Ruolo.UTENTE;
+            }); //Sintassi switch da java 14+
         }
         // Controlli per prevenire il fatto che se attivo o ruolo sono null, il valore di default non viene sovrascritto con null
         

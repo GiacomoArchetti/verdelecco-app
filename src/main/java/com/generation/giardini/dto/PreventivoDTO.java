@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.generation.giardini.entity.preventivo.StatoPreventivo;
-
 public record PreventivoDTO(
     Long idPreventivo,
     Long idUtente,
@@ -19,7 +17,7 @@ public record PreventivoDTO(
     LocalDateTime dataIntervento,
     LocalDate dataEmissione,
     LocalDate dataScadenza,
-    StatoPreventivo stato,
+    String stato,
     List<DettaglioPreventivoDTO> dettagli
 ) {
 

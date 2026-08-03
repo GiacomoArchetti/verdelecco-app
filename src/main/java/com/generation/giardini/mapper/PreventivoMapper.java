@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.generation.giardini.dto.DettaglioPreventivoDTO;
 import com.generation.giardini.dto.PreventivoDTO;
 import com.generation.giardini.entity.preventivo.Preventivo;
+import com.generation.giardini.entity.preventivo.StatoPreventivo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +23,7 @@ public class PreventivoMapper {
             return null;
         }
 
-        List<DettaglioPreventivoDTO> dettaglioDto = entity.getDettagli() != null
+        List<DettaglioPreventivoDTO> listaDettagliPreventiviDto = entity.getDettagli() != null
             ? entity.getDettagli().stream().map(dettaglioMapper::toDto).toList()
             : Collections.emptyList();
 
@@ -38,13 +39,15 @@ public class PreventivoMapper {
             entity.getDataIntervento(),
             entity.getDataEmissione(),
             entity.getDataScadenza(),
-            entity.getStatoPreventivo(),
-            dettaglioDto
+            entity.getStatoPreventivo() != null ? entity.getStatoPreventivo().name() : null,
+            listaDettagliPreventiviDto
         );
     }
 
     public Preventivo toEntity(PreventivoDTO dto) {
+        
         if(dto == null) return null;
+
         Preventivo entity = new Preventivo();
 
         entity.setIdPreventivo(dto.idPreventivo());
@@ -55,8 +58,18 @@ public class PreventivoMapper {
         entity.setDataIntervento(dto.dataIntervento());
         entity.setDataEmissione(dto.dataEmissione());
         entity.setDataScadenza(dto.dataScadenza());
-        if(dto.stato() != null) {
-            entity.setStatoPreventivo(dto.stato());
+
+
+        if(dto.stato() == null) {
+            entity.setStatoPreventivo(StatoPreventivo.IN_ATTESA);
+        }else{
+            entity.setStatoPreventivo(switch (dto.stato().toUpperCase()){
+                case "ACCETTATO" -> StatoPreventivo.ACCETTATO;
+                case "RIFIUTATO" -> StatoPreventivo.RIFIUTATO;
+                case "SCADUTO" -> StatoPreventivo.SCADUTO;
+                case "ANNULLATO" -> StatoPreventivo.ANNULLATO;
+                default -> StatoPreventivo.IN_ATTESA;
+            });
         }
 
         return entity;
