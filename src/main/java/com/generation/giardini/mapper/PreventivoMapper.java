@@ -69,7 +69,7 @@ public class PreventivoMapper {
                 case "SCADUTO" -> StatoPreventivo.SCADUTO;
                 case "ANNULLATO" -> StatoPreventivo.ANNULLATO;
                 default -> StatoPreventivo.IN_ATTESA;
-            });
+            }); //Sintassi switch da java 14+
         }
 
         return entity;
