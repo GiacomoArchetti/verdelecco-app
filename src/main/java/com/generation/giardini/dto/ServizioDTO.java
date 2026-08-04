@@ -6,7 +6,7 @@ import com.generation.giardini.entity.servizio.NomeServizio;
 
 public record ServizioDTO(
     Long idServizio,
-    NomeServizio nome,
+    String nome,
     BigDecimal prezzoAlMq,
     Integer minutiAlMq,
     String descrizione,

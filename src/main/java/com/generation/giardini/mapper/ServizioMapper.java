@@ -3,6 +3,7 @@ package com.generation.giardini.mapper;
 import org.springframework.stereotype.Component;
 
 import com.generation.giardini.dto.ServizioDTO;
+import com.generation.giardini.entity.servizio.NomeServizio;
 import com.generation.giardini.entity.servizio.Servizio;
 
 @Component
@@ -14,7 +15,7 @@ public class ServizioMapper {
         }
         return new ServizioDTO(
             entity.getIdServizio(),
-            entity.getNome(),
+            entity.getNome() != null ? entity.getNome().name() : null,
             entity.getPrezzoAlMq(),
             entity.getMinutiAlMq(),
             entity.getDescrizione(),
@@ -28,7 +29,17 @@ public class ServizioMapper {
         }
         Servizio entity = new Servizio();
         entity.setIdServizio(dto.idServizio());
-        entity.setNome(dto.nome());
+
+        entity.setNome(switch (dto.nome()){
+            case "MANUTENZIONE_TAPPETO_ERBOSO" -> NomeServizio.MANUTENZIONE_TAPPETO_ERBOSO;
+            case "SFALCIO_RIVE_E_SCARPATE" -> NomeServizio.SFALCIO_RIVE_E_SCARPATE;
+            case "POTATURA_ALBERI_DA_FRUTTO" -> NomeServizio.POTATURA_ALBERI_DA_FRUTTO;
+            case "POTATURA_ALBERI_ORNAMENTALI" -> NomeServizio.POTATURA_ALBERI_ORNAMENTALI;
+            case "POTATURA_SIEPI" -> NomeServizio.POTATURA_SIEPI;
+            case "SEMINA" -> NomeServizio.SEMINA;
+            default -> NomeServizio.PULIZIA_GIARDINO;
+        }); //Sintassi switch da java 14+
+
         entity.setPrezzoAlMq(dto.prezzoAlMq());
         entity.setMinutiAlMq(dto.minutiAlMq());
         entity.setDescrizione(dto.descrizione());
