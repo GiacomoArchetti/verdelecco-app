@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.generation.giardini.dto.ServizioDTO;
 import com.generation.giardini.entity.servizio.Servizio;
 import com.generation.giardini.exception.Servizio.ServizioCreateException;
-import com.generation.giardini.exception.Servizio.ServizioNonTrovatoException;
+import com.generation.giardini.exception.Servizio.ServizioNotFoundException;
 import com.generation.giardini.mapper.ServizioMapper;
 import com.generation.giardini.repository.ServizioRepository;
 
@@ -84,7 +84,7 @@ public class ServizioServiceImpl implements ServizioService{
     @Transactional(readOnly = true)
     public ServizioDTO readById(Long id) {
         Servizio servizio = repository.findById(id)
-                                        .orElseThrow(() -> new ServizioNonTrovatoException(id)); //Se non trova lancia eccezione custom
+                                        .orElseThrow(() -> new ServizioNotFoundException(id)); //Se non trova lancia eccezione custom
                 
         return mapper.toDto(servizio);
     }
@@ -92,9 +92,10 @@ public class ServizioServiceImpl implements ServizioService{
     @Override
     public boolean delete(Long id) {
         Servizio servizio = repository.findById(id)
-                                        .orElseThrow(() -> new ServizioNonTrovatoException(id));
+                                        .orElseThrow(() -> new ServizioNotFoundException(id));
 
-        repository.delete(servizio);
+        servizio.setAttivo(false);
+        repository.save(servizio);
 
         return true;
     }

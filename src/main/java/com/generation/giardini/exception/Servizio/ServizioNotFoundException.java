@@ -1,11 +1,11 @@
 package com.generation.giardini.exception.Servizio;
 
-public class ServizioNonTrovatoException extends RuntimeException {
+public class ServizioNotFoundException extends RuntimeException {
 
     /**
      * Costruttore con messaggio predefinito per il fallimento della creazione del servizio di giardinaggio.
      */
-    public ServizioNonTrovatoException() {
+    public ServizioNotFoundException() {
         super("Errore imprevisto durante la ricerca del servizio.");
     }
 
@@ -14,7 +14,7 @@ public class ServizioNonTrovatoException extends RuntimeException {
      * 
      * @param message il dettaglio dell'errore
      */
-    public ServizioNonTrovatoException(String message) {
+    public ServizioNotFoundException(String message) {
         super(message);
     }
 
@@ -23,7 +23,7 @@ public class ServizioNonTrovatoException extends RuntimeException {
      * 
      * @param id l'id del servizio cercato
      */
-    public ServizioNonTrovatoException(Long id) {
+    public ServizioNotFoundException(Long id) {
         super("Impossibile trovare il servizio con id: '" + id + "'.");
     }
 
@@ -33,7 +33,7 @@ public class ServizioNonTrovatoException extends RuntimeException {
      * @param id l'id del servizio che ha generato l'errore
      * @param cause la causa principale dell'eccezione (es. errore di persistenza)
      */
-    public ServizioNonTrovatoException(Long id, Throwable cause) {
+    public ServizioNotFoundException(Long id, Throwable cause) {
         super("Impossibile trovare il servizio con id: '" + id + "'.", cause);
     }
 
