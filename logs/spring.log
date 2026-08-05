@@ -1,0 +1,58 @@
+2026-08-05T17:05:38.744+02:00  INFO 16128 --- [restartedMain] c.g.giardini.GiardiniApplication         : Starting GiardiniApplication using Java 25.0.3 with PID 16128 (C:\Users\arche\Desktop\ProjectWork\giardini\giardini\target\classes started by arche in C:\Users\arche\Desktop\ProjectWork\giardini\giardini)
+2026-08-05T17:05:38.749+02:00  INFO 16128 --- [restartedMain] c.g.giardini.GiardiniApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-08-05T17:05:38.806+02:00  INFO 16128 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-05T17:05:38.807+02:00  INFO 16128 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-05T17:05:39.642+02:00  INFO 16128 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-05T17:05:39.740+02:00  INFO 16128 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 6 JPA repository interfaces.
+2026-08-05T17:05:40.476+02:00  INFO 16128 --- [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-05T17:05:40.494+02:00  INFO 16128 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-05T17:05:40.495+02:00  INFO 16128 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-08-05T17:05:40.546+02:00  INFO 16128 --- [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1739 ms
+2026-08-05T17:05:40.913+02:00  INFO 16128 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-05T17:05:41.099+02:00  INFO 16128 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@329a1ad
+2026-08-05T17:05:41.102+02:00  INFO 16128 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-05T17:05:41.135+02:00  INFO 16128 --- [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC (MySQL 8.0)
+2026-08-05T17:05:41.230+02:00  INFO 16128 --- [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.033s)
+2026-08-05T17:05:41.247+02:00  INFO 16128 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema `gestionale_giardiniere`: 3
+2026-08-05T17:05:41.254+02:00  INFO 16128 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Schema `gestionale_giardiniere` is up to date. No migration necessary.
+2026-08-05T17:05:41.372+02:00  INFO 16128 --- [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-05T17:05:41.426+02:00  INFO 16128 --- [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-08-05T17:05:41.846+02:00  INFO 16128 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-05T17:05:41.924+02:00  INFO 16128 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.46
+	Default catalog/schema: gestionale_giardiniere/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-05T17:05:42.795+02:00  INFO 16128 --- [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-05T17:05:42.845+02:00  INFO 16128 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-05T17:05:42.934+02:00  INFO 16128 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-05T17:05:43.127+02:00  WARN 16128 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'recensioneServiceImpl' defined in file [C:\Users\arche\Desktop\ProjectWork\giardini\giardini\target\classes\com\generation\giardini\service\recensione\RecensioneServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.generation.giardini.mapper.RecensioneMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2026-08-05T17:05:43.128+02:00  INFO 16128 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-05T17:05:43.133+02:00  INFO 16128 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-05T17:05:43.142+02:00  INFO 16128 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-05T17:05:43.145+02:00  INFO 16128 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-08-05T17:05:43.164+02:00  INFO 16128 --- [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-08-05T17:05:43.190+02:00 ERROR 16128 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.generation.giardini.service.recensione.RecensioneServiceImpl required a bean of type 'com.generation.giardini.mapper.RecensioneMapper' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.generation.giardini.mapper.RecensioneMapper' in your configuration.
+

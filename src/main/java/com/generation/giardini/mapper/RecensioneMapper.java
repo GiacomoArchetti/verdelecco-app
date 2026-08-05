@@ -1,8 +1,11 @@
 package com.generation.giardini.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.generation.giardini.dto.RecensioneDTO;
 import com.generation.giardini.entity.Recensione;
 
+@Component
 public class RecensioneMapper {
 
     public RecensioneDTO toDto(Recensione entity){
