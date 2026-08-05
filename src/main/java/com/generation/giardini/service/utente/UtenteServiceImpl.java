@@ -1,5 +1,6 @@
 package com.generation.giardini.service.utente;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.generation.giardini.dto.UtenteDTO;
 import com.generation.giardini.entity.utente.Utente;
 import com.generation.giardini.exception.utente.UtenteCreateException;
+import com.generation.giardini.exception.utente.UtenteNotFoundException;
 import com.generation.giardini.mapper.UtenteMapper;
 import com.generation.giardini.repository.UtenteRepository;
 
@@ -45,33 +47,57 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UtenteDTO> readAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'readAll'");
+    List<UtenteDTO> lista = new ArrayList<>();
+        for(Utente e : repository.findAll()){
+            lista.add(mapper.toDto(e));
+        }
+        return lista;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UtenteDTO> readAllActive() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'readAllActive'");
+        List<UtenteDTO> lista = new ArrayList<>();
+        for(Utente e : repository.findAll()){
+            if(e.getAttivo() == true){
+                lista.add(mapper.toDto(e));
+            }
+        }
+        return lista;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UtenteDTO> readAllNotActive() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'readAllNotActive'");
+        List<UtenteDTO> lista = new ArrayList<>();
+        for(Utente e : repository.findAll()){
+            if(e.getAttivo() == false){
+                lista.add(mapper.toDto(e));
+            }
+        }
+        return lista;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UtenteDTO readById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'readById'");
+        Utente entity = repository.findById(id)
+                                        .orElseThrow(() -> new UtenteNotFoundException(id)); //Se non trova lancia eccezione custom
+                
+        return mapper.toDto(entity);
     }
 
     @Override
     public boolean delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        Utente entity = repository.findById(id)
+                                        .orElseThrow(() -> new UtenteNotFoundException(id)); //Se non trova lancia eccezione custom
+
+        entity.setAttivo(false);
+        repository.save(entity);
+
+        return true;
     }
 
 }

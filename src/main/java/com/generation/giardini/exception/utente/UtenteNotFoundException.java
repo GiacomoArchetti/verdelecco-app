@@ -21,7 +21,7 @@ public class UtenteNotFoundException extends RuntimeException{
     super("Impossibile trovare l'utente con id: '" + id + "'.");}
 
     /**
-    Costruttore utile per specificare quale utente si stava tentando di creare.
+    Costruttore utile per specificare quale utente si stava cercando.
     @param id l'id dell'utente che ha generato l'errore
     @param cause la causa principale dell'eccezione (es. errore di persistenza)*/
     public UtenteNotFoundException(Long id, Throwable cause) {

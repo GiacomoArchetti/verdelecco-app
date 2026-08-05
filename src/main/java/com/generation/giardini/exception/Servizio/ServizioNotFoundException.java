@@ -28,7 +28,7 @@ public class ServizioNotFoundException extends RuntimeException {
     }
 
     /**
-     * Costruttore utile per specificare quale servizio si stava tentando di cercare.
+     * Costruttore utile per specificare quale servizio si stava cercando.
      * 
      * @param id l'id del servizio che ha generato l'errore
      * @param cause la causa principale dell'eccezione (es. errore di persistenza)

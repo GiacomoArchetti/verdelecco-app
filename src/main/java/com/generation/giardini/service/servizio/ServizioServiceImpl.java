@@ -50,8 +50,8 @@ public class ServizioServiceImpl implements ServizioService{
     @Transactional(readOnly = true)
     public List<ServizioDTO> readAll() {
     List<ServizioDTO> lista = new ArrayList<>();
-        for(Servizio s : repository.findAll()){
-            lista.add(mapper.toDto(s));
+        for(Servizio e : repository.findAll()){
+            lista.add(mapper.toDto(e));
         }
         return lista;
     }
@@ -60,9 +60,9 @@ public class ServizioServiceImpl implements ServizioService{
     @Transactional(readOnly = true)
     public List<ServizioDTO> readAllActive() {
         List<ServizioDTO> lista = new ArrayList<>();
-        for(Servizio s : repository.findAll()){
-            if(s.getAttivo() == true){
-                lista.add(mapper.toDto(s));
+        for(Servizio e : repository.findAll()){
+            if(e.getAttivo() == true){
+                lista.add(mapper.toDto(e));
             }
         }
         return lista;
@@ -72,9 +72,9 @@ public class ServizioServiceImpl implements ServizioService{
     @Transactional(readOnly = true)
     public List<ServizioDTO> readAllNotActive() {
         List<ServizioDTO> lista = new ArrayList<>();
-        for(Servizio s : repository.findAll()){
-            if(s.getAttivo() == false){
-                lista.add(mapper.toDto(s));
+        for(Servizio e : repository.findAll()){
+            if(e.getAttivo() == false){
+                lista.add(mapper.toDto(e));
             }
         }
         return lista;
@@ -83,19 +83,19 @@ public class ServizioServiceImpl implements ServizioService{
     @Override
     @Transactional(readOnly = true)
     public ServizioDTO readById(Long id) {
-        Servizio servizio = repository.findById(id)
+        Servizio entity = repository.findById(id)
                                         .orElseThrow(() -> new ServizioNotFoundException(id)); //Se non trova lancia eccezione custom
                 
-        return mapper.toDto(servizio);
+        return mapper.toDto(entity);
     }
 
     @Override
     public boolean delete(Long id) {
-        Servizio servizio = repository.findById(id)
+        Servizio entity = repository.findById(id)
                                         .orElseThrow(() -> new ServizioNotFoundException(id));
 
-        servizio.setAttivo(false);
-        repository.save(servizio);
+        entity.setAttivo(false);
+        repository.save(entity);
 
         return true;
     }
