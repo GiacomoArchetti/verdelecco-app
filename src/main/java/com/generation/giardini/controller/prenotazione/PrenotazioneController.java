@@ -42,7 +42,7 @@ public class PrenotazioneController {
 
     // READ BY ID: GET /api/prenotazioni/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<PrenotazioneDTO> readById(@PathVariable Long id) {
+    public ResponseEntity<PrenotazioneDTO> readById(@PathVariable("id") Long id) {
         PrenotazioneDTO prenotazione = prenotazioneService.readById(id);
         
         return ResponseEntity.ok(prenotazione); // 200 OK O -> GlobalExceptionHandler -> PrenotazioneNotFoundException -> 404 NOT FOUND
@@ -50,7 +50,7 @@ public class PrenotazioneController {
 
     // DELETE (Annullamento Stato): DELETE /api/prenotazioni/{id}
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable Long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
         boolean risultato = prenotazioneService.delete(id);
         
         return ResponseEntity.ok(risultato); // 200 OK O -> GlobalExceptionHandler -> PrenotazioneNotFoundException -> 404 NOT FOUND
