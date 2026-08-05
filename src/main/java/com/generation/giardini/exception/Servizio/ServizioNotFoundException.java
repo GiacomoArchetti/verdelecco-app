@@ -3,7 +3,7 @@ package com.generation.giardini.exception.Servizio;
 public class ServizioNotFoundException extends RuntimeException {
 
     /**
-     * Costruttore con messaggio predefinito per il fallimento della creazione del servizio di giardinaggio.
+     * Costruttore con messaggio predefinito per il fallimento della ricerca del servizio.
      */
     public ServizioNotFoundException() {
         super("Errore imprevisto durante la ricerca del servizio.");
@@ -28,7 +28,7 @@ public class ServizioNotFoundException extends RuntimeException {
     }
 
     /**
-     * Costruttore utile per specificare quale servizio si stava tentando di creare.
+     * Costruttore utile per specificare quale servizio si stava tentando di cercare.
      * 
      * @param id l'id del servizio che ha generato l'errore
      * @param cause la causa principale dell'eccezione (es. errore di persistenza)

@@ -3,7 +3,7 @@ package com.generation.giardini.exception.utente;
 public class UtenteCreateException extends RuntimeException {
 
     /*
-    Costruttore con messaggio predefinito per il fallimento della creazione del servizio di giardinaggio.*/
+    Costruttore con messaggio predefinito per il fallimento della creazione dell'utente.*/
     public UtenteCreateException() {
         super("Errore imprevisto durante la creazione del nuovo utente.");
     }
@@ -19,7 +19,7 @@ public class UtenteCreateException extends RuntimeException {
 
 
     /**
-    Costruttore utile per specificare quale servizio si stava tentando di creare.
+    Costruttore utile per specificare quale utente si stava tentando di creare.
     @param nomeUtente   il nome dell'utente che ha generato l'errore
     @param cause        la causa principale dell'eccezione (es. errore di persistenza)*/
     public UtenteCreateException(String nomeUtente, Throwable cause) {
