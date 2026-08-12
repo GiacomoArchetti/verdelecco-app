@@ -1,0 +1,30 @@
+package com.generation.giardini.controller.publics;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/login")
+public class LoginController {
+
+    //METODI GET
+
+        //Restituisce la pagina di accesso
+        @GetMapping
+        public String accedi() {
+            return "login";
+        }
+
+
+
+    //METODI POST
+
+        //Gestisce l'invio del modulo di accesso
+        @PostMapping
+        public String submitAccedi() {
+            return "redirect:/utente";
+        }
+
+}
