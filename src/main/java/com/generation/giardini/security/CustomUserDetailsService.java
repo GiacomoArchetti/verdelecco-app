@@ -30,7 +30,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + utente.getRuolo().name());
 
-        return new User(utente.getEmail(), utente.getPassword(), Boolean.TRUE.equals(utente.getAttivo())
-            && !Boolean.TRUE.equals(utente.getGuest()), true, true, true, Collections.singleton(authority));
+        // return new User(utente.getEmail(), utente.getPassword(), Boolean.TRUE.equals(utente.getAttivo())
+        //     && !Boolean.TRUE.equals(utente.getGuest()), true, true, true, Collections.singleton(authority));
+
+
+
+        return User.withUsername(utente.getEmail())
+                .password(utente.getPasswordHash())
+                .roles(utente.getRuolo().name())
+                .disabled(!utente.isAbilitato())
+                .build(); 
     }
 }
