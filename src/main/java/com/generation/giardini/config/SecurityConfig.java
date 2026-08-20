@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -61,13 +62,56 @@ public class SecurityConfig {
                 .loginPage("/login") // Specifica la rotta della tua pagina di login personalizzata
                 .usernameParameter("email") // Specifica il parametro dello username
                 .passwordParameter("password") // Specifica il parametro della password
+                // Gestiamo il reindirizzamento dell utente dopo login con un metodo creato apposta per reindirizzare a seconda del ruolo dato che nel nostro appplicativo abbiamo implementato 2 portali, 1 admin e 1 utente
                 .successHandler(authenticationSuccessHandler())
+                // Se username o password sono sbagliati, torniamo alla login con un parametro error.
+                // La pagina può usare quel parametro per mostrare un messaggio all'utente... "/login?error" è già impostato di default quindi in realtà inutile, è stato inserito a scopo didattico
+                .failureUrl("/login?error")
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutSuccessUrl("/") // Dove mandare l'utente dopo il logout
+                // Dove mandare l'utente dopo il logout
+                .logoutSuccessUrl("/")
+                // Distrugge la sessione lato server.
+                // Questo è importante perché la vecchia sessione non deve restare valida.
+                .invalidateHttpSession(true)
+                // Rimuove l'informazione di autenticazione associata all'utente.
+                // In pratica Spring "dimentica" chi era loggato.
+                .clearAuthentication(true)
+                // Elimina il cookie di sessione dal browser.
+                // Serve a evitare che il browser continui a usare una sessione vecchia.
+                .deleteCookies("JSESSIONID")
                 .permitAll()
-            );
+            )
+            
+            // Spring cambia l'identificatore della sessione dopo il login.
+            // Questo riduce un attacco chiamato session fixation, cioè il riuso di un ID di sessione noto.
+            .sessionManagement(session -> session
+                .sessionFixation(fixation -> fixation.changeSessionId())
+            )
+
+            // CSRF resta attivo.
+            // Questo protegge i form: impedisce che un sito esterno faccia inviare richieste al posto dell'utente.
+            // È molto importante quando l'app usa sessioni e form HTML.
+            .csrf(Customizer.withDefaults())
+            
+            // Content Security Policy: è una regola di sicurezza del browser.
+            // Dice da quali sorgenti il browser può caricare script, stili, immagini e altri contenuti.
+            // .headers(headers -> headers
+            //     .contentSecurityPolicy(csp -> csp.policyDirectives(
+            //         // 'self' significa "solo da questo stesso sito".
+            //         // In pratica, blocchiamo contenuti caricati da siti esterni non autorizzati.
+            //         "default-src 'self'; " +
+            //         "script-src 'self'; " +
+            //         "style-src 'self'; " +
+            //         "img-src 'self' data:; " +
+            //         "object-src 'none'; " +
+            //         "base-uri 'self'; " +
+            //         "frame-ancestors 'none'; " +
+            //         "form-action 'self'"
+            //     ))
+            // )
+            ;
 
         return http.build();
     }
