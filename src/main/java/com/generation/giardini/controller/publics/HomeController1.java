@@ -15,17 +15,15 @@ import com.generation.giardini.dto.ServizioDTO;
 import com.generation.giardini.service.recensione.RecensioneService;
 import com.generation.giardini.service.servizio.ServizioService;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class HomeController1 {
 
     private final ServizioService servizioService;
     private final RecensioneService recensioneService;
-
-    public HomeController1(ServizioService servizioService, RecensioneService recensioneService) {
-        this.servizioService = servizioService;
-        this.recensioneService = recensioneService;
-    }
 
     // Restituisce la pagina della home
     @GetMapping
