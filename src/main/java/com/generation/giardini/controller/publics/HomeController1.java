@@ -30,16 +30,20 @@ public class HomeController1 {
     // Restituisce la pagina della home
     @GetMapping
     public String home(Model model) {
+
         // Carica servizi attivi e prepara opzioni (value,label)
         List<ServizioDTO> servizi = servizioService.readAllActive();
-        List<Map<String, String>> serviziOptions = servizi.stream().map(s -> {
-            Map<String, String> m = new HashMap<>();
-            m.put("value", s.nome());
-            m.put("label", humanizeServiceName(s.nome()));
-            return m;
-        }).collect(Collectors.toList());
+        List<Map<String, String>> serviziOptions = servizi.stream()
+                                                            .map(s -> {
+                                                                        Map<String, String> m = new HashMap<>();
+                                                                        m.put("value", s.nome());
+                                                                        m.put("label", humanizeServiceName(s.nome()));
+                                                                        return m;
+                                                                    })
+                                                            .collect(Collectors.toList());
 
         model.addAttribute("serviziOptions", serviziOptions);
+        
         List<RecensioneDTO> recensioni = recensioneService.readAll();
         model.addAttribute("recensioni", recensioni);
 
