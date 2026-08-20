@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +14,8 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.generation.giardini.security.CustomUserDetailsService;
 
 @Configuration
 @EnableMethodSecurity
@@ -33,8 +37,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            AuthenticationProvider authenticationProvider
+    ) throws Exception {
         http
+        .authenticationProvider(authenticationProvider)
             .authorizeHttpRequests(auth -> auth
                 // 1. AREA PUBBLICA(con pagina autenticazione)
                 .requestMatchers("/", "/css/**", "/js/**", "/preventivo", "/preventivo/inviato", "/images/**", "/webjars/**", "/login", "/register", "/register/**").permitAll()
@@ -62,6 +70,21 @@ public class SecurityConfig {
             );
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(
+            CustomUserDetailsService userDetailsService,
+            PasswordEncoder passwordEncoder
+    ) {
+                // Creiamo il provider standard per login con username e password.
+                // Il costruttore riceve il servizio che sa come trovare gli utenti nel database.
+        DaoAuthenticationProvider provider = 
+        new DaoAuthenticationProvider(userDetailsService);
+                // Diciamo al provider come deve confrontare la password inserita dall'utente
+                // con quella salvata nel database.
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
     }
 
     @Bean
