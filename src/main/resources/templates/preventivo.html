@@ -66,8 +66,8 @@
                                 </select>
 
                                 <input id="phoneNumber" class="phone-number" type="tel" th:field="*{telefono}"
-                                    placeholder="123 456 7890" required>
-
+                                    placeholder="123 456 7890" inputmode="numeric" pattern="[0-9 ]+"
+                                    title="Inserisci solo numeri nel numero di telefono" required>
                             </div>
                         </label>
 
@@ -128,6 +128,53 @@
     <script th:src="@{/js/scrollButton.js}"></script>
 
     <script>
+        (function () {
+
+            const form = document.querySelector('.preventivo-form');
+            const phoneInput = document.getElementById('phoneNumber');
+
+            if (!form || !phoneInput) return;
+
+            // Permette solo numeri e spazi durante la digitazione
+            phoneInput.addEventListener('input', function () {
+                this.value = this.value.replace(/[^0-9 ]/g, '');
+                this.setCustomValidity('');
+            });
+
+            form.addEventListener('submit', function (event) {
+
+                const prefix =
+                    document.getElementById('phonePrefix')?.value || '';
+
+                const raw = phoneInput.value.trim();
+
+                // Controlla che siano presenti solo numeri e spazi
+                if (!/^[0-9 ]+$/.test(raw)) {
+
+                    event.preventDefault();
+
+                    phoneInput.setCustomValidity(
+                        'Inserisci solo numeri nel numero di telefono.'
+                    );
+
+                    phoneInput.reportValidity();
+
+                    return;
+                }
+
+                phoneInput.setCustomValidity('');
+
+                // Aggiunge il prefisso internazionale
+                if (raw && !raw.startsWith(prefix)) {
+                    phoneInput.value = prefix + ' ' + raw;
+                }
+
+            });
+
+        })();
+    </script>
+
+    <!--<script>
         // Concatena il prefisso internazionale al numero di telefono
         // prima dell'invio del form.
         (function () {
@@ -156,7 +203,7 @@
             });
 
         })();
-    </script>
+    </script>-->
 
 </body>
 

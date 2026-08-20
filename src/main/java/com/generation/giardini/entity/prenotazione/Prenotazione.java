@@ -2,6 +2,7 @@ package com.generation.giardini.entity.prenotazione;
 
 import java.time.LocalDateTime;
 
+import com.generation.giardini.entity.Recensione;
 import com.generation.giardini.entity.preventivo.Preventivo;
 
 import jakarta.persistence.Column;
@@ -40,4 +41,7 @@ public class Prenotazione {
     @Enumerated(EnumType.STRING)
     @Column(name = "stato", nullable = false)
     private StatoPrenotazione stato = StatoPrenotazione.PROGRAMMATA;
+
+    @OneToOne(mappedBy = "prenotazione", fetch = FetchType.LAZY)
+    private Recensione recensione;
 }

@@ -7,6 +7,8 @@ public interface RecensioneService {
 
     boolean create(RecensioneDTO dto);
 
+    boolean createForPrenotazione(Long idPrenotazione, String email, Byte voto, String commento);
+
     List<RecensioneDTO> readAll();
 
     RecensioneDTO readById(Long id);

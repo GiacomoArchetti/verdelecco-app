@@ -42,6 +42,9 @@ public class Utente {
     @Column(name = "telefono", length = 30)
     private String telefono;
 
+    @Column(name = "indirizzo", length = 200)
+    private String indirizzo;
+
     @Column(name = "attivo", nullable = false)
     private Boolean attivo = true;
 

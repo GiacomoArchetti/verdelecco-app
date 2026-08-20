@@ -6,4 +6,6 @@ import com.generation.giardini.entity.Recensione;
 
 public interface RecensioneRepository extends JpaRepository<Recensione, Long> {
 
+	boolean existsByPrenotazioneIdPrenotazione(Long idPrenotazione);
+
 }

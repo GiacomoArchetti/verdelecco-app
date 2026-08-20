@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.generation.giardini.dto.RecensioneDTO;
 import com.generation.giardini.dto.ServizioDTO;
+import com.generation.giardini.service.recensione.RecensioneService;
 import com.generation.giardini.service.servizio.ServizioService;
 
 @Controller
@@ -18,9 +20,11 @@ import com.generation.giardini.service.servizio.ServizioService;
 public class HomeController1 {
 
     private final ServizioService servizioService;
+    private final RecensioneService recensioneService;
 
-    public HomeController1(ServizioService servizioService) {
+    public HomeController1(ServizioService servizioService, RecensioneService recensioneService) {
         this.servizioService = servizioService;
+        this.recensioneService = recensioneService;
     }
 
     // Restituisce la pagina della home
@@ -36,6 +40,8 @@ public class HomeController1 {
         }).collect(Collectors.toList());
 
         model.addAttribute("serviziOptions", serviziOptions);
+        List<RecensioneDTO> recensioni = recensioneService.readAll();
+        model.addAttribute("recensioni", recensioni);
 
         return "home";
     }

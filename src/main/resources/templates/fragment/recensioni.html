@@ -1,22 +1,25 @@
-﻿<!-- Reviews fragment: customer testimonials section -->
-<section id="recensioni" class="reviews" th:fragment="recensioni">
+﻿<section id="recensioni" class="reviews" th:fragment="recensioni">
 
     <h2>Recensioni</h2>
 
-    <div class="review">
-
-        ★★★★★
-
-        <p>
-            Molto professionale...
-        </p>
-
-        ★★★★★
-
-        <p>
-            Eccellente!
-        </p>
-
+    <div class="reviews-carousel" th:if="${!#lists.isEmpty(recensioni)}">
+        <div class="reviews-track">
+            <article class="review" th:each="recensione : ${recensioni}">
+                <div class="review-rating" aria-label="Valutazione">
+                    <span th:each="star : ${#numbers.sequence(1, 5)}"
+                          th:text="${star <= recensione.voto ? '★' : '☆'}"></span>
+                </div>
+                <p th:text="${recensione.commento}">Recensione del cliente</p>
+                <small th:text="${recensione.dataRecensione != null ? #temporals.format(recensione.dataRecensione, 'dd/MM/yyyy') : ''}"></small>
+            </article>
+        </div>
+        <div class="reviews-controls" th:if="${#lists.size(recensioni) > 1}">
+            <button type="button" class="reviews-prev" aria-label="Recensione precedente">&#8592;</button>
+            <span class="reviews-page" aria-live="polite">1</span>
+            <button type="button" class="reviews-next" aria-label="Recensione successiva">&#8594;</button>
+        </div>
     </div>
+
+    <p class="reviews-empty" th:if="${#lists.isEmpty(recensioni)}">Non ci sono ancora recensioni.</p>
 
 </section>
