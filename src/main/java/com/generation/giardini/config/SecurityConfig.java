@@ -37,8 +37,8 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login") // Specifica la rotta della tua pagina di login personalizzata
-                .usernameParameter("email")
-                .passwordParameter("password")
+                .usernameParameter("email") // Specifica il parametro dello username
+                .passwordParameter("password") // Specifica il parametro della password
                 .successHandler(authenticationSuccessHandler())
                 .permitAll()
             )
