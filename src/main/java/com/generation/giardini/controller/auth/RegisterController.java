@@ -1,4 +1,4 @@
-package com.generation.giardini.controller.publics;
+package com.generation.giardini.controller.auth;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.generation.giardini.controller.publics;
+package com.generation.giardini.controller.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
