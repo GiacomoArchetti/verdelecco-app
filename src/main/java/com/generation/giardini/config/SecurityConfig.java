@@ -23,7 +23,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // 1. AREA PUBBLICA(con pagina autenticazione)
-                .requestMatchers("/", "/css/**", "/js/**", "/preventivo", "preventivo/inviato", "/images/**", "/webjars/**", "/login", "/register", "/register/**").permitAll()
+                .requestMatchers("/", "/css/**", "/js/**", "/preventivo", "/preventivo/inviato", "/images/**", "/webjars/**", "/login", "/register", "/register/**").permitAll()
                 
                 
                 // 2. AREA UTENTE (client area)
