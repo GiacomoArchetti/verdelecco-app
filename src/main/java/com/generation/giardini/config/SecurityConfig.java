@@ -24,26 +24,14 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-                // DelegatingPasswordEncoder può gestire più algoritmi diversi.
-                // La mappa dice quali codificatori conosce l'app.
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-                // BCrypt con strength 12: più il numero sale, più il controllo della password costa tempo.
-                // 12 è un compromesso comune tra sicurezza e prestazioni.
-                //12 significa che l'algoritmo BCrypt esegue 2^12 (4096) iterazioni
-                // di hashing, rendendo più difficile per un attaccante indovinare la password.
-        encoders.put("bcrypt", new BCryptPasswordEncoder(12));
-                // DelegatingPasswordEncoder usa {bcrypt} come prefisso negli hash.
-                // Questo è utile se un domani si volesse cambiare algoritmo senza rompere gli hash già esistenti.
-        return new DelegatingPasswordEncoder("bcrypt", encoders);
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity http,
-            AuthenticationProvider authenticationProvider
+            HttpSecurity http
     ) throws Exception {
         http
-        .authenticationProvider(authenticationProvider)
             .authorizeHttpRequests(auth -> auth
                 // 1. AREA PUBBLICA(con pagina autenticazione)
                 .requestMatchers("/", "/css/**", "/js/**", "/preventivo", "/preventivo/inviato", "/images/**", "/webjars/**", "/login", "/register", "/register/**").permitAll()
@@ -116,20 +104,20 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public AuthenticationProvider authenticationProvider(
-            CustomUserDetailsService userDetailsService,
-            PasswordEncoder passwordEncoder
-    ) {
-                // Creiamo il provider standard per login con username e password.
-                // Il costruttore riceve il servizio che sa come trovare gli utenti nel database.
-        DaoAuthenticationProvider provider = 
-        new DaoAuthenticationProvider(userDetailsService);
-                // Diciamo al provider come deve confrontare la password inserita dall'utente
-                // con quella salvata nel database.
-        provider.setPasswordEncoder(passwordEncoder);
-        return provider;
-    }
+    // @Bean
+    // public AuthenticationProvider authenticationProvider(
+    //         CustomUserDetailsService userDetailsService,
+    //         PasswordEncoder passwordEncoder
+    // ) {
+    //             // Creiamo il provider standard per login con username e password.
+    //             // Il costruttore riceve il servizio che sa come trovare gli utenti nel database.
+    //     DaoAuthenticationProvider provider = 
+    //     new DaoAuthenticationProvider(userDetailsService);
+    //             // Diciamo al provider come deve confrontare la password inserita dall'utente
+    //             // con quella salvata nel database.
+    //     provider.setPasswordEncoder(passwordEncoder);
+    //     return provider;
+    // }
 
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
