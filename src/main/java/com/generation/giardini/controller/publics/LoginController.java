@@ -2,7 +2,7 @@ package com.generation.giardini.controller.publics;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,11 +20,6 @@ public class LoginController {
 
 
     //METODI POST
-
-        //Gestisce l'invio del modulo di accesso
-        @PostMapping
-        public String submitAccedi() {
-            return "redirect:/utente";
-        }
+    // Note: POST /login handled by Spring Security filter, don't override here
 
 }

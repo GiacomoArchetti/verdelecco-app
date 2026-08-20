@@ -6,10 +6,7 @@
         <h2>Servizi</h2>
 
         <ul>
-            <li>Taglio erba</li>
-            <li>Potatura</li>
-            <li>Semina</li>
-            <li>Pulizia giardino</li>
+            <li th:each="opt : ${serviziOptions}" th:text="${opt.label}"></li>
         </ul>
 
     </div>

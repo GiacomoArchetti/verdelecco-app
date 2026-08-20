@@ -4,6 +4,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -42,6 +44,19 @@ public class AdminController {
             model.addAttribute("prenotazioni", prenotazioneRepository.findAll(PageRequest.of(prenotazioniPage, pageSize)));
             model.addAttribute("recensioni", recensioneRepository.findAll(PageRequest.of(recensioniPage, pageSize)));
             return "admin";
+        }
+
+        //METODI POST
+        @PostMapping("/preventivi/{id}/accept")
+        public String acceptPreventivo(@PathVariable Long id) {
+            preventivoRepository.findById(id).ifPresent(p -> { p.setStatoPreventivo(com.generation.giardini.entity.preventivo.StatoPreventivo.ACCETTATO); preventivoRepository.save(p); });
+            return "redirect:/admin";
+        }
+
+        @PostMapping("/preventivi/{id}/reject")
+        public String rejectPreventivo(@PathVariable Long id) {
+            preventivoRepository.findById(id).ifPresent(p -> { p.setStatoPreventivo(com.generation.giardini.entity.preventivo.StatoPreventivo.RIFIUTATO); preventivoRepository.save(p); });
+            return "redirect:/admin";
         }
 
 }

@@ -37,6 +37,14 @@ section {
     align-items: center;
 }
 
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
+    min-height: 220px;
+}
+
 h1,
 h2,
 h3 {
@@ -54,12 +62,20 @@ li,
     line-height: 1.8;
 }
 
-.success-actions,
 .registration-form {
     display: flex;
     flex-direction: column;
     gap: 16px;
     margin-top: 24px;
+}
+
+.success-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin-top: 24px;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .btn-primary {
@@ -104,6 +120,28 @@ li,
     background: rgba(31, 50, 34, 0.9);
     color: #eef4e0;
     font-size: 1rem;
+}
+
+/* Phone prefix + number row */
+.phone-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.phone-prefix {
+    width: 80px;
+    padding: 10px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(184, 206, 168, 0.35);
+    background: rgba(31,50,34,0.9);
+    color: #eef4e0;
+    font-size: 0.95rem;
+}
+.phone-number {
+    flex: 1 1 auto;
+    min-width: 0; /* allow flex child to shrink in narrow containers */
+    padding: 14px 16px;
+    border-radius: 16px;
 }
 
 .preventivo-form input:focus,
@@ -154,6 +192,12 @@ li,
     width: fit-content;
 }
 
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -187,6 +231,13 @@ li,
     background: rgba(154, 167, 122, 0.3);
 }
 
+.contact-icon-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    display: block;
+}
+
 .contact-card strong {
     display: block;
     color: #eef4de;
@@ -196,6 +247,39 @@ li,
 .contact-card p {
     margin: 0;
     color: #cdd7bb;
+}
+
+/* CTA section: align button with heading/text (desktop: same row, mobile: stacked) */
+.cta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px;
+}
+
+@media(max-width: 768px) {
+    .cta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+/* Keep hero button aligned bottom-right; CTA button placed to the right of the heading */
+.hero-left .btn-primary {
+    align-self: flex-end;
+}
+.cta .btn-primary {
+    margin-left: 16px;
+}
+
+/* For other sections on the home page, push CTA buttons to the right and add spacing from text */
+section:not(.hero):not(.cta) .btn-primary {
+    display: inline-block;
+    margin-left: auto;
+    margin-top: 16px;
 }
 
 .review,
@@ -248,6 +332,23 @@ li,
         width: 100%;
         text-align: center;
     }
+}
+
+@media(max-width: 480px) {
+    .phone-prefix {
+        width: 64px;
+        font-size: 0.9rem;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 24px 0;
+    color: #cdd7bb;
+}
+
+footer p {
+    margin: 0;
 }
 
 .faq-item {

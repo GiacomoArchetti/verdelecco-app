@@ -1,7 +1,7 @@
 /* Admin dashboard styles */
 .admin-dashboard {
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 104px auto 40px;
     padding: 0 20px 80px;
 }
 
@@ -132,6 +132,72 @@
 .pagination a:hover {
     background: rgba(255, 255, 255, 0.16);
     transform: translateY(-1px);
+}
+
+/* Style the "Successivo" (last link) to appear on the right with more padding and shadow */
+.pagination a:last-child {
+    margin-left: auto;
+    padding: 12px 22px;
+    background: linear-gradient(180deg, rgba(90,120,80,0.95), rgba(70,95,65,0.95));
+    color: #f6fbf2;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.pagination a:last-child:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+}
+
+/* Action buttons for preventivi in admin table */
+.preventivo-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.preventivo-actions form {
+    display: flex;
+    margin: 0;
+}
+
+.btn-accept,
+.btn-reject {
+    width: 38px;
+    height: 38px;
+    padding: 7px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-accept img,
+.btn-reject img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.btn-accept {
+    background: linear-gradient(180deg,#6bb76a,#4f9b4a);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(79,155,74,0.28);
+}
+
+.btn-reject {
+    background: linear-gradient(180deg,#e27a6a,#c84b3a);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(200,75,58,0.22);
+}
+
+.btn-accept:hover, .btn-reject:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
 }
 
 .scroll-button {

@@ -36,7 +36,7 @@ public class Utente {
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 50)
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
 
     @Column(name = "telefono", length = 30)
@@ -44,6 +44,9 @@ public class Utente {
 
     @Column(name = "attivo", nullable = false)
     private Boolean attivo = true;
+
+    @Column(name = "guest", nullable = false)
+    private Boolean guest = false;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ruolo", nullable = false)

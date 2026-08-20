@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -20,11 +21,11 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // 1. AREA PUBBLICA(con pagina autenticazione)
-                .requestMatchers("/", "/css/**", "/js/**", "/preventivo/**", "/images/**", "/webjars/**", "/login", "/registrazione").permitAll()
+                .requestMatchers("/", "/css/**", "/js/**", "/preventivo/**", "/images/**", "/webjars/**", "/login", "/register", "/register/**").permitAll()
                 
                 
-                // 2. AREA UTENTE
-                .requestMatchers("/utente/**").hasRole("USER")
+                // 2. AREA UTENTE (client area)
+                .requestMatchers("/client/**").hasRole("UTENTE")
                 
                 // 3. AREA AMMINISTRATORE(ADMIN)
                 .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -34,7 +35,9 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login") // Specifica la rotta della tua pagina di login personalizzata
-                .defaultSuccessUrl("/", true) // Dove reindirizzare dopo il login con successo
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .successHandler(authenticationSuccessHandler())
                 .permitAll()
             )
             .logout(logout -> logout
@@ -43,5 +46,10 @@ public class SecurityConfig {
             );
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new com.generation.giardini.security.RoleBasedAuthSuccessHandler();
     }
 }
