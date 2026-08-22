@@ -102,7 +102,7 @@ public class ClientController {
                         } catch (RuntimeException exception) {
                                 redirectAttributes.addFlashAttribute("errorMessage", exception.getMessage());
                         }
-                        return "redirect:/client#preventivi";
+                        return "redirect:/client#richiedi-preventivo";
                 }
 
         @PostMapping("/profilo")

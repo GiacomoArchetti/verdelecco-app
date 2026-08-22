@@ -13,6 +13,7 @@ import com.generation.giardini.repository.PrenotazioneRepository;
 import com.generation.giardini.repository.PreventivoRepository;
 import com.generation.giardini.repository.RecensioneRepository;
 import com.generation.giardini.repository.UtenteRepository;
+import com.generation.giardini.service.prenotazione.PrenotazioneService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ public class AdminController {
         private final PreventivoRepository preventivoRepository;
         private final PrenotazioneRepository prenotazioneRepository;
         private final RecensioneRepository recensioneRepository;
+        private final PrenotazioneService prenotazioneService;
 
 
         
@@ -49,7 +51,10 @@ public class AdminController {
         //METODI POST
         @PostMapping("/preventivi/{id}/accept")
         public String acceptPreventivo(@PathVariable Long id) {
-            preventivoRepository.findById(id).ifPresent(p -> { p.setStatoPreventivo(com.generation.giardini.entity.preventivo.StatoPreventivo.ACCETTATO); preventivoRepository.save(p); });
+            preventivoRepository.findById(id).ifPresent(p ->    { p.setStatoPreventivo(com.generation.giardini.entity.preventivo.StatoPreventivo.ACCETTATO);
+                                                                  preventivoRepository.save(p);
+                                                                  prenotazioneService.createFromPreventivo(id);
+                                                                });
             return "redirect:/admin";
         }
 

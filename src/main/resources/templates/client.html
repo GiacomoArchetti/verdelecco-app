@@ -106,8 +106,6 @@
 
         <section id="prenotazioni" class="dashboard-section">
             <h2>Le mie prenotazioni</h2>
-            <p th:if="${successMessage}" class="feedback feedback-success" th:text="${successMessage}"></p>
-            <p th:if="${errorMessage}" class="feedback feedback-error" th:text="${errorMessage}"></p>
             <p th:if="${prenotazioni.empty}" class="empty-state">Non hai ancora prenotazioni.</p>
             <div class="table-wrapper" th:unless="${prenotazioni.empty}">
                 <table class="client-table">
@@ -168,8 +166,6 @@
 
         <section id="profilo" class="dashboard-section">
             <h2>Profilo</h2>
-            <p th:if="${successMessage}" class="feedback feedback-success" th:text="${successMessage}"></p>
-            <p th:if="${errorMessage}" class="feedback feedback-error" th:text="${errorMessage}"></p>
             <form th:action="@{/client/profilo}" method="post" class="profile-form">
                 <div class="profile-grid">
                 <div class="profile-field">

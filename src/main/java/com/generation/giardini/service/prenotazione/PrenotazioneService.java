@@ -8,6 +8,8 @@ public interface PrenotazioneService {
 
     boolean create(PrenotazioneDTO dto);
 
+    boolean createFromPreventivo(Long preventivoId);
+
     List<PrenotazioneDTO> readAll();
 
     PrenotazioneDTO readById(Long id);
