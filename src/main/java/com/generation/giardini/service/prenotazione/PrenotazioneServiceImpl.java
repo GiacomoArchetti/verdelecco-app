@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.generation.giardini.dto.PrenotazioneDTO;
-import com.generation.giardini.dto.PreventivoDTO;
 import com.generation.giardini.entity.prenotazione.Prenotazione;
 import com.generation.giardini.entity.prenotazione.StatoPrenotazione;
 import com.generation.giardini.entity.preventivo.Preventivo;
