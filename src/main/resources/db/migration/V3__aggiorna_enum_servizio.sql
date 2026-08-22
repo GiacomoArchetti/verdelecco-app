@@ -12,6 +12,11 @@ MODIFY COLUMN nome ENUM(
     'POTATURA_SIEPI'
 ) NOT NULL;
 
+-- 1.1. Disattiva SOLO i vecchi servizi obsoleti
+UPDATE servizio 
+SET attivo = 0 
+WHERE nome IN ('TAGLIO_ERBA', 'POTATURA');
+
 -- 2. Cambiamo il nome delle colonne per evitare errori dato che potrebbero essere già associate a delle righe(anzi lo sono dato che la versione di insert è precedente)
 UPDATE servizio SET nome = 'MANUTENZIONE_TAPPETO_ERBOSO' WHERE nome = 'TAGLIO_ERBA';
 
@@ -46,3 +51,12 @@ MODIFY COLUMN nome ENUM(
     'SEMINA',
     'PULIZIA_GIARDINO'
 ) NOT NULL;
+
+
+-- 4. Inserisci i nuovi servizi professionali (ATTIVI = 1)
+INSERT INTO servizio (nome, prezzo_al_mq, minuti_al_mq, descrizione, attivo) VALUES
+('MANUTENZIONE_TAPPETO_ERBOSO', 1.80, 2, 'Manutenzione e taglio prato', 1),
+('POTATURA_SIEPI', 4.00, 6, 'Potatura siepi', 1),
+('POTATURA_ALBERI_DA_FRUTTO', 3.50, 5, 'Potatura alberi da frutto', 1),
+('POTATURA_ALBERI_ORNAMENTALI', 4.50, 7, 'Potatura alberi ornamentali', 1),
+('SFALCIO_RIVE_E_SCARPATE', 4.00, 3, 'Sfalcio di rive e scarpate', 1);

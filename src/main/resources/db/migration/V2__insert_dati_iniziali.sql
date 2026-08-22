@@ -36,16 +36,8 @@ INSERT INTO servizio
 VALUES
 ('TAGLIO_ERBA', 1.80, 2, 'Taglio prato', 1),
 ('POTATURA', 3.50, 5, 'Potatura alberi', 1),
-('SEMINA', 2.20, 3, 'Semina prato', 1),
-('PULIZIA_GIARDINO', 2.80, 4, 'Pulizia generale', 1),
-
-('TAGLIO_ERBA', 2.00, 2, 'Taglio prato grande superficie', 1),
-('POTATURA', 4.00, 6, 'Potatura siepi', 1),
-('SEMINA', 2.50, 3, 'Semina professionale', 1),
-('PULIZIA_GIARDINO', 3.20, 5, 'Pulizia stagionale', 1),
-
-('TAGLIO_ERBA', 1.50, 2, 'Taglio economico', 1),
-('POTATURA', 5.00, 8, 'Potatura alberi alti', 1);
+('SEMINA', 2.20, 3, 'Preparazione del terreno, semina e rigenerazione del prato per ottenere un manto erboso denso, uniforme e resistente', 1),
+('PULIZIA_GIARDINO', 2.80, 4, 'Pulizia generale, rimozione infestanti e cura stagionale per un giardino sempre in ordine e visivamente curato', 1);
 
 
 -- =====================================================
@@ -126,18 +118,17 @@ VALUES
 -- =====================================================
 
 INSERT INTO dettaglio_preventivo
-(id_preventivo,id_servizio,quantita)
+(id_preventivo, id_servizio, quantita)
 VALUES
-
-(1,1,200),
-(2,6,80),
-(3,3,150),
-(4,4,90),
-(5,1,300),
-(6,2,60),
-(7,7,170),
-(8,8,220),
-(9,3,110);
+(1, 1, 200),
+(2, 2, 80),
+(3, 3, 150),
+(4, 4, 90),
+(5, 1, 300),
+(6, 2, 60),
+(7, 3, 170),
+(8, 4, 220),
+(9, 3, 110);
 
 
 

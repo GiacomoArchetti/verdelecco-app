@@ -1,14 +1,70 @@
-﻿<!-- Services fragment: service offerings section -->
+﻿<!-- Sezione dedicata ai servizi offerti -->
 <section id="servizi" class="services" th:fragment="servizi">
 
+    <!-- Contenitore principale della sezione -->
     <div class="services-content">
 
+        <!-- Titolo della sezione -->
         <h2>Servizi</h2>
 
-        <ul>
-            <li th:each="opt : ${serviziOptions}" th:text="${opt.label}"></li>
-        </ul>
+        <!-- Carousel che contiene tutte le card dei servizi -->
+        <div class="services-carousel" data-services-carousel>
+
+            <!-- Pulsante per visualizzare il servizio precedente -->
+            <button class="carousel-button carousel-button-prev" type="button" data-carousel-prev
+                aria-label="Servizio precedente">
+                &#10094;
+            </button>
+
+            <!-- Contenitore scorrevole delle card -->
+            <div class="services-track" data-carousel-track>
+
+                <!--
+                    Genera una card per ogni servizio presente in serviziOptions.
+                    'stato' contiene l'indice della card corrente.
+                    La prima card viene impostata come attiva.
+                -->
+                <article class="service-card" th:each="servizio, stato : ${serviziOptions}"
+                    th:classappend="${stato.index == 0 ? ' is-active' : ''}">
+
+                    <!-- Immagine associata al servizio -->
+                    <img th:src="@{${servizio.image}}" th:alt="${servizio.label}" class="service-image">
+
+                    <!-- Contenuto testuale della card -->
+                    <div class="service-card-content">
+
+                        <!-- Nome del servizio -->
+                        <h3 th:text="${servizio.label}">
+                            Nome servizio
+                        </h3>
+
+                        <!-- Breve descrizione del servizio -->
+                        <p th:text="${servizio.descrizione}">
+                            Descrizione del servizio
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            <!-- Pulsante per visualizzare il servizio successivo -->
+            <button class="carousel-button carousel-button-next" type="button" data-carousel-next
+                aria-label="Servizio successivo">
+                &#10095;
+            </button>
+
+        </div>
+
+        <!--
+            Contenitore dei pallini di navigazione.
+            I pallini vengono generati e gestiti tramite JavaScript.
+        -->
+        <div class="carousel-dots" data-carousel-dots aria-label="Seleziona servizio">
+        </div>
 
     </div>
 
+>>>>>>> feature/home-update
 </section>

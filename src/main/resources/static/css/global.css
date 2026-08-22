@@ -1,4 +1,6 @@
 ﻿/* Global CSS: base styles and layout defaults for the site */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
+
 :root {
     --forest-green: #4F7942;
     --olive-drab: #6B8E23;
@@ -17,13 +19,20 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+    scroll-padding-top: 112px;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     color: var(--text-light);
     background: var(--bg);
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Lora', serif;
 }
 
 section {
@@ -31,4 +40,8 @@ section {
     margin: auto;
     padding: 80px 20px;
     background: var(--section-bg);
+}
+
+section[id] {
+    scroll-margin-top: 112px;
 }

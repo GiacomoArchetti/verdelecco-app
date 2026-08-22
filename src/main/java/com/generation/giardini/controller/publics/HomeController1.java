@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.generation.giardini.dto.RecensioneDTO;
 import com.generation.giardini.dto.ServizioDTO;
+import com.generation.giardini.entity.servizio.NomeServizio;
 import com.generation.giardini.service.recensione.RecensioneService;
 import com.generation.giardini.service.servizio.ServizioService;
 
@@ -31,14 +32,15 @@ public class HomeController1 {
 
         // Carica servizi attivi e prepara opzioni (value,label)
         List<ServizioDTO> servizi = servizioService.readAllActive();
-        List<Map<String, String>> serviziOptions = servizi.stream()
-                                                            .map(s -> {
-                                                                        Map<String, String> m = new HashMap<>();
-                                                                        m.put("value", s.nome());
-                                                                        m.put("label", humanizeServiceName(s.nome()));
-                                                                        return m;
-                                                                    })
-                                                            .collect(Collectors.toList());
+
+        List<Map<String, String>> serviziOptions = servizi.stream().map(s -> {
+            Map<String, String> m = new HashMap<>();
+            m.put("value", s.nome());
+            m.put("label", humanizeServiceName(s.nome()));
+            m.put("image", imageForService(s.nome()));
+            m.put("descrizione", descriptionForService(s));
+            return m;
+        }).collect(Collectors.toList());
 
         model.addAttribute("serviziOptions", serviziOptions);
         
@@ -89,6 +91,31 @@ public class HomeController1 {
                 yield sb.toString();
             }
         };
+    }
+
+    private static String imageForService(String enumName) {
+        if (enumName == null)
+            return "/images/gardening.png";
+        return switch (enumName) {
+            case "MANUTENZIONE_TAPPETO_ERBOSO" -> "/images/manutenzione-tappeto-erboso.jpg";
+            case "SFALCIO_RIVE_E_SCARPATE" -> "/images/sfalcio-rive.jpg";
+            case "POTATURA_ALBERI_DA_FRUTTO" -> "/images/potatura-alberi-.webp";
+            case "POTATURA_ALBERI_ORNAMENTALI" -> "/images/potatura-ornamentali.jpg";
+            case "POTATURA_SIEPI" -> "/images/potatura_siepei.jpg";
+            case "SEMINA" -> "/images/semina-prato.jpg";
+            case "PULIZIA_GIARDINO" -> "/images/pulizia-giardino.jpg";
+            default -> "/images/gardening.png";
+        };
+    }
+
+    private static String descriptionForService(ServizioDTO servizio) {
+        if (servizio == null || servizio.nome() == null)
+            return "";
+        try {
+            return NomeServizio.valueOf(servizio.nome()).getDescrizione();
+        } catch (IllegalArgumentException exception) {
+            return servizio.descrizione() != null ? servizio.descrizione() : "";
+        }
     }
 
 }
