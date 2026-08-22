@@ -55,8 +55,8 @@
             </table>
         </div>
         <div class="pagination">
-            <a th:href="@{/admin(clientiPage=${clienti.number - 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}" th:if="${clienti.hasPrevious}">Precedente</a>
-            <a th:href="@{/admin(clientiPage=${clienti.number + 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}" th:if="${clienti.hasNext}">Successivo</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number - 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})} + '#clienti'" th:if="${clienti.hasPrevious}">Precedente</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number + 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})} + '#clienti'" th:if="${clienti.hasNext}">Successivo</a>
         </div>
     </section>
 
@@ -109,8 +109,8 @@
             </table>
         </div>
         <div class="pagination">
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}" th:if="${preventivi.hasPrevious}">Precedente</a>
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}" th:if="${preventivi.hasNext}">Successivo</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})} + '#preventivi'" th:if="${preventivi.hasPrevious}">Precedente</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})} + '#preventivi'" th:if="${preventivi.hasNext}">Successivo</a>
         </div>
     </section>
 
@@ -142,8 +142,8 @@
             </table>
         </div>
         <div class="pagination">
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1}, recensioniPage=${recensioni.number})}" th:if="${prenotazioni.hasPrevious}">Precedente</a>
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1}, recensioniPage=${recensioni.number})}" th:if="${prenotazioni.hasNext}">Successivo</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1}, recensioniPage=${recensioni.number})} + '#prenotazioni'" th:if="${prenotazioni.hasPrevious}">Precedente</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1}, recensioniPage=${recensioni.number})} + '#prenotazioni'" th:if="${prenotazioni.hasNext}">Successivo</a>
         </div>
     </section>
 
@@ -173,8 +173,8 @@
             </table>
         </div>
         <div class="pagination">
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number - 1})}" th:if="${recensioni.hasPrevious}">Precedente</a>
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number + 1})}" th:if="${recensioni.hasNext}">Successivo</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number - 1})} + '#recensioni'" th:if="${recensioni.hasPrevious}">Precedente</a>
+            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number + 1})} + '#recensioni'" th:if="${recensioni.hasNext}">Successivo</a>
         </div>
     </section>
 </main>
