@@ -66,7 +66,7 @@ public class ClientController {
                                         .orElseThrow(() -> new IllegalStateException("Utente non trovato."));
                         model.addAttribute("nomeUtente", utente.getNome());
                         model.addAttribute("cognomeUtente", utente.getCognome());
-                            model.addAttribute("telefonoUtente", normalizzaTelefono(utente.getTelefono()));
+                        model.addAttribute("telefonoUtente", normalizzaTelefono(utente.getTelefono()));
                         String indirizzo = utente.getIndirizzo();
                         if (indirizzo == null || indirizzo.isBlank()) {
                                 indirizzo = preventivoRepository.findFirstByUtenteEmailIgnoreCaseOrderByDataEmissioneDesc(email)

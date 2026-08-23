@@ -21,7 +21,7 @@
     <main class="user-dashboard">
         <section class="dashboard-hero">
             <div class="dashboard-hero-content">
-                <h1>Benvenuto nel tuo profilo</h1>
+                <h1>Benvenuto <span th:text="${nomeUtente != null ? #strings.capitalize(nomeUtente.toLowerCase()) : 'Cliente'}">Cliente</span>!</h1>
                 <p>Qui puoi vedere i tuoi preventivi, prenotazioni e aggiornare le tue informazioni.</p>
             </div>
         </section>
