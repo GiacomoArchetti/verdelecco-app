@@ -1,5 +1,8 @@
 package com.generation.giardini.controller.auth;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,20 +13,21 @@ import org.springframework.ui.Model;
 
 import com.generation.giardini.entity.utente.Utente;
 import com.generation.giardini.repository.UtenteRepository;
+import com.generation.giardini.security.CustomUserDetailsService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/register")
+@RequiredArgsConstructor
 public class RegisterController {
 
     private final UtenteRepository utenteRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public RegisterController(UtenteRepository utenteRepository, PasswordEncoder passwordEncoder) {
-        this.utenteRepository = utenteRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final CustomUserDetailsService userDetailsService;
 
     // METODI GET
     // Restituisce la pagina di registrazione
@@ -39,7 +43,9 @@ public class RegisterController {
     // Gestisce l'invio del modulo di registrazione
     @PostMapping("")
     public String submitRegistrazione(@Valid @ModelAttribute("registrazione") RegistrationForm form,
-            Model model) {
+            Model model,
+            HttpServletRequest request) { // 2. Aggiunto HttpServletRequest
+        
         if (form.getPassword() == null || !form.getPassword().equals(form.getPasswordConfirm())) {
             model.addAttribute("passwordError", "Le password non coincidono.");
             return "registrazione";
@@ -47,7 +53,7 @@ public class RegisterController {
 
         String email = form.getEmail() == null ? null : form.getEmail().trim().toLowerCase();
         Utente u = email == null ? new Utente() : utenteRepository.findByEmailIgnoreCase(email).orElseGet(Utente::new);
-        // The registration form provides a single "nome" field containing full name.
+        
         String fullName = form.getNome() == null ? "" : form.getNome().trim();
         if (!fullName.isEmpty()) {
             String[] parts = fullName.split("\\s+", 2);
@@ -62,12 +68,23 @@ public class RegisterController {
         u.setPassword(passwordEncoder.encode(form.getPassword()));
         u.setAttivo(true);
         u.setGuest(false);
-        // ruolo di default in entity è UTENTE, ma assicuriamolo
-        // u.setRuolo(com.generation.giardini.entity.utente.Ruolo.UTENTE);
 
+        // Salvataggio utente nel Database
         utenteRepository.save(u);
 
-        return "redirect:/login";
+        // 3. LOGICA DI AUTENTICAZIONE AUTOMATICA (Auto-Login)
+        UserDetails userDetails = userDetailsService.loadUserByUsername(u.getEmail());
+        UsernamePasswordAuthenticationToken authToken = 
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        // Salva la sessione di login nel browser
+        HttpSession session = request.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+
+        // 4. Redirect diretto alla dashboard cliente
+        return "redirect:/client";
     }
 
     /**
