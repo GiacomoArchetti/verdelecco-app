@@ -160,6 +160,7 @@ li,
     text-decoration: none;
     transition: background 0.2s ease, transform 0.2s ease;
     text-align: center;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
