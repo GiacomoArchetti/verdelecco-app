@@ -9,6 +9,8 @@
     <link rel="stylesheet" th:href="@{/css/navbar-home.css}">
     <link rel="stylesheet" th:href="@{/css/admin.css}">
     <link rel="icon" th:href="@{/images/gardening.png}" type="image/png">
+    
+    <script th:src="@{/js/scroll-restore.js}" defer></script>
 </head>
 
 <body>
@@ -23,12 +25,15 @@
         </div>
     </section>
 
+    <!-- SECTION CLIENTI -->
     <section id="clienti" class="dashboard-section">
         <div class="section-header">
             <h3>Clienti</h3>
-            <p>Pagina <span th:text="${clienti.number + 1}"></span> di <span th:text="${clienti.totalPages}"></span></p>
         </div>
-        <div class="table-responsive">
+        
+        <p th:if="${clienti == null or clienti.empty}" class="empty-state">Nessun cliente trovato.</p>
+
+        <div class="table-responsive" th:unless="${clienti == null or clienti.empty}">
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -47,25 +52,32 @@
                         <td th:text="${cliente.nome}"></td>
                         <td th:text="${cliente.cognome}"></td>
                         <td th:text="${cliente.email}"></td>
-                        <td th:text="${cliente.telefono}"></td>
+                        <td th:text="${cliente.telefono != null ? cliente.telefono : '-'}"></td>
                         <td th:text="${cliente.ruolo}"></td>
-                        <td th:text="${cliente.attivo} ? 'Si' : 'No'"></td>
+                        <td th:text="${cliente.attivo} ? 'Sì' : 'No'"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="pagination">
-            <a th:href="@{/admin(clientiPage=${clienti.number - 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})} + '#clienti'" th:if="${clienti.hasPrevious}">Precedente</a>
-            <a th:href="@{/admin(clientiPage=${clienti.number + 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})} + '#clienti'" th:if="${clienti.hasNext}">Successivo</a>
+        
+        <div class="pagination" th:unless="${clienti == null or clienti.empty}">
+            <a th:if="${clienti.hasPrevious}"
+               th:href="@{/admin#clienti(clientiPage=${clienti.number - 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}">Precedente</a>
+            <span th:text="|Pagina ${clienti.number + 1} di ${clienti.totalPages}|"></span>
+               <a th:if="${clienti.hasNext}"
+               th:href="@{/admin#clienti(clientiPage=${clienti.number + 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}">Successivo</a>
         </div>
     </section>
 
+    <!-- SECTION PREVENTIVI -->
     <section id="preventivi" class="dashboard-section">
         <div class="section-header">
             <h3>Preventivi</h3>
-            <p>Pagina <span th:text="${preventivi.number + 1}"></span> di <span th:text="${preventivi.totalPages}"></span></p>
         </div>
-        <div class="table-responsive">
+
+        <p th:if="${preventivi == null or preventivi.empty}" class="empty-state">Nessun preventivo presente.</p>
+
+        <div class="table-responsive" th:unless="${preventivi == null or preventivi.empty}">
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -82,49 +94,64 @@
                 <tbody>
                     <tr th:each="preventivo : ${preventivi.content}">
                         <td th:text="${preventivo.idPreventivo}"></td>
-                        <td th:text="${preventivo.utente.email}"></td>
+                        <td th:text="${preventivo.utente != null ? preventivo.utente.email : '-'}"></td>
                         <td th:text="${preventivo.indirizzo}"></td>
                         <td th:text="${preventivo.superficieMq}"></td>
-                        <td th:text="${preventivo.costoStimato}"></td>
-                            <td th:text="${#strings.replace(preventivo.statoPreventivo.name(),'_',' ')}"></td>
-                            <td>
-                                <div class="preventivo-actions" th:if="${preventivo.statoPreventivo.name() == 'IN_ATTESA'}">
-                                    <form th:action="@{/admin/preventivi/{id}/accept(id=${preventivo.idPreventivo})}" method="post">
-                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                        <button type="submit" class="btn-accept" title="Accetta preventivo" aria-label="Accetta preventivo">
-                                            <img th:src="@{/images/accept.png}" alt="Accetta">
-                                        </button>
-                                    </form>
-                                    <form th:action="@{/admin/preventivi/{id}/reject(id=${preventivo.idPreventivo})}" method="post">
-                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                        <button type="submit" class="btn-reject" title="Rifiuta preventivo" aria-label="Rifiuta preventivo">
-                                            <img th:src="@{/images/delete.png}" alt="Rifiuta">
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        <td th:text="${preventivo.dataIntervento}"></td>
+                        <td th:text="${preventivo.costoStimato != null ? preventivo.costoStimato + ' EUR' : '-'}"></td>
+                        <td th:text="${#strings.replace(preventivo.statoPreventivo.name(),'_',' ')}"></td>
+                        <td>
+                            <div class="preventivo-actions" th:if="${preventivo.statoPreventivo.name() == 'IN_ATTESA'}">
+                                <form th:action="@{/admin/preventivi/{id}/accept(id=${preventivo.idPreventivo})}" method="post">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <input type="hidden" name="clientiPage" th:value="${clienti.number}" />
+                                    <input type="hidden" name="preventiviPage" th:value="${preventivi.number}" />
+                                    <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni.number}" />
+                                    <input type="hidden" name="recensioniPage" th:value="${recensioni.number}" />
+                                    <button type="submit" class="btn-accept" title="Accetta preventivo" aria-label="Accetta preventivo">
+                                        <img th:src="@{/images/accept.png}" alt="Accetta">
+                                    </button>
+                                </form>
+                                <form th:action="@{/admin/preventivi/{id}/reject(id=${preventivo.idPreventivo})}" method="post">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <input type="hidden" name="clientiPage" th:value="${clienti.number}" />
+                                    <input type="hidden" name="preventiviPage" th:value="${preventivi.number}" />
+                                    <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni.number}" />
+                                    <input type="hidden" name="recensioniPage" th:value="${recensioni.number}" />
+                                    <button type="submit" class="btn-reject" title="Rifiuta preventivo" aria-label="Rifiuta preventivo">
+                                        <img th:src="@{/images/delete.png}" alt="Rifiuta">
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="pagination">
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})} + '#preventivi'" th:if="${preventivi.hasPrevious}">Precedente</a>
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})} + '#preventivi'" th:if="${preventivi.hasNext}">Successivo</a>
+
+        <div class="pagination" th:unless="${preventivi == null or preventivi.empty}">
+            <a th:if="${preventivi.hasPrevious}"
+               th:href="@{/admin#preventivi(clientiPage=${clienti.number}, preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}">Precedente</a>
+            <span th:text="|Pagina ${preventivi.number + 1} di ${preventivi.totalPages}|"></span>
+            <a th:if="${preventivi.hasNext}"
+               th:href="@{/admin#preventivi(clientiPage=${clienti.number}, preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}">Successivo</a>
         </div>
     </section>
 
+    <!-- SECTION PRENOTAZIONI -->
     <section id="prenotazioni" class="dashboard-section">
         <div class="section-header">
             <h3>Prenotazioni</h3>
-            <p>Pagina <span th:text="${prenotazioni.number + 1}"></span> di <span th:text="${prenotazioni.totalPages}"></span></p>
         </div>
-        <div class="table-responsive">
+
+        <p th:if="${prenotazioni == null or prenotazioni.empty}" class="empty-state">Nessuna prenotazione presente.</p>
+
+        <div class="table-responsive" th:unless="${prenotazioni == null or prenotazioni.empty}">
             <table class="admin-table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Preventivo</th>
+                        <th>ID preventivo</th>
                         <th>Indirizzo</th>
                         <th>Data intervento</th>
                         <th>Stato</th>
@@ -133,30 +160,38 @@
                 <tbody>
                     <tr th:each="prenotazione : ${prenotazioni.content}">
                         <td th:text="${prenotazione.idPrenotazione}"></td>
-                        <td th:text="${prenotazione.preventivo.idPreventivo}"></td>
+                        <td th:text="${prenotazione.preventivo != null ? prenotazione.preventivo.idPreventivo : '-'}"></td>
                         <td th:text="${prenotazione.indirizzo}"></td>
-                        <td th:text="${prenotazione.dataIntervento}"></td>
+                        <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
                         <td th:text="${prenotazione.stato}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="pagination">
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1}, recensioniPage=${recensioni.number})} + '#prenotazioni'" th:if="${prenotazioni.hasPrevious}">Precedente</a>
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1}, recensioniPage=${recensioni.number})} + '#prenotazioni'" th:if="${prenotazioni.hasNext}">Successivo</a>
+
+        <div class="pagination" th:unless="${prenotazioni == null or prenotazioni.empty}">
+            <a th:if="${prenotazioni.hasPrevious}"
+               th:href="@{/admin#prenotazioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1}, recensioniPage=${recensioni.number})}">Precedente</a>
+            <span th:text="|Pagina ${prenotazioni.number + 1} di ${prenotazioni.totalPages}|"></span>
+            <a th:if="${prenotazioni.hasNext}"
+               th:href="@{/admin#prenotazioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1}, recensioniPage=${recensioni.number})}">Successivo</a>
         </div>
     </section>
 
+    <!-- SECTION RECENSIONI -->
     <section id="recensioni" class="dashboard-section">
         <div class="section-header">
             <h3>Recensioni</h3>
-            <p>Pagina <span th:text="${recensioni.number + 1}"></span> di <span th:text="${recensioni.totalPages}"></span></p>
         </div>
-        <div class="table-responsive">
+
+        <p th:if="${recensioni == null or recensioni.empty}" class="empty-state">Nessuna recensione presente.</p>
+
+        <div class="table-responsive" th:unless="${recensioni == null or recensioni.empty}">
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>ID prenotazione</th>
+                        <th>Email</th>
                         <th>Voto</th>
                         <th>Commento</th>
                         <th>Data recensione</th>
@@ -164,17 +199,22 @@
                 </thead>
                 <tbody>
                     <tr th:each="recensione : ${recensioni.content}">
-                        <td th:text="${recensione.idRecensione}"></td>
+                        <td th:text="${recensione.prenotazione.idPrenotazione}"></td>
+                        <td th:text="${recensione.prenotazione.preventivo.utente.email}"></td>
                         <td th:text="${recensione.voto}"></td>
                         <td th:text="${recensione.commento}"></td>
-                        <td th:text="${recensione.dataRecensione}"></td>
+                        <td th:text="${recensione.dataRecensione != null ? #temporals.format(recensione.dataRecensione, 'dd/MM/yyyy HH:mm') : '-'}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="pagination">
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number - 1})} + '#recensioni'" th:if="${recensioni.hasPrevious}">Precedente</a>
-            <a th:href="@{/admin(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number + 1})} + '#recensioni'" th:if="${recensioni.hasNext}">Successivo</a>
+
+        <div class="pagination" th:unless="${recensioni == null or recensioni.empty}">
+            <a th:if="${recensioni.hasPrevious}"
+               th:href="@{/admin#recensioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number - 1})}">Precedente</a>
+            <span th:text="|Pagina ${recensioni.number + 1} di ${recensioni.totalPages}|"></span>
+            <a th:if="${recensioni.hasNext}"
+               th:href="@{/admin#recensioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number + 1})}">Successivo</a>
         </div>
     </section>
 </main>

@@ -112,41 +112,32 @@
     background: rgba(255, 255, 255, 0.12);
 }
 
+/* Pagination styles copied and adapted from client dashboard */
 .pagination {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-top: 22px;
 }
 
 .pagination a {
-    display: inline-block;
-    padding: 10px 16px;
-    border-radius: 12px;
-    text-decoration: none;
     color: #eef4e0;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    transition: background 0.2s ease, transform 0.2s ease;
+    background: var(--moss-green);
+    border-radius: 999px;
+    padding: 9px 16px;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s ease;
 }
 
 .pagination a:hover {
-    background: rgba(255, 255, 255, 0.16);
-    transform: translateY(-1px);
+    background: var(--olive-drab);
 }
 
-/* Style the "Successivo" (last link) to appear on the right with more padding and shadow */
-.pagination a:last-child {
-    margin-left: auto;
-    padding: 12px 22px;
-    background: linear-gradient(180deg, rgba(90,120,80,0.95), rgba(70,95,65,0.95));
-    color: #f6fbf2;
-    border: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
-}
-
-.pagination a:last-child:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+.pagination span,
+.empty-state {
+    color: #c9d7b6;
 }
 
 /* Action buttons for preventivi in admin table */
@@ -238,5 +229,10 @@
     .admin-table th,
     .admin-table td {
         padding: 10px 12px;
+    }
+
+    .pagination {
+        gap: 10px;
+        font-size: 0.9rem;
     }
 }

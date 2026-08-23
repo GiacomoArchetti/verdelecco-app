@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.generation.giardini.repository.PrenotazioneRepository;
 import com.generation.giardini.repository.PreventivoRepository;
@@ -50,18 +51,36 @@ public class AdminController {
 
         //METODI POST
         @PostMapping("/preventivi/{id}/accept")
-        public String acceptPreventivo(@PathVariable Long id) {
+        public String acceptPreventivo(@PathVariable Long id,
+                                       @RequestParam(name = "clientiPage", defaultValue = "0") int clientiPage,
+                                       @RequestParam(name = "preventiviPage", defaultValue = "0") int preventiviPage,
+                                       @RequestParam(name = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
+                                       @RequestParam(name = "recensioniPage", defaultValue = "0") int recensioniPage,
+                                       RedirectAttributes redirectAttributes) {
             preventivoRepository.findById(id).ifPresent(p ->    { p.setStatoPreventivo(com.generation.giardini.entity.preventivo.StatoPreventivo.ACCETTATO);
                                                                   preventivoRepository.save(p);
                                                                   prenotazioneService.createFromPreventivo(id);
                                                                 });
-            return "redirect:/admin";
+            redirectAttributes.addAttribute("clientiPage", clientiPage);
+            redirectAttributes.addAttribute("preventiviPage", preventiviPage);
+            redirectAttributes.addAttribute("prenotazioniPage", prenotazioniPage);
+            redirectAttributes.addAttribute("recensioniPage", recensioniPage);
+            return "redirect:/admin#preventivi";
         }
 
         @PostMapping("/preventivi/{id}/reject")
-        public String rejectPreventivo(@PathVariable Long id) {
+        public String rejectPreventivo(@PathVariable Long id,
+                                       @RequestParam(name = "clientiPage", defaultValue = "0") int clientiPage,
+                                       @RequestParam(name = "preventiviPage", defaultValue = "0") int preventiviPage,
+                                       @RequestParam(name = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
+                                       @RequestParam(name = "recensioniPage", defaultValue = "0") int recensioniPage,
+                                       RedirectAttributes redirectAttributes) {
             preventivoRepository.findById(id).ifPresent(p -> { p.setStatoPreventivo(com.generation.giardini.entity.preventivo.StatoPreventivo.RIFIUTATO); preventivoRepository.save(p); });
-            return "redirect:/admin";
+            redirectAttributes.addAttribute("clientiPage", clientiPage);
+            redirectAttributes.addAttribute("preventiviPage", preventiviPage);
+            redirectAttributes.addAttribute("prenotazioniPage", prenotazioniPage);
+            redirectAttributes.addAttribute("recensioniPage", recensioniPage);
+            return "redirect:/admin#preventivi";
         }
 
 }

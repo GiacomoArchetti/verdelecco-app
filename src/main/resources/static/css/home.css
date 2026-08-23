@@ -36,13 +36,58 @@ section {
     gap: 40px;
     align-items: center;
 }
+/* 
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Avvicina i due elementi verso l'alto 
+    gap: 12px; /* Riduce leggermente anche la distanza tra titolo e testo 
+    min-height: auto; /* Evita che il blocco si forzi in altezza 
+} */
+
+/* Sostituisci .hero-left (riga ~46) */
+
+/* 
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente il blocco testo rispetto all'immagine 
+    gap: 20px;
+}
+
+.hero-left h1 {
+    font-size: 2.6rem; /* Aumenta il titolo per riempire l'altezza 
+    line-height: 1.2;
+}
+
+.hero-left .btn-primary {
+    align-self: flex-start; /* Bottone allineato a sinistra sotto il testo 
+    margin-top: 10px;
+} */
+
+/* Sostituisci .hero (riga ~39) */
+.hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center; /* Allinea perfettamente al centro verticale testo e immagine */
+}
 
 .hero-left {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 18px;
-    min-height: 220px;
+    gap: 16px;
+}
+
+.hero-left h1 {
+    font-size: 2.2rem;
+}
+
+.hero-action {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .hero-right {
@@ -458,9 +503,19 @@ li,
 }
 
 /* Keep hero button aligned bottom-right; CTA button placed to the right of the heading */
-.hero-left .btn-primary {
+/* .hero-left .btn-primary {
     align-self: flex-end;
+} */
+
+
+.hero-action {
+    grid-column: 1 / -1; /* Fa occupare al pulsante tutta la larghezza delle 2 colonne */
+    display: flex;
+    justify-content: center; /* Centra il pulsante orizzontalmente */
+    margin-top: 20px;
 }
+
+
 .cta .btn-primary {
     margin-left: 16px;
 }
