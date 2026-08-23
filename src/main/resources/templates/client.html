@@ -149,7 +149,7 @@
                                     </label>
                                     <button type="submit">Invia recensione</button>
                                 </form>
-                                <span th:if="${prenotazione.stato.name() != 'CONFERMATA' and prenotazione.recensione == null}">Disponibile con stato confermata</span>
+                                <span th:if="${prenotazione.stato.name() != 'CONFERMATA' and prenotazione.recensione == null}">Disponibile con stato completata</span>
                             </td>
                         </tr>
                     </tbody>
