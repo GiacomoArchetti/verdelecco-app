@@ -54,15 +54,9 @@ public class RegisterController {
         String email = form.getEmail() == null ? null : form.getEmail().trim().toLowerCase();
         Utente u = email == null ? new Utente() : utenteRepository.findByEmailIgnoreCase(email).orElseGet(Utente::new);
         
-        String fullName = form.getNome() == null ? "" : form.getNome().trim();
-        if (!fullName.isEmpty()) {
-            String[] parts = fullName.split("\\s+", 2);
-            u.setNome(parts[0]);
-            u.setCognome(parts.length > 1 ? parts[1] : "");
-        } else {
-            u.setNome("");
-            u.setCognome("");
-        }
+        // Sostituisci la logica dello split con questa:
+        u.setNome(form.getNome() != null ? form.getNome().trim() : "");
+        u.setCognome(form.getCognome() != null ? form.getCognome().trim() : "");
         u.setEmail(email);
         u.setTelefono(form.getTelefono());
         u.setPassword(passwordEncoder.encode(form.getPassword()));
