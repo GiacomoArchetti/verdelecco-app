@@ -674,3 +674,48 @@ footer p {
     }
 }
 
+
+
+/* ==========================================================================
+   ALERT MESSAGES (Spring Security Error/Success Notifications)
+   ========================================================================== */
+
+/* Regola generale per tutti gli alert */
+.alert {
+    padding: 14px 18px;
+    border-radius: 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Stile specifico per errori di autenticazione / credenziali errate */
+.alert-danger {
+    background: rgba(180, 60, 60, 0.18);
+    border: 1px solid rgba(230, 100, 100, 0.4);
+    color: #f8d7da;
+}
+
+/* Opzionale: icona o punto d'attenzione prima del testo dell'errore */
+.alert-danger::before {
+    content: "⚠️";
+    font-size: 1.1rem;
+}
+
+/* Animazione di comparsa soft */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
