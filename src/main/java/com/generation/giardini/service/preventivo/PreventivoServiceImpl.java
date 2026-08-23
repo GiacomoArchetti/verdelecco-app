@@ -3,7 +3,6 @@ package com.generation.giardini.service.preventivo;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -82,7 +81,7 @@ public class PreventivoServiceImpl implements PreventivoService {
             entity.setDescrizione("Servizio richiesto: " + request.getServizio()
                     + (request.getDettagli() == null || request.getDettagli().isBlank()
                             ? "" : "\n" + request.getDettagli()));
-            entity.setDataIntervento(LocalDateTime.now());
+            entity.setDataIntervento(request.getDataIntervento().atStartOfDay());
             entity.setDataEmissione(LocalDate.now());
             entity.setStatoPreventivo(StatoPreventivo.IN_ATTESA);
             repository.save(entity);

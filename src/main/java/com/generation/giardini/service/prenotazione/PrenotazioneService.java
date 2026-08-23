@@ -1,7 +1,9 @@
 package com.generation.giardini.service.prenotazione;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import com.generation.giardini.dto.EventoCalendarioDTO;
 import com.generation.giardini.dto.PrenotazioneDTO;
 
 public interface PrenotazioneService {
@@ -15,5 +17,7 @@ public interface PrenotazioneService {
     PrenotazioneDTO readById(Long id);
 
     boolean delete(Long id);
+
+    List<EventoCalendarioDTO> getEventiCalendario(LocalDate start, LocalDate end);
 
 }

@@ -1,5 +1,7 @@
 package com.generation.giardini.dto;
 
+import java.time.LocalDate;
+
 public class PreventivoRequestDto {
 
     private String nome;
@@ -8,6 +10,7 @@ public class PreventivoRequestDto {
     private String indirizzo;
     private String servizio;
     private String dimensioni;
+    private LocalDate dataIntervento;
     private String dettagli;
 
     public PreventivoRequestDto() {
@@ -59,6 +62,14 @@ public class PreventivoRequestDto {
 
     public void setDimensioni(String dimensioni) {
         this.dimensioni = dimensioni;
+    }
+
+    public LocalDate getDataIntervento() {
+        return dataIntervento;
+    }
+
+    public void setDataIntervento(LocalDate dataIntervento) {
+        this.dataIntervento = dataIntervento;
     }
 
     public String getDettagli() {

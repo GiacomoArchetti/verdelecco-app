@@ -1,11 +1,15 @@
 package com.generation.giardini.service.prenotazione;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.generation.giardini.dto.EventoCalendarioDTO;
 import com.generation.giardini.dto.PrenotazioneDTO;
 import com.generation.giardini.entity.prenotazione.Prenotazione;
 import com.generation.giardini.entity.prenotazione.StatoPrenotazione;
@@ -106,5 +110,28 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
         } catch (Exception e) {
             throw new PrenotazioneCreateException("Errore imprevisto durante la creazione della prenotazione da preventivo.", e);
         }
+    }
+
+    @Override
+    public List<EventoCalendarioDTO> getEventiCalendario(LocalDate start, LocalDate end) {
+        // Trasforma LocalDate in LocalDateTime per matchare il tipo nel DB/Repository
+        LocalDateTime startDateTime = start.atStartOfDay();              // 2026-08-01T00:00:00
+        LocalDateTime endDateTime = end.atTime(LocalTime.MAX);            // 2026-08-31T23:59:59.999999999
+        
+        // 1. Recupera le prenotazioni esistenti dal database per il periodo selezionato
+        List<Prenotazione> prenotazioni = prenotazioneRepository.findByDataInterventoBetween(startDateTime, endDateTime);
+
+        // 2. Converte la lista di Entità in una lista di EventoCalendarioDTO usando gli Stream
+        return prenotazioni.stream()
+                // Se hai uno stato dell'appuntamento (es. ANNULLATO), puoi filtrarlo qui:
+                .filter(p -> p.getStato() != StatoPrenotazione.ANNULLATA)
+                .map(prenotazione -> new EventoCalendarioDTO(
+                        "Occupato",                                                  // title
+                        prenotazione.getDataIntervento().toLocalDate().toString(),         // start: trasformiamo LocalDateTime in LocalDate così il progetto risulti semplificato, strutturando il calendario in slots giornalieri e non in slots orari
+                        null,                                                         // end (null se è un evento a giornata intera)
+                        "background",                                            // display: colora l'intera cella del giorno
+                        "#e74c3c"                                               // color: rosso per giorno occupato
+                ))
+                .toList();
     }
 }
