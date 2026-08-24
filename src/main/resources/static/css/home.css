@@ -196,6 +196,14 @@ li,
     font-size: 1rem;
 }
 
+/* Blocco ridimensionamento orizzontale textarea preventivo e registrazione */
+.preventivo-form textarea,
+.registration-form textarea {
+    resize: vertical !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
 /* Phone prefix + number row */
 .phone-row {
     display: flex;

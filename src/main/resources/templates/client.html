@@ -104,7 +104,7 @@
                     <thead>
                         <tr>
                             <th>Data emissione</th>
-                            <th>Intervento</th>
+                            <th>Data intervento</th>
                             <th>Indirizzo</th>
                             <th>Costo stimato</th>
                             <th>Stato</th>
@@ -113,7 +113,7 @@
                     <tbody>
                         <tr th:each="preventivo : ${preventivi.content}">
                             <td th:text="${preventivo.dataEmissione}"></td>
-                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>                            
                             <td th:text="${preventivo.indirizzo}"></td>
                             <td th:text="${preventivo.costoStimato != null ? preventivo.costoStimato + ' EUR' : '-'}"></td>
                             <td th:text="${preventivo.statoPreventivo.name() == 'IN_ATTESA' ? 'IN ATTESA' : #strings.replace(preventivo.statoPreventivo.name(), '_', ' ')}"></td>
@@ -152,7 +152,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="prenotazione : ${prenotazioni.content}">
-                            <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                            <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                             <td th:text="${prenotazione.indirizzo}"></td>
                             <td th:text="${prenotazione.preventivo.idPreventivo}"></td>
                             <td th:text="${prenotazione.stato}"></td>

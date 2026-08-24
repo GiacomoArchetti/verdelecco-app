@@ -262,3 +262,31 @@
         font-size: 0.9rem;
     }
 }
+
+/* Impedisce che il pulsante si stiri in altezza quando la textarea cresce */
+.client-quote-form {
+    align-items: flex-end !important;
+}
+
+/* Fissa le dimensioni del tasto di invio */
+.client-quote-form .btn-primary {
+    align-self: flex-end !important;
+    height: 48px !important;
+    max-height: 48px !important;
+    width: auto !important;
+    padding: 0 30px !important;
+    white-space: nowrap !important;
+}
+
+/* Impedisce alla textarea di allargarsi orizzontalmente rompendo la griglia */
+.client-quote-form textarea {
+    resize: vertical !important;
+}
+
+/* Limita il ridimensionamento del commento nella recensione */
+.review-form textarea {
+    resize: vertical !important; /* Permette il ridimensionamento solo in verticale */
+    width: 100% !important;      /* Mantiene la larghezza ancorata al contenitore */
+    max-width: 100% !important;  /* Impedisce che esca dai bordi orizzontali */
+    box-sizing: border-box !important;
+}
