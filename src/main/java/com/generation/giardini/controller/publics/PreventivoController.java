@@ -15,19 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.generation.giardini.dto.PreventivoRequestDto;
 import com.generation.giardini.dto.ServizioDTO;
 import com.generation.giardini.service.servizio.ServizioService;
+
+import lombok.RequiredArgsConstructor;
+
 import com.generation.giardini.service.preventivo.PreventivoService;
 
 @Controller
 @RequestMapping("/preventivo")
+@RequiredArgsConstructor
 public class PreventivoController {
 
     private final ServizioService servizioService;
     private final PreventivoService preventivoService;
-
-    public PreventivoController(ServizioService servizioService, PreventivoService preventivoService) {
-        this.servizioService = servizioService;
-        this.preventivoService = preventivoService;
-    }
 
     //METODI GET
 

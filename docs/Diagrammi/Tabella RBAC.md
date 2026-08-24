@@ -1,9 +1,9 @@
 | Modulo / Risorsa | Endpoint / Pagina | Visitatore (Anonimo) | Utente (Cliente) | Amministratore (Giardiniere) |
 |---|---|:---:|:---:|:---:|
 | **Area Pubblica** | `GET /` (Home Page) | Lettura | Lettura | Lettura |
-| | `GET /servizi` (Servizi Offerti) | Lettura | Lettura | Lettura |
-| | `GET /preventivo/nuovo` (Richiesta Preventivo) | Creazione *(Reindirizza a Login)* | Creazione | Creazione |
-| | `POST /conferma` (Invio Form Preventivo) | Esecuzione | Esecuzione | Esecuzione |
+| | `GET /preventivo` (Richiesta Preventivo) | Creazione | Creazione | Creazione |
+| | `GET /preventivo/inviato` (Ringraziemento dopo invio preventivo) | Lettura | Lettura | Lettura |
+| | `POST /preventivo` (Invio Form Preventivo) | Esecuzione | Esecuzione | Esecuzione |
 | **Autenticazione** | `GET/POST /login` | Esecuzione | Negato | Negato |
 | | `GET/POST /registrazione` | Esecuzione | Negato | Negato |
 | **Portale Cliente** | `GET /client/dashboard` | Negato | Lettura | Negato |
