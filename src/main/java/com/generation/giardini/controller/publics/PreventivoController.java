@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +34,26 @@ public class PreventivoController {
 
         //Restituisce la pagina del preventivo
         @GetMapping
-        public String preventivo(Model model) {
+        public String preventivo(Model model, Authentication authentication) {
+
+            // MODIFICA 1: Controllo autenticazione per Redirect RBAC
+            if (authentication != null && authentication.isAuthenticated() 
+                    && !(authentication instanceof AnonymousAuthenticationToken)) {
+                
+                // Se è un utente cliente autenticato, reindirizza al suo portale dedicato
+                if (authentication.getAuthorities().stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_UTENTE"))) {
+                    return "redirect:/client#richiedi-preventivo";
+                }
+                
+                // Se è l'amministratore, reindirizza alla dashboard admin
+                if (authentication.getAuthorities().stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                    return "redirect:/admin";
+                }
+            }
+            // FINE MODIFICA 1
+
             if (!model.containsAttribute("preventivoRequest")) {
                 model.addAttribute("preventivoRequest", new PreventivoRequestDto());
             }
@@ -52,9 +73,28 @@ public class PreventivoController {
             return "preventivo";
         }
 
-        //Restituisce la pagina di ringraziamento del preventivo
+        // Restituisce la pagina di ringraziamento del preventivo
         @GetMapping("/inviato")
-        public String preventivoInviato() {
+        public String preventivoInviato(Authentication authentication) {
+
+            // MODIFICA: Controllo autenticazione per Redirect RBAC (Soluzione 1)
+            if (authentication != null && authentication.isAuthenticated() 
+                    && !(authentication instanceof AnonymousAuthenticationToken)) {
+                
+                // Se l'utente è loggato come Cliente, viene reindirizzato alla sua area riservata
+                if (authentication.getAuthorities().stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_UTENTE"))) {
+                    return "redirect:/client";
+                }
+                
+                // Se è l'Amministratore, viene reindirizzato alla dashboard admin
+                if (authentication.getAuthorities().stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                    return "redirect:/admin";
+                }
+            }
+            // FINE MODIFICA
+
             return "preventivo-success";
         }
 

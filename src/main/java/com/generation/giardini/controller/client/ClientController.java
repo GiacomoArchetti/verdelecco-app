@@ -95,6 +95,8 @@ public class ClientController {
         return "client";
     }
 
+    
+
     @PostMapping("/preventivo")
     public String richiediPreventivo(@ModelAttribute PreventivoRequestDto preventivoRequest,
             @AuthenticationPrincipal UserDetails userDetails,

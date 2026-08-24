@@ -1,6 +1,8 @@
 package com.generation.giardini.controller.auth;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,17 +31,38 @@ public class RegisterController {
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService userDetailsService;
 
-    // METODI GET
+
+    //METODI GET
+
     // Restituisce la pagina di registrazione
     @GetMapping("")
-    public String registrazione(Model model) {
+    public String registrazione(Model model, Authentication authentication) {
+
+        // MODIFICA: Controllo RBAC - Se l'utente è già autenticato, viene reindirizzato
+        if (authentication != null && authentication.isAuthenticated() 
+                && !(authentication instanceof AnonymousAuthenticationToken)) {
+            
+            if (authentication.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_UTENTE"))) {
+                return "redirect:/client";
+            }
+            
+            if (authentication.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                return "redirect:/admin";
+            }
+        }
+        // FINE MODIFICA
+
         if (!model.containsAttribute("registrazione")) {
             model.addAttribute("registrazione", new RegistrationForm());
         }
         return "registrazione";
     }
 
+
     // METODI POST
+    
     // Gestisce l'invio del modulo di registrazione
     @PostMapping("")
     public String submitRegistrazione(@Valid @ModelAttribute("registrazione") RegistrationForm form,
