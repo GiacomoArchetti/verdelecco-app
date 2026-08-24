@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'it',
+        aspectRatio: 1.35,
+        contentHeight: 'auto',
+        fixedWeekCount: false,
         buttonText: {
             today: 'Oggi'
         },
@@ -57,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             start: new Date().toISOString().split('T')[0] // Blocca i giorni passati
         },
 
-        // MODIFICA QUI: Recupero dei giorni occupati dal Backend con gestione reindirizzamento/non-JSON
+        // Recupero dei giorni occupati dal Backend con gestione reindirizzamento/non-JSON
         events: function(fetchInfo, successCallback, failureCallback) {
             const start = fetchInfo.startStr.split('T')[0];
             const end = fetchInfo.endStr.split('T')[0];
@@ -74,6 +77,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(data => successCallback(data))
                 .catch(error => failureCallback(error));
+        },
+
+        eventDidMount: function(info) {
+            const dataEvento = info.event.startStr.split('T')[0];
+            const cella = calendarEl.querySelector(`[data-date="${dataEvento}"]`);
+            if (cella) {
+                cella.classList.add('giorno-occupato');
+            }
         },
 
         // Gestione del click sulle celle del calendario

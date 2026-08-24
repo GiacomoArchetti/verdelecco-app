@@ -13,6 +13,16 @@
 
     <!-- SCRIPT ESTERNO -->
     <script th:src="@{/js/scroll-restore.js}" defer></script>
+
+    <!-- LIBRERIE FULLCALENDAR (Indispensabili per renderizzare il calendario) -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/it.global.min.js"></script>
+    
+    <!-- SCRIPT DI INIZIALIZZAZIONE -->
+    <script th:src="@{/js/calendario-prenotazione.js}" defer></script>
+
+    <!-- STILI DEDICATI AL CALENDARIO PER IL PORTALE CLIENTE -->
+    <link rel="stylesheet" th:href="@{/css/calendario.css(v=2.0)}">
 </head>
 
 <body>
@@ -62,6 +72,21 @@
                         <input type="number" th:field="*{dimensioni}" min="1" step="1" required>
                     </label>
                 </div>
+
+                <!-- BLOCCO CALENDARIO INTEGRATO -->
+                <div class="calendar-section">
+                    <label>Seleziona la data indicativa dell'intervento</label>
+                    
+                    <div id="calendar"></div>
+
+                    <!-- Campo nascosto per passare la data al controller -->
+                    <input type="hidden" id="dataIntervento" th:field="*{dataIntervento}" required>
+
+                    <p class="data-selected-info">
+                        <span id="data-mostrata" style="color: #ffffff;"></span>
+                    </p>
+                </div>
+
                 <label>Dettagli aggiuntivi
                     <textarea th:field="*{dettagli}" rows="4"></textarea>
                 </label>

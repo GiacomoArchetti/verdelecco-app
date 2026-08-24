@@ -45,3 +45,22 @@ section {
 section[id] {
     scroll-margin-top: 112px;
 }
+
+/* Ripristina la struttura monocolonna centrata del form */
+.preventivo-card,
+.preventivo-container,
+.preventivo-form {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important; /* Disattiva la suddivisione a 2 colonne */
+    max-width: 650px !important;            /* Dimensione ideale per un form pulito */
+    margin: 0 auto !important;             /* Centra la scheda nella pagina */
+    width: 100% !important;
+}
+
+/* Assicura che la card esterna segua la larghezza del form */
+main .card, 
+main .container {
+    max-width: 700px !important;
+    margin: 0 auto !important;
+}

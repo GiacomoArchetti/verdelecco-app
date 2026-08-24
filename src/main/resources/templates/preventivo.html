@@ -16,84 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.11/locales-all.global.min.js"></script>
 
     <!-- Stile per personalizzare il calendario integrato nei colori del tema -->
-    <style>
-        .calendar-section {
-            grid-column: span 2;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .calendar-section label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #edf3df;
-        }
-
-        #calendar {
-            background-color: rgba(31, 50, 34, 0.9);
-            border: 1px solid rgba(184, 206, 168, 0.35);
-            border-radius: 16px;
-            padding: 16px;
-            color: var(--text-light);
-            min-height: 380px;
-        }
-
-        .fc-theme-standard td, .fc-theme-standard th {
-            border-color: rgba(184, 206, 168, 0.2) !important;
-        }
-
-        .fc .fc-toolbar-title {
-            color: #eef4e6;
-            font-size: 1.15rem;
-            font-weight: 700;
-        }
-
-        /* Bottoni Avanti/Indietro/Oggi coerenti con la classe .btn-primary */
-        .fc .fc-button-primary {
-            background-color: var(--moss-green) !important;
-            border-color: var(--moss-green) !important;
-            color: #eef4e0 !important;
-            border-radius: 12px !important;
-            font-weight: 600;
-            transition: background 0.2s ease;
-        }
-
-        .fc .fc-button-primary:hover {
-            background-color: var(--olive-drab) !important;
-            border-color: var(--olive-drab) !important;
-        }
-
-        .fc .fc-button-primary:disabled {
-            background-color: rgba(122, 155, 88, 0.4) !important;
-            border-color: transparent !important;
-        }
-
-        .fc .fc-daygrid-day-number {
-            color: #c9d7b6;
-            text-decoration: none;
-        }
-
-        .fc .fc-col-header-cell-cushion {
-            color: #edf3df;
-        }
-
-        /* Cella selezionata dall'utente */
-        .giorno-selezionato {
-            background-color: var(--moss-green) !important;
-            color: #ffffff !important;
-            border-radius: 8px;
-        }
-
-        /* Testo della data formattata in bianco */
-        .data-selected-info {
-            margin-top: 10px;
-            font-size: 1rem;
-            color: #ffffff;
-            font-weight: 600;
-            min-height: 24px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/calendario.css(v=2.0)}">
 </head>
 
 <body>
@@ -177,7 +100,7 @@
                         </label>
 
                         <label>
-                            Dimensioni del giardino
+                            Dimensioni del giardino (mq)
 
                             <input type="number" th:field="*{dimensioni}" placeholder="Es. 150" min="1" step="1"
                                 required>

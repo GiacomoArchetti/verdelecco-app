@@ -1,0 +1,150 @@
+/* Stile unificato FullCalendar - Layout Naturale */
+.calendar-section {
+    grid-column: span 2;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.calendar-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-light, #edf3df);
+}
+
+#calendar {
+    background-color: transparent;
+    border: 1px solid rgba(184, 206, 168, 0.35);
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--text-light, #edf3df);
+    width: 100%;
+    height: auto !important; /* Rimuove l'altezza fissa che taglia le celle */
+    box-sizing: border-box;
+}
+
+/* Rimuove ogni blocco di scorrimento o taglio verticale interno */
+.calendar-section .fc-scroller,
+.calendar-section .fc-scroller-liquid-absolute,
+.calendar-section .fc-daygrid-body,
+.calendar-section .fc-view-harness {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Celle ad altezza fluida e proporzionata */
+.calendar-section .fc-daygrid-day-frame {
+    min-height: 45px !important;
+    height: auto !important;
+}
+
+/* Griglia e Bordo Cantiere */
+.fc-theme-standard td, 
+.fc-theme-standard th {
+    border-color: rgba(184, 206, 168, 0.25) !important;
+}
+
+.fc .fc-toolbar-title {
+    color: var(--text-light, #eef4e6);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* Pulsanti Oggi / Prev / Next */
+.fc .fc-button,
+.fc .fc-button-primary,
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+    background-color: var(--moss-green, #7a9b58) !important;
+    border-color: var(--moss-green, #7a9b58) !important;
+    color: #ffffff !important;
+    border-radius: 50px !important;
+    padding: 5px 14px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: background-color 0.2s ease;
+}
+
+.fc .fc-button-primary:hover,
+.fc .fc-button-primary:not(:disabled):active:hover {
+    background-color: var(--olive-drab, #627e45) !important;
+    border-color: var(--olive-drab, #627e45) !important;
+    cursor: pointer;
+}
+
+.fc .fc-button-primary:disabled {
+    background-color: rgba(122, 155, 88, 0.3) !important;
+    border-color: transparent !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    opacity: 0.6;
+}
+
+/* Numeri dei giorni e Intestazione */
+.fc .fc-daygrid-day-number {
+    color: var(--text-muted, #c9d7b6);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.fc .fc-col-header-cell-cushion {
+    color: var(--text-light, #edf3df);
+    font-weight: 600;
+}
+
+/* Cursori e Interazioni */
+.calendar-section .fc-daygrid-day {
+    cursor: pointer !important;
+}
+
+.calendar-section .fc-daygrid-day.giorno-occupato,
+.calendar-section .fc-daygrid-day.giorno-occupato * {
+    cursor: not-allowed !important;
+}
+
+/* Hover e Selezione Giorni */
+.calendar-section .fc-daygrid-day:not(.giorno-occupato):hover {
+    background-color: rgba(122, 155, 88, 0.25) !important;
+    transition: background-color 0.2s ease;
+}
+
+.calendar-section .fc-daygrid-day.giorno-selezionato {
+    background-color: var(--moss-green, #7a9b58) !important;
+}
+
+.giorno-selezionato .fc-daygrid-day-number {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.calendar-section .fc-day-past:not(.giorno-selezionato):hover {
+    background-color: transparent !important;
+}
+
+/* Giorni Occupati (Rosso Trasparente senza Testo) */
+.calendar-section .fc-event-title,
+.calendar-section .fc-event-main,
+.calendar-section .fc-event {
+    display: none !important;
+}
+
+.calendar-section .fc-daygrid-day.giorno-occupato {
+    background-color: rgba(192, 58, 43, 0.45) !important;
+    transition: background-color 0.2s ease;
+}
+
+.calendar-section .fc-daygrid-day.giorno-occupato:hover {
+    background-color: rgba(192, 58, 43, 0.45) !important;
+}
+
+/* Testo Data Selezionata */
+.data-selected-info {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: var(--text-light, #ffffff);
+    font-weight: 600;
+    min-height: 24px;
+}
