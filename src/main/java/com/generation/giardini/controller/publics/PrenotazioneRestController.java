@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,10 @@ public class PrenotazioneRestController {
     public ResponseEntity<List<EventoCalendarioDTO>> getGiorniOccupati(
             @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
-        
-        List<EventoCalendarioDTO> eventi = prenotazioneService.getEventiCalendario(start, end);
+
+        // Racchiudi la lista in new ArrayList per renderla mutabile
+        List<EventoCalendarioDTO> eventi = new ArrayList<>(prenotazioneService.getEventiCalendario(start, end));
+
         return ResponseEntity.ok(eventi);
     }
 }

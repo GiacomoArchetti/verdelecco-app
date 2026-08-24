@@ -57,14 +57,19 @@ document.addEventListener('DOMContentLoaded', function() {
             start: new Date().toISOString().split('T')[0] // Blocca i giorni passati
         },
 
-        // Recupero dei giorni occupati dal Backend
+        // MODIFICA QUI: Recupero dei giorni occupati dal Backend con gestione reindirizzamento/non-JSON
         events: function(fetchInfo, successCallback, failureCallback) {
             const start = fetchInfo.startStr.split('T')[0];
             const end = fetchInfo.endStr.split('T')[0];
 
             fetch(`/api/prenotazioni/occupate?start=${start}&end=${end}`)
                 .then(response => {
-                    if (!response.ok) throw new Error("Errore recupero disponibilità");
+                    // Controlla se la risposta è valida e se il contenuto è effettivamente JSON
+                    // Evita il crash 'Unexpected token <' in caso di redirect alla pagina di login HTML
+                    const contentType = response.headers.get("content-type");
+                    if (!response.ok || (contentType && !contentType.includes("application/json"))) {
+                        throw new Error("Risposta non valida o endpoint protetto da autenticazione");
+                    }
                     return response.json();
                 })
                 .then(data => successCallback(data))

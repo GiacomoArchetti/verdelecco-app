@@ -764,6 +764,20 @@ footer p {
     font-size: 1.1rem;
 }
 
+/* Colorazione giorni occupati (background events) */
+.fc-bg-event {
+    background-color: #e74c3c !important; /* Il rosso configurato nel tuo DTO */
+    opacity: 0.8 !important;
+    border-radius: 4px;
+}
+
+/* Rende il cursore 'non cliccabile' sui giorni occupati */
+.fc-bg-event {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
 /* Animazione di comparsa soft */
 @keyframes fadeIn {
     from {

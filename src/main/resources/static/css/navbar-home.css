@@ -78,6 +78,15 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+button.nav-btn {
+    font: inherit;              /* Eredita font, dimensione e peso del testo */
+    cursor: pointer;            /* Mostra la manina al passaggio del mouse */
+    display: inline-flex;       /* Allinea perfettamente testo e padding */
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
 .nav-btn.secondary {
     background: #4f7942;
     border-color: rgba(255, 255, 255, 0.12);
