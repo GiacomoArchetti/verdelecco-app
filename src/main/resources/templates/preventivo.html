@@ -10,6 +10,13 @@
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/navbar-home.css}">
     <link rel="icon" th:href="@{/images/gardening.png}" type="image/png">
+
+    <!-- FullCalendar v6 JS e Lingua Italiana -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.11/locales-all.global.min.js"></script>
+
+    <!-- Stile per personalizzare il calendario integrato nei colori del tema -->
+    <link rel="stylesheet" th:href="@{/css/calendario.css(v=2.0)}">
 </head>
 
 <body>
@@ -93,12 +100,26 @@
                         </label>
 
                         <label>
-                            Dimensioni del giardino
+                            Dimensioni del giardino (mq)
 
                             <input type="number" th:field="*{dimensioni}" placeholder="Es. 150" min="1" step="1"
                                 required>
                         </label>
 
+                    </div>
+
+                    <!-- BLOCCO CALENDARIO -->
+                    <div class="calendar-section">
+                        <label>Seleziona la data indicativa dell'intervento</label>
+                        
+                        <div id="calendar"></div>
+
+                        <!-- Campo nascosto per inviare la data a Spring Boot -->
+                        <input type="hidden" id="dataIntervento" th:field="*{dataIntervento}">
+
+                        <p class="data-selected-info">
+                            <span id="data-mostrata" style="color: #ffffff;"></span>
+                        </p>
                     </div>
 
                     <label class="full-width">
@@ -124,55 +145,12 @@
 
     <div th:replace="~{fragment/footer :: footer}"></div>
 
+    <!-- Script Generali -->
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/scrollButton.js}"></script>
 
-    <script>
-        (function () {
-
-            const form = document.querySelector('.preventivo-form');
-            const phoneInput = document.getElementById('phoneNumber');
-
-            if (!form || !phoneInput) return;
-
-            // Permette solo numeri e spazi durante la digitazione
-            phoneInput.addEventListener('input', function () {
-                this.value = this.value.replace(/[^0-9 ]/g, '');
-                this.setCustomValidity('');
-            });
-
-            form.addEventListener('submit', function (event) {
-
-                const prefix =
-                    document.getElementById('phonePrefix')?.value || '';
-
-                const raw = phoneInput.value.trim();
-
-                // Controlla che siano presenti solo numeri e spazi
-                if (!/^[0-9 ]+$/.test(raw)) {
-
-                    event.preventDefault();
-
-                    phoneInput.setCustomValidity(
-                        'Inserisci solo numeri nel numero di telefono.'
-                    );
-
-                    phoneInput.reportValidity();
-
-                    return;
-                }
-
-                phoneInput.setCustomValidity('');
-
-                // Aggiunge il prefisso internazionale
-                if (raw && !raw.startsWith(prefix)) {
-                    phoneInput.value = prefix + ' ' + raw;
-                }
-
-            });
-
-        })();
-    </script>
+    <!-- Script Gestione Telefono e del Calendario -->
+    <script th:src="@{/js/calendario-prenotazione.js}"></script>
 
     <!--<script>
         // Concatena il prefisso internazionale al numero di telefono

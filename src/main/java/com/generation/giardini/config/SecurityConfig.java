@@ -27,7 +27,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // 1. AREA PUBBLICA(con pagina autenticazione)
-                .requestMatchers("/", "/css/**", "/js/**", "/preventivo", "/preventivo/inviato", "/images/**", "/webjars/**", "/login", "/register", "/register/**").permitAll()
+                .requestMatchers("/", "/css/**", "/js/**", "/preventivo", "/preventivo/inviato", "/api/prenotazioni/**", "/images/**", "/webjars/**", "/login", "/register", "/register/**").permitAll()
                 
                 // 2. AREA UTENTE (client area)
                 .requestMatchers("/client/**").hasRole("UTENTE")
@@ -52,6 +52,7 @@ public class SecurityConfig {
             .logout(logout -> logout
                 // Dove mandare l'utente dopo il logout
                 .logoutSuccessUrl("/")
+                .logoutUrl("/logout")
                 // Distrugge la sessione lato server.
                 // Questo è importante perché la vecchia sessione non deve restare valida.
                 .invalidateHttpSession(true)
@@ -74,6 +75,10 @@ public class SecurityConfig {
             // Questo protegge i form: impedisce che un sito esterno faccia inviare richieste al posto dell'utente.
             // È molto importante quando l'app usa sessioni e form HTML.
             .csrf(Customizer.withDefaults())
+            .csrf(csrf -> csrf
+                // Escludi tutti gli endpoint API REST dalla protezione CSRF
+                .ignoringRequestMatchers("/api/**") 
+            )
             
             // Content Security Policy: è una regola di sicurezza del browser.
             // Dice da quali sorgenti il browser può caricare script, stili, immagini e altri contenuti.

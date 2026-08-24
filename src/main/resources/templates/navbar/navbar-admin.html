@@ -23,7 +23,10 @@
                 <a th:href="@{/admin#prenotazioni}">Prenotazioni</a>
             </li>
             <li>
-                <a th:href="@{/logout}" class="nav-btn secondary">Logout</a>
+                <!-- <a th:href="@{/logout}" class="nav-btn secondary">Logout</a> -->
+                 <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <button type="submit" class="nav-btn secondary">Logout</button>
+                </form>
             </li>
         </ul>
 
