@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profilo
-
-    </title>
+    <title>Profilo</title>
     <link rel="stylesheet" th:href="@{/css/global.css}">
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/client.css}">
     <link rel="stylesheet" th:href="@{/css/navbar-home.css}">
     <link rel="icon" th:href="@{/images/gardening.png}" type="image/png">
+
+    <!-- SCRIPT ESTERNO -->
+    <script th:src="@{/js/scroll-restore.js}" defer></script>
 </head>
 
 <body>
@@ -21,7 +22,7 @@
     <main class="user-dashboard">
         <section class="dashboard-hero">
             <div class="dashboard-hero-content">
-                <h1>Benvenuto nel tuo profilo</h1>
+                <h1>Benvenuto <span th:text="${nomeUtente != null ? #strings.capitalize(nomeUtente.toLowerCase()) : 'Cliente'}">Cliente</span>!</h1>
                 <p>Qui puoi vedere i tuoi preventivi, prenotazioni e aggiornare le tue informazioni.</p>
             </div>
         </section>
@@ -32,8 +33,12 @@
             </div>
             <p th:if="${successMessage}" class="feedback feedback-success" th:text="${successMessage}"></p>
             <p th:if="${errorMessage}" class="feedback feedback-error" th:text="${errorMessage}"></p>
-            <form th:action="@{/client/preventivo}" th:object="${preventivoRequest}" method="post"
-                class="client-quote-form">
+            
+            <form th:action="@{/client/preventivo}" th:object="${preventivoRequest}" method="post" class="client-quote-form">
+                <!-- MANTENIMENTO PAGINAZIONE -->
+                <input type="hidden" name="preventiviPage" th:value="${preventivi != null ? preventivi.number : 0}">
+                <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni != null ? prenotazioni.number : 0}">
+
                 <div class="client-quote-grid">
                     <label>Nome
                         <input type="text" th:field="*{nome}" required>
@@ -50,8 +55,7 @@
                     <label>Servizio richiesto
                         <select th:field="*{servizio}" required>
                             <option value="">Seleziona un servizio</option>
-                            <option th:each="option : ${serviziOptions}" th:value="${option.value}"
-                                th:text="${option.label}"></option>
+                            <option th:each="option : ${serviziOptions}" th:value="${option.value}" th:text="${option.label}"></option>
                         </select>
                     </label>
                     <label>Dimensioni del giardino (mq)
@@ -69,8 +73,8 @@
             <div class="section-heading">
                 <h2>I miei preventivi</h2>
             </div>
-            <p th:if="${preventivi.empty}" class="empty-state">Non hai ancora ricevuto preventivi.</p>
-            <div class="table-wrapper" th:unless="${preventivi.empty}">
+            <p th:if="${preventivi == null or preventivi.empty}" class="empty-state">Non hai ancora richiesto preventivi.</p>
+            <div class="table-wrapper" th:unless="${preventivi == null or preventivi.empty}">
                 <table class="client-table">
                     <thead>
                         <tr>
@@ -84,30 +88,33 @@
                     <tbody>
                         <tr th:each="preventivo : ${preventivi.content}">
                             <td th:text="${preventivo.dataEmissione}"></td>
-                            <td
-                                th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}">
-                            </td>
+                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
                             <td th:text="${preventivo.indirizzo}"></td>
-                            <td th:text="${preventivo.costoStimato != null ? preventivo.costoStimato + ' EUR' : '-'}">
-                            </td>
+                            <td th:text="${preventivo.costoStimato != null ? preventivo.costoStimato + ' EUR' : '-'}"></td>
                             <td th:text="${preventivo.statoPreventivo.name() == 'IN_ATTESA' ? 'IN ATTESA' : #strings.replace(preventivo.statoPreventivo.name(), '_', ' ')}"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <nav class="pagination" th:unless="${preventivi.empty}" aria-label="Paginazione preventivi">
+            
+            <!-- ANCORE NEI LINK DI PAGINAZIONE CORRETTE -->
+            <nav class="pagination" th:unless="${preventivi == null or preventivi.empty}" aria-label="Paginazione preventivi">
                 <a th:if="${preventivi.hasPrevious}"
-                    th:href="@{/client(preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number})}">Precedente</a>
+                th:href="@{/client#preventivi(preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number})}">Precedente</a>
                 <span th:text="|Pagina ${preventivi.number + 1} di ${preventivi.totalPages}|"></span>
                 <a th:if="${preventivi.hasNext}"
-                    th:href="@{/client(preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number})}">Successiva</a>
+                th:href="@{/client#preventivi(preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number})}">Successiva</a>
             </nav>
         </section>
 
         <section id="prenotazioni" class="dashboard-section">
             <h2>Le mie prenotazioni</h2>
-            <p th:if="${prenotazioni.empty}" class="empty-state">Non hai ancora prenotazioni.</p>
-            <div class="table-wrapper" th:unless="${prenotazioni.empty}">
+
+            <p th:if="${reviewSuccessMessage}" class="feedback feedback-success" th:text="${reviewSuccessMessage}"></p>
+            <p th:if="${reviewErrorMessage}" class="feedback feedback-error" th:text="${reviewErrorMessage}"></p>
+
+            <p th:if="${prenotazioni == null or prenotazioni.empty}" class="empty-state">Non hai ancora prenotazioni.</p>
+            <div class="table-wrapper" th:unless="${prenotazioni == null or prenotazioni.empty}">
                 <table class="client-table">
                     <thead>
                         <tr>
@@ -120,18 +127,19 @@
                     </thead>
                     <tbody>
                         <tr th:each="prenotazione : ${prenotazioni.content}">
-                            <td
-                                th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}">
-                            </td>
+                            <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
                             <td th:text="${prenotazione.indirizzo}"></td>
-                            <!--<td th:text="${prenotazione.idPreventivo}"></td> -->
                             <td th:text="${prenotazione.preventivo.idPreventivo}"></td>
                             <td th:text="${prenotazione.stato}"></td>
                             <td>
                                 <span th:if="${prenotazione.recensione != null}">Recensione già inviata</span>
                                 <form th:if="${prenotazione.stato.name() == 'CONFERMATA' and prenotazione.recensione == null}"
-                                    th:action="@{/client/prenotazioni/{id}/recensione(id=${prenotazione.idPrenotazione})}"
-                                    method="post" class="review-form">
+                                      th:action="@{/client/prenotazioni/{id}/recensione(id=${prenotazione.idPrenotazione})}"
+                                      method="post" class="review-form">
+                                    
+                                    <input type="hidden" name="preventiviPage" th:value="${preventivi.number}">
+                                    <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni.number}">
+
                                     <label>
                                         Voto
                                         <select name="voto" required>
@@ -149,47 +157,56 @@
                                     </label>
                                     <button type="submit">Invia recensione</button>
                                 </form>
-                                <span th:if="${prenotazione.stato.name() != 'CONFERMATA' and prenotazione.recensione == null}">Disponibile con stato confermata</span>
+                                <span th:if="${prenotazione.stato.name() != 'CONFERMATA' and prenotazione.recensione == null}">Disponibile con stato completata</span>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <nav class="pagination" th:unless="${prenotazioni.empty}" aria-label="Paginazione prenotazioni">
+            
+            <!-- ANCORE NEI LINK DI PAGINAZIONE CORRETTE -->
+            <nav class="pagination" th:unless="${prenotazioni == null or prenotazioni.empty}" aria-label="Paginazione prenotazioni">
                 <a th:if="${prenotazioni.hasPrevious}"
-                    th:href="@{/client(preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1})}">Precedente</a>
+                th:href="@{/client#prenotazioni(preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1})}">Precedente</a>
                 <span th:text="|Pagina ${prenotazioni.number + 1} di ${prenotazioni.totalPages}|"></span>
                 <a th:if="${prenotazioni.hasNext}"
-                    th:href="@{/client(preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1})}">Successiva</a>
+                th:href="@{/client#prenotazioni(preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1})}">Successiva</a>
             </nav>
         </section>
 
         <section id="profilo" class="dashboard-section">
             <h2>Profilo</h2>
+
+            <p th:if="${profileSuccessMessage}" class="feedback feedback-success" th:text="${profileSuccessMessage}"></p>
+            <p th:if="${profileErrorMessage}" class="feedback feedback-error" th:text="${profileErrorMessage}"></p>
+
             <form th:action="@{/client/profilo}" method="post" class="profile-form">
+                <!-- MANTENIMENTO PAGINAZIONE -->
+                <input type="hidden" name="preventiviPage" th:value="${preventivi != null ? preventivi.number : 0}">
+                <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni != null ? prenotazioni.number : 0}">
+
                 <div class="profile-grid">
-                <div class="profile-field">
-                    <span>Nome</span>
-                    <strong th:text="${nomeUtente}">-</strong>
-                </div>
-                <div class="profile-field">
-                    <span>Cognome</span>
-                    <strong th:text="${cognomeUtente}">-</strong>
-                </div>
-                <div class="profile-field">
-                    <span>Numero di telefono</span>
-                    <input type="tel" name="telefono" th:value="${telefonoUtente}" placeholder="+39 333 1234567">
-                </div>
-                <div class="profile-field">
-                    <span>Indirizzo</span>
-                    <input type="text" name="indirizzo" th:value="${indirizzoUtente}" placeholder="Via, città">
-                </div>
+                    <div class="profile-field">
+                        <span>Nome</span>
+                        <strong th:text="${nomeUtente}">-</strong>
+                    </div>
+                    <div class="profile-field">
+                        <span>Cognome</span>
+                        <strong th:text="${cognomeUtente}">-</strong>
+                    </div>
+                    <div class="profile-field">
+                        <span>Numero di telefono</span>
+                        <input type="tel" name="telefono" th:value="${telefonoUtente}" placeholder="+39 333 1234567">
+                    </div>
+                    <div class="profile-field">
+                        <span>Indirizzo</span>
+                        <input type="text" name="indirizzo" th:value="${indirizzoUtente}" placeholder="Via, città">
+                    </div>
                 </div>
                 <button type="submit" class="btn-primary">Salva modifiche</button>
             </form>
         </section>
     </main>
-
 </body>
 
 </html>
