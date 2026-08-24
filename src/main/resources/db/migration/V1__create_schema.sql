@@ -12,8 +12,10 @@ CREATE TABLE utente (
     password VARCHAR(255) NOT NULL,
 
     telefono VARCHAR(30),
+    indirizzo VARCHAR(200),
 
     attivo TINYINT(1) NOT NULL DEFAULT 1,
+    guest TINYINT(1) NOT NULL DEFAULT 0,
 
     ruolo ENUM('ADMIN', 'UTENTE') NOT NULL DEFAULT 'UTENTE'
 );
@@ -26,8 +28,11 @@ CREATE TABLE servizio (
     id_servizio BIGINT AUTO_INCREMENT PRIMARY KEY,
 
     nome ENUM(
-        'TAGLIO_ERBA',
-        'POTATURA',
+        'MANUTENZIONE_TAPPETO_ERBOSO',
+        'SFALCIO_RIVE_E_SCARPATE',
+        'POTATURA_ALBERI_DA_FRUTTO',
+        'POTATURA_ALBERI_ORNAMENTALI',
+        'POTATURA_SIEPI',
         'SEMINA',
         'PULIZIA_GIARDINO'
     ) NOT NULL,

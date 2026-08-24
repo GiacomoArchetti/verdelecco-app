@@ -1,72 +1,5 @@
 -- =====================================================
--- 1. AGGIORNAMENTO ENUM E MIGRAZIONE DATI TABELLA SERVIZIO
--- =====================================================
-
--- Step 1: Espansione dell'ENUM per accogliere sia vecchi che nuovi valori
-ALTER TABLE servizio 
-MODIFY COLUMN nome ENUM(
-    'TAGLIO_ERBA',
-    'POTATURA',
-    'SEMINA',
-    'PULIZIA_GIARDINO',
-    'MANUTENZIONE_TAPPETO_ERBOSO',
-    'SFALCIO_RIVE_E_SCARPATE',
-    'POTATURA_ALBERI_DA_FRUTTO',
-    'POTATURA_ALBERI_ORNAMENTALI',
-    'POTATURA_SIEPI'
-) NOT NULL;
-
--- Step 1.1: Disattiva i vecchi servizi generici
-UPDATE servizio 
-SET attivo = 0 
-WHERE nome IN ('TAGLIO_ERBA', 'POTATURA');
-
--- Step 2: Riconversione dei record esistenti sui nuovi tipi
-UPDATE servizio SET nome = 'MANUTENZIONE_TAPPETO_ERBOSO' WHERE nome = 'TAGLIO_ERBA';
-
-UPDATE servizio 
-SET nome = 'POTATURA_SIEPI' 
-WHERE nome = 'POTATURA' AND (descrizione LIKE '%siepe%' OR descrizione LIKE '%siepi%');
-
-UPDATE servizio 
-SET nome = 'POTATURA_ALBERI_DA_FRUTTO' 
-WHERE nome = 'POTATURA' AND (descrizione LIKE '%albero%' OR descrizione LIKE '%alberi%');
-
--- Fallback per eventuali rimanenze
-UPDATE servizio 
-SET nome = 'POTATURA_SIEPI'
-WHERE nome = 'POTATURA';
-
--- Step 3: Restrizione dell'ENUM ai soli valori definitivi
-ALTER TABLE servizio
-MODIFY COLUMN nome ENUM(
-    'MANUTENZIONE_TAPPETO_ERBOSO',
-    'SFALCIO_RIVE_E_SCARPATE',
-    'POTATURA_ALBERI_DA_FRUTTO',
-    'POTATURA_ALBERI_ORNAMENTALI',
-    'POTATURA_SIEPI',
-    'SEMINA',
-    'PULIZIA_GIARDINO'
-) NOT NULL;
-
--- Step 4: Inserimento / Aggiornamento Servizi Professionali
-INSERT INTO servizio (id_servizio, nome, prezzo_al_mq, minuti_al_mq, descrizione, attivo) VALUES
-(1, 'MANUTENZIONE_TAPPETO_ERBOSO', 1.80, 2, 'Manutenzione e taglio prato', 1),
-(2, 'POTATURA_SIEPI', 4.00, 6, 'Potatura siepi', 1),
-(3, 'POTATURA_ALBERI_DA_FRUTTO', 3.50, 5, 'Potatura alberi da frutto', 1),
-(4, 'POTATURA_ALBERI_ORNAMENTALI', 4.50, 7, 'Potatura alberi ornamentali', 1),
-(5, 'SFALCIO_RIVE_E_SCARPATE', 4.00, 3, 'Sfalcio di rive e scarpate', 1),
-(6, 'SEMINA', 5.00, 10, 'Semina e concimazione terreno', 1),
-(7, 'PULIZIA_GIARDINO', 2.00, 4, 'Pulizia foglie e sgombero ramaglie', 1)
-ON DUPLICATE KEY UPDATE 
-    prezzo_al_mq = VALUES(prezzo_al_mq),
-    minuti_al_mq = VALUES(minuti_al_mq),
-    descrizione = VALUES(descrizione),
-    attivo = VALUES(attivo);
-
-
--- =====================================================
--- 2. UTENTE CLIENTE DI TEST
+-- 1. UTENTE CLIENTE DI TEST
 -- =====================================================
 
 INSERT INTO utente (nome, cognome, email, password, telefono, attivo, ruolo)
@@ -74,7 +7,7 @@ VALUES (
     'Giacomo',
     'Archetti',
     'archettigiacomoarchetti@gmail.com',
-    '$2a$10$wT2HnK.E2x/g2G/sD1pTce6k2q7Fz3f7E8H0wI3k4m5n6o7p8q9r0',
+    'G14c0m0!01',
     '+39 333 9876543',
     1,
     'UTENTE'
@@ -88,7 +21,7 @@ SET @utente_id = (SELECT id_utente FROM utente WHERE email = 'archettigiacomoarc
 
 
 -- =====================================================
--- 3. PREVENTIVI (7 record per testare la paginazione)
+-- 2. PREVENTIVI (7 record per testare la paginazione)
 -- =====================================================
 
 INSERT INTO preventivo (id_preventivo, id_utente, indirizzo, superficie_mq, costo_stimato, descrizione, data_intervento, data_emissione, data_scadenza, stato)
@@ -104,7 +37,7 @@ ON DUPLICATE KEY UPDATE stato = VALUES(stato);
 
 
 -- =====================================================
--- 4. DETTAGLIO PREVENTIVI (Associazioni con i nuovi ID servizio)
+-- 3. DETTAGLIO PREVENTIVI (Associazioni con i nuovi ID servizio)
 -- =====================================================
 
 INSERT INTO dettaglio_preventivo (id_dettaglio, id_preventivo, id_servizio, quantita)
@@ -120,7 +53,7 @@ ON DUPLICATE KEY UPDATE quantita = VALUES(quantita);
 
 
 -- =====================================================
--- 5. PRENOTAZIONI (6 record per testare la paginazione)
+-- 4. PRENOTAZIONI (6 record per testare la paginazione)
 -- =====================================================
 
 INSERT INTO prenotazione (id_prenotazione, id_preventivo, data_intervento, indirizzo, stato)
@@ -135,7 +68,7 @@ ON DUPLICATE KEY UPDATE stato = VALUES(stato);
 
 
 -- =====================================================
--- 6. RECENSIONI
+-- 5. RECENSIONI
 -- =====================================================
 
 INSERT INTO recensione (id_recensione, id_prenotazione, voto, commento, data_recensione)

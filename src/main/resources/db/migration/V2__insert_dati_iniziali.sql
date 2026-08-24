@@ -10,34 +10,37 @@ VALUES
 
 
 -- =====================================================
--- UTENTI
+-- UTENTI (9)
 -- =====================================================
 
 INSERT INTO utente
-(nome, cognome, email, password, telefono, attivo, ruolo)
+(nome, cognome, email, password, telefono, attivo, guest, ruolo)
 VALUES
-('Mario', 'Rossi', 'mario.rossi@email.it', 'albero', '3331111111', 1, 'UTENTE'),
-('Luca', 'Bianchi', 'luca.bianchi@email.it', 'crisantemo', '3332222222', 1, 'UTENTE'),
-('Anna', 'Verdi', 'anna.verdi@email.it', 'geranio', '3333333333', 1, 'UTENTE'),
-('Paolo', 'Ferrari', 'paolo.ferrari@email.it', 'mandorle', '3334444444', 1, 'UTENTE'),
-('Giulia', 'Romano', 'giulia.romano@email.it', 'anacardi', '3335555555', 1, 'UTENTE'),
-('Marco', 'Esposito', 'marco.esposito@email.it', 'girasoli', '3336666666', 1, 'UTENTE'),
-('Sara', 'Russo', 'sara.russo@email.it', 'telefono', '3337777777', 1, 'UTENTE'),
-('Davide', 'Conti', 'davide.conti@email.it', 'prato', '3338888888', 1, 'UTENTE'),
-('Elena', 'Marino', 'elena.marino@email.it', 'piazzetta', '3339999999', 1, 'UTENTE');
+('Mario', 'Rossi', 'mario.rossi@email.it', 'albero', '+39 347 2849103', 1, 0, 'UTENTE'),
+('Luca', 'Bianchi', 'luca.bianchi@email.it', 'crisantemo', '+39 334 8920145', 1, 0, 'UTENTE'),
+('Anna', 'Verdi', 'anna.verdi@email.it', 'geranio', '+39 340 5193820', 1, 0, 'UTENTE'),
+('Paolo', 'Ferrari', 'paolo.ferrari@email.it', 'mandorle', '+39 328 7304912', 1, 0, 'UTENTE'),
+('Giulia', 'Romano', 'giulia.romano@email.it', 'anacardi', '+39 338 6412957', 1, 0, 'UTENTE'),
+('Marco', 'Esposito', 'marco.esposito@email.it', 'girasoli', '+39 349 1058392', 1, 0, 'UTENTE'),
+('Sara', 'Russo', 'sara.russo@email.it', 'telefono', '+39 333 4729104', 1, 0, 'UTENTE'),
+('Davide', 'Conti', 'davide.conti@email.it', 'prato', '+39 366 9283014', 1, 0, 'UTENTE'),
+('Elena', 'Marino', 'elena.marino@email.it', 'piazzetta', '+39 329 8401923', 1, 0, 'UTENTE');
 
 
 -- =====================================================
--- SERVIZI (10)
+-- SERVIZI (7)
 -- =====================================================
 
 INSERT INTO servizio
 (nome, prezzo_al_mq, minuti_al_mq, descrizione, attivo)
 VALUES
-('TAGLIO_ERBA', 1.80, 2, 'Taglio prato', 1),
-('POTATURA', 3.50, 5, 'Potatura alberi', 1),
-('SEMINA', 2.20, 3, 'Preparazione del terreno, semina e rigenerazione del prato per ottenere un manto erboso denso, uniforme e resistente', 1),
-('PULIZIA_GIARDINO', 2.80, 4, 'Pulizia generale, rimozione infestanti e cura stagionale per un giardino sempre in ordine e visivamente curato', 1);
+('MANUTENZIONE_TAPPETO_ERBOSO', 1.80, 2, 'Taglio del prato con rifinitura dei bordi per un manto erboso sempre curato, sano e in ordine.', 1),
+('SFALCIO_RIVE_E_SCARPATE', 4.00, 3, 'Taglio dell''erba e pulizia di terreni in pendenza, scarpate e zone difficili da raggiungere.', 1),
+('POTATURA_ALBERI_DA_FRUTTO', 3.50, 5, 'Potatura specifica per migliorare la produzione dei frutti e mantenere l''albero in salute.', 1),
+('POTATURA_ALBERI_ORNAMENTALI', 4.50, 7, 'Cura della chioma e rimozione dei rami secchi per garantire sicurezza ed estetica alla pianta.', 1),
+('POTATURA_SIEPI', 4.00, 6, 'Rifilatura e sagomatura di siepi perimetrali per mantenere un aspetto ordinato e compatto.', 1),
+('SEMINA', 2.20, 3, 'Preparazione del terreno e semina per far crescere un nuovo prato folto e resistente.', 1),
+('PULIZIA_GIARDINO', 2.80, 4, 'Pulizia generale del giardino con eliminazione delle erbacce e rimozione delle ramaglie.', 1);
 
 
 -- =====================================================
@@ -114,7 +117,7 @@ VALUES
 
 
 -- =====================================================
--- DETTAGLI_PREVENTIVO
+-- DETTAGLI_PREVENTIVO (9)
 -- =====================================================
 
 INSERT INTO dettaglio_preventivo
@@ -133,7 +136,7 @@ VALUES
 
 
 -- =====================================================
--- PRENOTAZIONI
+-- PRENOTAZIONI (9)
 -- =====================================================
 
 INSERT INTO prenotazione
@@ -161,7 +164,7 @@ VALUES
 
 
 -- =====================================================
--- RECENSIONI
+-- RECENSIONI (3)
 -- =====================================================
 
 INSERT INTO recensione

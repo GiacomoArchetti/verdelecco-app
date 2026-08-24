@@ -1,2 +1,0 @@
-ALTER TABLE utente
-    ADD COLUMN indirizzo VARCHAR(200) NULL;
