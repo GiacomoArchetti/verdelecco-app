@@ -143,7 +143,7 @@ INSERT INTO prenotazione
 (id_preventivo,data_intervento,indirizzo,stato)
 VALUES
 
-(1,'2026-08-02 10:00:00','Via Milano 20 Roma','CONFERMATA'),
+(1,'2026-08-02 10:00:00','Via Milano 20 Roma','PROGRAMMATA'),
 
 (2,'2026-08-03 08:30:00','Via Torino 15 Torino','PROGRAMMATA'),
 
@@ -155,7 +155,7 @@ VALUES
 
 (6,'2026-08-07 10:00:00','Via Bari 12 Bari','PROGRAMMATA'),
 
-(7,'2026-08-08 09:00:00','Via Genova 25 Genova','CONFERMATA'),
+(7,'2026-08-08 09:00:00','Via Genova 25 Genova','PROGRAMMATA'),
 
 (8,'2026-08-09 08:00:00','Via Palermo 18 Palermo','COMPLETATA'),
 

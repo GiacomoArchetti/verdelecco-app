@@ -41,7 +41,6 @@ public class PrenotazioneMapper {
             entity.setStato(StatoPrenotazione.PROGRAMMATA);
         } else {
             entity.setStato(switch (dto.stato().toUpperCase()) {
-                case "CONFERMATA" -> StatoPrenotazione.CONFERMATA;
                 case "COMPLETATA" -> StatoPrenotazione.COMPLETATA;
                 case "ANNULLATA" -> StatoPrenotazione.ANNULLATA;
                 default -> StatoPrenotazione.PROGRAMMATA;

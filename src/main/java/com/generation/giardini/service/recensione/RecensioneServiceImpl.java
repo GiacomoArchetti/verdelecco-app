@@ -1,5 +1,6 @@
 package com.generation.giardini.service.recensione;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,15 +50,15 @@ public class RecensioneServiceImpl implements RecensioneService {
         }
 
         var prenotazione = prenotazioneRepository.findById(idPrenotazione)
-                .orElseThrow(() -> new RecensioneCreateException("Prenotazione non trovata."));
+                .orElseThrow(() -> new RecensioneNotFoundException("Prenotazione non trovata."));
 
         if (prenotazione.getPreventivo() == null
                 || prenotazione.getPreventivo().getUtente() == null
                 || !prenotazione.getPreventivo().getUtente().getEmail().equalsIgnoreCase(email)) {
             throw new RecensioneCreateException("Non puoi recensire questa prenotazione.");
         }
-        if (prenotazione.getStato() != StatoPrenotazione.CONFERMATA) {
-            throw new RecensioneCreateException("Puoi recensire solo una prenotazione confermata.");
+        if (prenotazione.getStato() != StatoPrenotazione.COMPLETATA) {
+            throw new RecensioneCreateException("Puoi recensire solo una prenotazione con stato completata.");
         }
         if (repository.existsByPrenotazioneIdPrenotazione(idPrenotazione)) {
             throw new RecensioneCreateException("Questa prenotazione ha già una recensione.");
@@ -67,7 +68,7 @@ public class RecensioneServiceImpl implements RecensioneService {
         recensione.setPrenotazione(prenotazione);
         recensione.setVoto(voto);
         recensione.setCommento(commento == null ? null : commento.trim());
-        recensione.setDataRecensione(java.time.LocalDateTime.now());
+        recensione.setDataRecensione(LocalDateTime.now());
         repository.save(recensione);
         return true;
     }

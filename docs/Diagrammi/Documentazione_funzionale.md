@@ -139,7 +139,6 @@ Permette di associare più servizi allo stesso preventivo.
 | Valore |
 |---|
 | PROGRAMMATA |
-| CONFERMATA |
 | COMPLETATA |
 | ANNULLATA |
 

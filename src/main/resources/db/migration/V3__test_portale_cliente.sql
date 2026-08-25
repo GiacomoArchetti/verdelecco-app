@@ -59,9 +59,9 @@ ON DUPLICATE KEY UPDATE quantita = VALUES(quantita);
 INSERT INTO prenotazione (id_preventivo, data_intervento, indirizzo, stato)
 VALUES 
     ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Siepe di lauro ceraso' AND id_utente = @utente_id LIMIT 1), '2026-02-10 14:00:00', 'Via Roma 15, Milano', 'COMPLETATA'),
-    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Semina nuovo manto erboso' AND id_utente = @utente_id LIMIT 1), '2026-02-20 10:30:00', 'Via Corso Italia 3, Milano', 'CONFERMATA'),
-    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Sfalcio scarpata laterale' AND id_utente = @utente_id LIMIT 1), '2026-03-05 09:30:00', 'Via Roma 15, Milano', 'CONFERMATA'),
-    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Potatura alberi da frutto' AND id_utente = @utente_id LIMIT 1), '2026-03-10 15:00:00', 'Via Milano 44, Milano', 'PROGRAMMATA'),
+    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Semina nuovo manto erboso' AND id_utente = @utente_id LIMIT 1), '2026-02-20 10:30:00', 'Via Corso Italia 3, Milano', 'PROGRAMMATA'),
+    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Sfalcio scarpata laterale' AND id_utente = @utente_id LIMIT 1), '2026-03-05 09:30:00', 'Via Roma 15, Milano', 'PROGRAMMATA'),
+    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Potatura alberi da frutto' AND id_utente = @utente_id LIMIT 1), '2026-03-10 15:00:00', 'Via Milano 44, Milano', 'COMPLETATA'),
     ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Prato molto alto' AND id_utente = @utente_id LIMIT 1), '2026-03-15 11:00:00', 'Via Roma 15, Milano', 'PROGRAMMATA'),
     ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Manutenzione ordinaria' AND id_utente = @utente_id LIMIT 1), '2026-03-20 09:00:00', 'Via Roma 15, Milano', 'PROGRAMMATA')
 ON DUPLICATE KEY UPDATE stato = VALUES(stato);

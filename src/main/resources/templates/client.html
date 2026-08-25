@@ -158,7 +158,7 @@
                             <td th:text="${prenotazione.stato}"></td>
                             <td>
                                 <span th:if="${prenotazione.recensione != null}">Recensione già inviata</span>
-                                <form th:if="${prenotazione.stato.name() == 'CONFERMATA' and prenotazione.recensione == null}"
+                                <form th:if="${prenotazione.stato.name() == 'COMPLETATA' and prenotazione.recensione == null}"
                                       th:action="@{/client/prenotazioni/{id}/recensione(id=${prenotazione.idPrenotazione})}"
                                       method="post" class="review-form">
                                     
@@ -182,7 +182,7 @@
                                     </label>
                                     <button type="submit">Invia recensione</button>
                                 </form>
-                                <span th:if="${prenotazione.stato.name() != 'CONFERMATA' and prenotazione.recensione == null}">Disponibile con stato completata</span>
+                                <span th:if="${prenotazione.stato.name() != 'COMPLETATA' and prenotazione.recensione == null}">Disponibile con stato completata</span>
                             </td>
                         </tr>
                     </tbody>

@@ -128,7 +128,6 @@ CREATE TABLE prenotazione (
 
     stato ENUM(
         'PROGRAMMATA',
-        'CONFERMATA',
         'COMPLETATA',
         'ANNULLATA'
     ) NOT NULL DEFAULT 'PROGRAMMATA',
