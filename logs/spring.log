@@ -3302,3 +3302,92 @@ org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property o
 2026-08-25T13:18:28.330+02:00 DEBUG 24908 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : select p1_0.id_prenotazione,p1_0.data_intervento,p1_0.indirizzo,p1_0.id_preventivo,p1_0.stato from prenotazione p1_0 where p1_0.data_intervento between ? and ?
 2026-08-25T13:18:28.331+02:00 TRACE 24908 --- [http-nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP) <- [2026-08-25T00:00]
 2026-08-25T13:18:28.335+02:00 TRACE 24908 --- [http-nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP) <- [2026-09-07T23:59:59.999999999]
+2026-08-25T13:52:32.738+02:00  INFO 11324 --- [restartedMain] c.g.giardini.GiardiniApplication         : Starting GiardiniApplication using Java 25.0.3 with PID 11324 (C:\Users\arche\Desktop\ProjectWork\giardini\giardini\target\classes started by arche in C:\Users\arche\Desktop\ProjectWork\giardini\giardini)
+2026-08-25T13:52:32.742+02:00  INFO 11324 --- [restartedMain] c.g.giardini.GiardiniApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-08-25T13:52:32.801+02:00  INFO 11324 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-25T13:52:32.801+02:00  INFO 11324 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-25T13:52:33.722+02:00  INFO 11324 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-25T13:52:33.813+02:00  INFO 11324 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 83 ms. Found 6 JPA repository interfaces.
+2026-08-25T13:52:34.580+02:00  INFO 11324 --- [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-25T13:52:34.597+02:00  INFO 11324 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-25T13:52:34.598+02:00  INFO 11324 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-08-25T13:52:34.657+02:00  INFO 11324 --- [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1855 ms
+2026-08-25T13:52:34.977+02:00  INFO 11324 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-25T13:52:35.170+02:00  INFO 11324 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@538c4ae6
+2026-08-25T13:52:35.173+02:00  INFO 11324 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-25T13:52:35.209+02:00  INFO 11324 --- [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC (MySQL 8.0)
+2026-08-25T13:52:35.307+02:00  INFO 11324 --- [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.040s)
+2026-08-25T13:52:35.327+02:00  INFO 11324 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema `gestionale_giardiniere`: 3
+2026-08-25T13:52:35.333+02:00  INFO 11324 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Schema `gestionale_giardiniere` is up to date. No migration necessary.
+2026-08-25T13:52:35.462+02:00  INFO 11324 --- [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-25T13:52:35.527+02:00  INFO 11324 --- [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-08-25T13:52:35.971+02:00  INFO 11324 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-25T13:52:36.047+02:00  INFO 11324 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.46
+	Default catalog/schema: gestionale_giardiniere/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-25T13:52:37.050+02:00  INFO 11324 --- [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-25T13:52:37.099+02:00  INFO 11324 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-25T13:52:37.207+02:00  INFO 11324 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-25T13:52:38.278+02:00  WARN 11324 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-25T13:52:38.433+02:00  INFO 11324 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-25T13:52:39.142+02:00  INFO 11324 --- [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-25T13:52:39.149+02:00  INFO 11324 --- [restartedMain] c.g.giardini.GiardiniApplication         : Started GiardiniApplication in 6.897 seconds (process running for 7.39)
+2026-08-25T13:52:39.241+02:00 DEBUG 11324 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono from utente u1_0
+2026-08-25T13:52:42.232+02:00  INFO 11324 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-25T13:52:42.233+02:00  INFO 11324 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-25T13:52:42.234+02:00  INFO 11324 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-08-25T13:52:46.789+02:00 DEBUG 11324 --- [http-nio-8080-exec-9] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono from utente u1_0 where upper(u1_0.email)=upper(?)
+2026-08-25T13:52:46.792+02:00 TRACE 11324 --- [http-nio-8080-exec-9] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [admin@giardiniere.it]
+2026-08-25T13:52:46.912+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono from utente u1_0 limit ?,?
+2026-08-25T13:52:46.914+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:INTEGER) <- [0]
+2026-08-25T13:52:46.915+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (2:INTEGER) <- [5]
+2026-08-25T13:52:46.926+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select count(u1_0.id_utente) from utente u1_0
+2026-08-25T13:52:46.936+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq,p1_0.id_utente from preventivo p1_0 limit ?,?
+2026-08-25T13:52:46.937+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:INTEGER) <- [0]
+2026-08-25T13:52:46.937+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (2:INTEGER) <- [5]
+2026-08-25T13:52:46.956+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select count(p1_0.id_preventivo) from preventivo p1_0
+2026-08-25T13:52:46.964+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select d1_0.id_preventivo,d1_0.id_dettaglio,d1_0.quantita,d1_0.id_servizio from dettaglio_preventivo d1_0 where d1_0.id_preventivo=?
+2026-08-25T13:52:46.966+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [1]
+2026-08-25T13:52:46.976+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select s1_0.id_servizio,s1_0.attivo,s1_0.descrizione,s1_0.minuti_al_mq,s1_0.nome,s1_0.prezzo_al_mq from servizio s1_0 where s1_0.id_servizio=?
+2026-08-25T13:52:46.977+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [1]
+2026-08-25T13:52:46.984+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select d1_0.id_preventivo,d1_0.id_dettaglio,d1_0.quantita,d1_0.id_servizio from dettaglio_preventivo d1_0 where d1_0.id_preventivo=?
+2026-08-25T13:52:46.986+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [2]
+2026-08-25T13:52:46.989+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select s1_0.id_servizio,s1_0.attivo,s1_0.descrizione,s1_0.minuti_al_mq,s1_0.nome,s1_0.prezzo_al_mq from servizio s1_0 where s1_0.id_servizio=?
+2026-08-25T13:52:46.990+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [2]
+2026-08-25T13:52:46.993+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select d1_0.id_preventivo,d1_0.id_dettaglio,d1_0.quantita,d1_0.id_servizio from dettaglio_preventivo d1_0 where d1_0.id_preventivo=?
+2026-08-25T13:52:46.995+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [3]
+2026-08-25T13:52:46.999+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select s1_0.id_servizio,s1_0.attivo,s1_0.descrizione,s1_0.minuti_al_mq,s1_0.nome,s1_0.prezzo_al_mq from servizio s1_0 where s1_0.id_servizio=?
+2026-08-25T13:52:47.000+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [3]
+2026-08-25T13:52:47.002+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select d1_0.id_preventivo,d1_0.id_dettaglio,d1_0.quantita,d1_0.id_servizio from dettaglio_preventivo d1_0 where d1_0.id_preventivo=?
+2026-08-25T13:52:47.005+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [4]
+2026-08-25T13:52:47.007+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select s1_0.id_servizio,s1_0.attivo,s1_0.descrizione,s1_0.minuti_al_mq,s1_0.nome,s1_0.prezzo_al_mq from servizio s1_0 where s1_0.id_servizio=?
+2026-08-25T13:52:47.008+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [4]
+2026-08-25T13:52:47.011+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select d1_0.id_preventivo,d1_0.id_dettaglio,d1_0.quantita,d1_0.id_servizio from dettaglio_preventivo d1_0 where d1_0.id_preventivo=?
+2026-08-25T13:52:47.012+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [5]
+2026-08-25T13:52:47.015+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono from utente u1_0 where u1_0.id_utente=?
+2026-08-25T13:52:47.016+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [6]
+2026-08-25T13:52:47.025+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select p1_0.id_prenotazione,p1_0.data_intervento,p1_0.indirizzo,p1_0.id_preventivo,p1_0.stato from prenotazione p1_0 limit ?,?
+2026-08-25T13:52:47.027+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:INTEGER) <- [0]
+2026-08-25T13:52:47.027+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (2:INTEGER) <- [5]
+2026-08-25T13:52:47.037+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select r1_0.id_recensione,r1_0.commento,r1_0.data_recensione,r1_0.id_prenotazione,r1_0.voto from recensione r1_0 where r1_0.id_prenotazione=?
+2026-08-25T13:52:47.039+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [1]
+2026-08-25T13:52:47.044+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select r1_0.id_recensione,r1_0.commento,r1_0.data_recensione,r1_0.id_prenotazione,r1_0.voto from recensione r1_0 where r1_0.id_prenotazione=?
+2026-08-25T13:52:47.045+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [2]
+2026-08-25T13:52:47.049+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select r1_0.id_recensione,r1_0.commento,r1_0.data_recensione,r1_0.id_prenotazione,r1_0.voto from recensione r1_0 where r1_0.id_prenotazione=?
+2026-08-25T13:52:47.050+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [3]
+2026-08-25T13:52:47.053+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select r1_0.id_recensione,r1_0.commento,r1_0.data_recensione,r1_0.id_prenotazione,r1_0.voto from recensione r1_0 where r1_0.id_prenotazione=?
+2026-08-25T13:52:47.055+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [4]
+2026-08-25T13:52:47.057+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select r1_0.id_recensione,r1_0.commento,r1_0.data_recensione,r1_0.id_prenotazione,r1_0.voto from recensione r1_0 where r1_0.id_prenotazione=?
+2026-08-25T13:52:47.058+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [5]
+2026-08-25T13:52:47.064+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select count(p1_0.id_prenotazione) from prenotazione p1_0
+2026-08-25T13:52:47.089+02:00 DEBUG 11324 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select r1_0.id_recensione,p1_0.id_prenotazione,u1_0.email,r1_0.voto,r1_0.commento,r1_0.data_recensione from recensione r1_0 join prenotazione p1_0 on p1_0.id_prenotazione=r1_0.id_prenotazione join preventivo p2_0 on p2_0.id_preventivo=p1_0.id_preventivo join utente u1_0 on u1_0.id_utente=p2_0.id_utente limit ?
+2026-08-25T13:52:47.090+02:00 TRACE 11324 --- [http-nio-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:INTEGER) <- [5]
