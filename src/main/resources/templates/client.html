@@ -21,6 +21,9 @@
     <!-- SCRIPT DI INIZIALIZZAZIONE -->
     <script th:src="@{/js/calendario-prenotazione.js}" defer></script>
 
+    <!-- SCRIPT PER IL CONTEGGIO CARATTERI -->
+    <script th:src="@{/js/char-counter.js}" defer></script>
+
     <!-- STILI DEDICATI AL CALENDARIO PER IL PORTALE CLIENTE -->
     <link rel="stylesheet" th:href="@{/css/calendario.css(v=2.0)}">
 </head>
@@ -51,7 +54,7 @@
 
                 <div class="client-quote-grid">
                     <label>Nome e Cognome
-                        <input type="text" th:field="*{nome}" required>
+                        <input type="text" th:field="*{nome}" readonly>
                     </label>
                     <label>Email
                         <input type="email" th:field="*{email}" readonly>
@@ -89,7 +92,7 @@
                 </div>
 
                 <label>Dettagli aggiuntivi
-                    <textarea th:field="*{dettagli}" rows="4"></textarea>
+                    <textarea name="messaggio" maxlength="500" placeholder="Descrivi il lavoro desiderato"></textarea>
                 </label>
                 <button type="submit" class="btn-primary">Invia richiesta</button>
             </form>
@@ -113,8 +116,8 @@
                     </thead>
                     <tbody>
                         <tr th:each="preventivo : ${preventivi.content}">
-                            <td th:text="${preventivo.dataEmissione != null ? #temporals.format(preventivo.dataEmissione, 'dd/MM/yyyy') : '-'}"></td>
-                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd/MM/yyyy') : '-'}"></td>
+                            <td th:text="${preventivo.dataEmissione != null ? #temporals.format(preventivo.dataEmissione, 'dd-MM-yyyy') : '-'}"></td>
+                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                             <td th:text="${preventivo.indirizzo}"></td>
                             <td th:text="${preventivo.costoStimato != null ? preventivo.costoStimato + ' EUR' : '-'}"></td>
                             <td th:text="${preventivo.stato != null ? preventivo.stato : '-'}"></td>
@@ -125,10 +128,12 @@
             
             <nav class="pagination" th:unless="${preventivi == null or preventivi.empty}" aria-label="Paginazione preventivi">
                 <a th:if="${preventivi.hasPrevious}"
-                th:href="@{/client#preventivi(preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number})}">Precedente</a>
+                   th:href="@{/client#preventivi(preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number})}">Precedente</a>
+
                 <span th:text="|Pagina ${preventivi.number + 1} di ${preventivi.totalPages}|"></span>
+
                 <a th:if="${preventivi.hasNext}"
-                th:href="@{/client#preventivi(preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number})}">Successiva</a>
+                   th:href="@{/client#preventivi(preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number})}">Successiva</a>
             </nav>
         </section>
 

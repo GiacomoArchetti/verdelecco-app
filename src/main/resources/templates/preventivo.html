@@ -15,6 +15,9 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.11/locales-all.global.min.js"></script>
 
+    <!-- SCRIPT PER IL CONTEGGIO CARATTERI -->
+    <script th:src="@{/js/char-counter.js}" defer></script>
+
     <!-- Stile per personalizzare il calendario integrato nei colori del tema -->
     <link rel="stylesheet" th:href="@{/css/calendario.css(v=2.0)}">
 </head>
@@ -130,8 +133,7 @@
                     <label class="full-width">
                         Dettagli aggiuntivi
 
-                        <textarea th:field="*{dettagli}" rows="6"
-                            placeholder="Descrivi il lavoro desiderato"></textarea>
+                        <textarea name="messaggio" maxlength="500" placeholder="Descrivi il lavoro desiderato"></textarea>
                     </label>
 
                     <div class="form-actions">

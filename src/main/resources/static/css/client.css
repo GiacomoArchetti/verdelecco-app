@@ -36,8 +36,9 @@
 }
 
 .client-quote-form {
-    display: grid;
-    gap: 16px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
     margin-bottom: 28px;
     padding: 22px;
     border: 1px solid rgba(184, 206, 168, 0.22);
@@ -50,9 +51,10 @@
 }
 
 .client-quote-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
 }
 
 .client-quote-form label {
@@ -263,32 +265,48 @@
     }
 }
 
-/* Impedisce che il pulsante si stiri in altezza quando la textarea cresce */
-.client-quote-form {
-    align-items: flex-end !important;
+/* Gruppo inferiore: textarea in alto e pulsante sotto */
+.quote-bottom-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
 }
 
-/* Fissa le dimensioni del tasto di invio */
-.client-quote-form .btn-primary {
-    align-self: flex-end !important;
+.quote-bottom-group label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: #eef4de;
+    width: 100%;
+}
+
+/* Blocco rigido per la textarea dei Dettagli Aggiuntivi */
+.client-quote-form textarea,
+.quote-bottom-group textarea {
+    resize: vertical !important; /* Ridimensionamento SOLO verticale */
+    width: 100% !important;      /* Ancorata al contenitore, non esce più a destra */
+    max-width: 100% !important;  /* Impedisce l'allargamento orizzontale */
+    min-width: 100% !important;  /* Impedisce che si rimpicciolisca in larghezza */
+    box-sizing: border-box !important;
+    min-height: 100px !important; /* Altezza minima bloccata */
+    max-height: 280px !important; /* Altezza massima bloccata */
+}
+
+/* Pulsante posizionato a sinistra sotto la textarea */
+.quote-bottom-group .btn-primary {
+    align-self: flex-start !important;
     height: 48px !important;
-    max-height: 48px !important;
+    padding: 0 32px !important;
     width: auto !important;
-    padding: 0 30px !important;
-    white-space: nowrap !important;
 }
 
-/* Impedisce alla textarea di allargarsi orizzontalmente rompendo la griglia */
-.client-quote-form textarea {
-    resize: vertical !important;
-    min-height: 100px !important;
-}
-
-/* Limita il ridimensionamento del commento nella recensione */
+/* Mantieni la regola per il form delle recensioni in tabella */
 .review-form textarea {
-    resize: vertical !important; /* Permette il ridimensionamento solo in verticale */
-    width: 100% !important;      /* Mantiene la larghezza ancorata al contenitore */
-    max-width: 100% !important;  /* Impedisce che esca dai bordi orizzontali */
+    resize: vertical !important;
+    width: 100% !important;
+    max-width: 100% !important;
     box-sizing: border-box !important;
     min-height: 100px !important;
+    max-height: 280px !important;
 }
