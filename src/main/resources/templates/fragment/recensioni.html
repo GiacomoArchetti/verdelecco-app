@@ -10,7 +10,7 @@
                           th:text="${star <= recensione.voto ? '★' : '☆'}"></span>
                 </div>
                 <p th:text="${recensione.commento}">Recensione del cliente</p>
-                <small th:text="${recensione.dataRecensione != null ? #temporals.format(recensione.dataRecensione, 'dd/MM/yyyy') : ''}"></small>
+                <small th:text="${recensione.dataRecensione != null ? #temporals.format(recensione.dataRecensione, 'dd-MM-yyyy') : ''}"></small>
             </article>
         </div>
         <div class="reviews-controls" th:if="${#lists.size(recensioni) > 1}">

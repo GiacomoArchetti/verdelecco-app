@@ -50,17 +50,17 @@
                 <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni != null ? prenotazioni.number : 0}">
 
                 <div class="client-quote-grid">
-                    <label>Nome
+                    <label>Nome e Cognome
                         <input type="text" th:field="*{nome}" required>
                     </label>
                     <label>Email
                         <input type="email" th:field="*{email}" readonly>
                     </label>
                     <label>Telefono
-                        <input type="tel" th:field="*{telefono}" required>
+                        <input type="tel" th:field="*{telefono}" placeholder="123 456 7890" inputmode="numeric" pattern="[0-9 ]+" title="Inserisci solo numeri nel numero di telefono" required>
                     </label>
                     <label>Indirizzo
-                        <input type="text" th:field="*{indirizzo}" required>
+                        <input type="text" th:field="*{indirizzo}" placeholder="Via, città" required>
                     </label>
                     <label>Servizio richiesto
                         <select th:field="*{servizio}" required>
@@ -69,7 +69,8 @@
                         </select>
                     </label>
                     <label>Dimensioni del giardino (mq)
-                        <input type="number" th:field="*{dimensioni}" min="1" step="1" required>
+                        <input type="number" th:field="*{dimensioni}" placeholder="Es. 150" min="0" step="5" value="5"
+                                required>
                     </label>
                 </div>
 
@@ -104,7 +105,7 @@
                     <thead>
                         <tr>
                             <th>Data emissione</th>
-                            <th>Intervento</th>
+                            <th>Data intervento</th>
                             <th>Indirizzo</th>
                             <th>Costo stimato</th>
                             <th>Stato</th>
@@ -113,7 +114,7 @@
                     <tbody>
                         <tr th:each="preventivo : ${preventivi.content}">
                             <td th:text="${preventivo.dataEmissione}"></td>
-                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>                            
                             <td th:text="${preventivo.indirizzo}"></td>
                             <td th:text="${preventivo.costoStimato != null ? preventivo.costoStimato + ' EUR' : '-'}"></td>
                             <td th:text="${preventivo.statoPreventivo.name() == 'IN_ATTESA' ? 'IN ATTESA' : #strings.replace(preventivo.statoPreventivo.name(), '_', ' ')}"></td>
@@ -152,7 +153,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="prenotazione : ${prenotazioni.content}">
-                            <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                            <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                             <td th:text="${prenotazione.indirizzo}"></td>
                             <td th:text="${prenotazione.preventivo.idPreventivo}"></td>
                             <td th:text="${prenotazione.stato}"></td>
