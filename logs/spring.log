@@ -846,3 +846,315 @@ Need more flexibility with validation rules? Learn more: https://help.red-gate.c
 2026-08-25T10:18:25.467+02:00 DEBUG 25984 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select p1_0.id_prenotazione,p1_0.data_intervento,p1_0.indirizzo,p1_0.id_preventivo,p1_0.stato from prenotazione p1_0 where p1_0.data_intervento between ? and ?
 2026-08-25T10:18:25.468+02:00 TRACE 25984 --- [http-nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP) <- [2026-08-25T00:00]
 2026-08-25T10:18:25.468+02:00 TRACE 25984 --- [http-nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP) <- [2026-09-07T23:59:59.999999999]
+2026-08-25T11:38:40.358+02:00  INFO 12688 --- [restartedMain] c.g.giardini.GiardiniApplication         : Starting GiardiniApplication using Java 25.0.3 with PID 12688 (C:\Users\Utente\Desktop\Generation\ProjectWork\giardini\target\classes started by Utente in C:\Users\Utente\Desktop\Generation\ProjectWork\giardini)
+2026-08-25T11:38:40.386+02:00  INFO 12688 --- [restartedMain] c.g.giardini.GiardiniApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-08-25T11:38:41.088+02:00  INFO 12688 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-25T11:38:41.147+02:00  INFO 12688 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-25T11:38:47.729+02:00  INFO 12688 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-25T11:38:48.245+02:00  INFO 12688 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 465 ms. Found 6 JPA repository interfaces.
+2026-08-25T11:38:53.079+02:00  INFO 12688 --- [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-25T11:38:53.181+02:00  INFO 12688 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-25T11:38:53.196+02:00  INFO 12688 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-08-25T11:38:53.609+02:00  INFO 12688 --- [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 12417 ms
+2026-08-25T11:38:55.721+02:00  INFO 12688 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-25T11:38:56.802+02:00  INFO 12688 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@9ca2b9c
+2026-08-25T11:38:56.815+02:00  INFO 12688 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-25T11:38:56.998+02:00  INFO 12688 --- [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC (MySQL 8.0)
+2026-08-25T11:38:57.509+02:00  WARN 12688 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 1
+-> Applied to database : 499096742
+-> Resolved locally    : -650495412
+Either revert the changes to the migration, or run repair to update the schema history.
+Migration checksum mismatch for migration version 2
+-> Applied to database : 1490987021
+-> Resolved locally    : -447682822
+Either revert the changes to the migration, or run repair to update the schema history.
+Migration checksum mismatch for migration version 3
+-> Applied to database : 911765297
+-> Resolved locally    : -185681640
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+2026-08-25T11:38:57.516+02:00  INFO 12688 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-25T11:38:57.582+02:00  INFO 12688 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-25T11:38:57.603+02:00  INFO 12688 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-08-25T11:38:57.685+02:00  INFO 12688 --- [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-08-25T11:38:57.805+02:00 ERROR 12688 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 1
+-> Applied to database : 499096742
+-> Resolved locally    : -650495412
+Either revert the changes to the migration, or run repair to update the schema history.
+Migration checksum mismatch for migration version 2
+-> Applied to database : 1490987021
+-> Resolved locally    : -447682822
+Either revert the changes to the migration, or run repair to update the schema history.
+Migration checksum mismatch for migration version 3
+-> Applied to database : 911765297
+-> Resolved locally    : -185681640
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977) ~[spring-context-7.0.8.jar:7.0.8]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621) ~[spring-context-7.0.8.jar:7.0.8]
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-web-server-4.1.0.jar:4.1.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756) ~[spring-boot-4.1.0.jar:4.1.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445) ~[spring-boot-4.1.0.jar:4.1.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321) ~[spring-boot-4.1.0.jar:4.1.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.1.0.jar:4.1.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.1.0.jar:4.1.0]
+	at com.generation.giardini.GiardiniApplication.main(GiardiniApplication.java:10) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:52) ~[spring-boot-devtools-4.1.0.jar:4.1.0]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 1
+-> Applied to database : 499096742
+-> Resolved locally    : -650495412
+Either revert the changes to the migration, or run repair to update the schema history.
+Migration checksum mismatch for migration version 2
+-> Applied to database : 1490987021
+-> Resolved locally    : -447682822
+Either revert the changes to the migration, or run repair to update the schema history.
+Migration checksum mismatch for migration version 3
+-> Applied to database : 911765297
+-> Resolved locally    : -185681640
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:309) ~[spring-beans-7.0.8.jar:7.0.8]
+	... 13 common frames omitted
+Caused by: org.flywaydb.core.api.exception.FlywayValidateException: Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 1
+-> Applied to database : 499096742
+-> Resolved locally    : -650495412
+Either revert the changes to the migration, or run repair to update the schema history.
+Migration checksum mismatch for migration version 2
+-> Applied to database : 1490987021
+-> Resolved locally    : -447682822
+Either revert the changes to the migration, or run repair to update the schema history.
+Migration checksum mismatch for migration version 3
+-> Applied to database : 911765297
+-> Resolved locally    : -185681640
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.flywaydb.core.Flyway.lambda$migrate$3(Flyway.java:187) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:236) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:181) ~[flyway-core-12.4.0.jar:na]
+	at org.springframework.boot.flyway.autoconfigure.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:67) ~[spring-boot-flyway-4.1.0.jar:4.1.0]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862) ~[spring-beans-7.0.8.jar:7.0.8]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811) ~[spring-beans-7.0.8.jar:7.0.8]
+	... 20 common frames omitted
+
+2026-08-25T11:40:30.602+02:00  INFO 19428 --- [restartedMain] c.g.giardini.GiardiniApplication         : Starting GiardiniApplication using Java 25.0.3 with PID 19428 (C:\Users\Utente\Desktop\Generation\ProjectWork\giardini\target\classes started by Utente in C:\Users\Utente\Desktop\Generation\ProjectWork\giardini)
+2026-08-25T11:40:30.614+02:00  INFO 19428 --- [restartedMain] c.g.giardini.GiardiniApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-08-25T11:40:30.951+02:00  INFO 19428 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-25T11:40:30.956+02:00  INFO 19428 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-25T11:40:36.307+02:00  INFO 19428 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-25T11:40:36.860+02:00  INFO 19428 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 482 ms. Found 6 JPA repository interfaces.
+2026-08-25T11:40:41.339+02:00  INFO 19428 --- [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-25T11:40:41.471+02:00  INFO 19428 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-25T11:40:41.475+02:00  INFO 19428 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-08-25T11:40:41.904+02:00  INFO 19428 --- [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 10945 ms
+2026-08-25T11:40:43.928+02:00  INFO 19428 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-25T11:40:45.118+02:00  INFO 19428 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@34d34037
+2026-08-25T11:40:45.141+02:00  INFO 19428 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-25T11:40:45.395+02:00  INFO 19428 --- [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC (MySQL 8.0)
+2026-08-25T11:40:45.742+02:00  INFO 19428 --- [restartedMain] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `gestionale_giardiniere`.`flyway_schema_history` does not exist yet
+2026-08-25T11:40:45.764+02:00  INFO 19428 --- [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.107s)
+2026-08-25T11:40:45.894+02:00  INFO 19428 --- [restartedMain] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `gestionale_giardiniere`.`flyway_schema_history` ...
+2026-08-25T11:40:46.196+02:00  INFO 19428 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema `gestionale_giardiniere`: << Empty Schema >>
+2026-08-25T11:40:46.311+02:00  INFO 19428 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Migrating schema `gestionale_giardiniere` to version "1 - create schema"
+2026-08-25T11:40:46.473+02:00  WARN 19428 --- [restartedMain] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+2026-08-25T11:40:46.491+02:00  WARN 19428 --- [restartedMain] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+2026-08-25T11:40:46.580+02:00  WARN 19428 --- [restartedMain] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+2026-08-25T11:40:47.104+02:00  INFO 19428 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Migrating schema `gestionale_giardiniere` to version "2 - insert dati iniziali"
+2026-08-25T11:40:47.400+02:00  INFO 19428 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Migrating schema `gestionale_giardiniere` to version "3 - test portale cliente"
+2026-08-25T11:40:47.420+02:00  WARN 19428 --- [restartedMain] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'VALUES function' is deprecated and will be removed in a future release. Please use an alias (INSERT INTO ... VALUES (...) AS alias) and replace VALUES(col) in the ON DUPLICATE KEY UPDATE clause with alias.col instead (SQL State: HY000 - Error Code: 1287)
+2026-08-25T11:40:47.448+02:00  WARN 19428 --- [restartedMain] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'VALUES function' is deprecated and will be removed in a future release. Please use an alias (INSERT INTO ... VALUES (...) AS alias) and replace VALUES(col) in the ON DUPLICATE KEY UPDATE clause with alias.col instead (SQL State: HY000 - Error Code: 1287)
+2026-08-25T11:40:47.504+02:00  WARN 19428 --- [restartedMain] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'VALUES function' is deprecated and will be removed in a future release. Please use an alias (INSERT INTO ... VALUES (...) AS alias) and replace VALUES(col) in the ON DUPLICATE KEY UPDATE clause with alias.col instead (SQL State: HY000 - Error Code: 1287)
+2026-08-25T11:40:47.513+02:00  WARN 19428 --- [restartedMain] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'VALUES function' is deprecated and will be removed in a future release. Please use an alias (INSERT INTO ... VALUES (...) AS alias) and replace VALUES(col) in the ON DUPLICATE KEY UPDATE clause with alias.col instead (SQL State: HY000 - Error Code: 1287)
+2026-08-25T11:40:47.611+02:00  INFO 19428 --- [restartedMain] o.f.core.internal.command.DbMigrate      : Successfully applied 3 migrations to schema `gestionale_giardiniere`, now at version v3 (execution time 00:00.931s)
+2026-08-25T11:40:48.363+02:00  INFO 19428 --- [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-25T11:40:48.758+02:00  INFO 19428 --- [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-08-25T11:40:51.833+02:00  INFO 19428 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-25T11:40:52.426+02:00  INFO 19428 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.46
+	Default catalog/schema: gestionale_giardiniere/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-25T11:40:58.323+02:00  INFO 19428 --- [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-25T11:40:58.546+02:00  INFO 19428 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-25T11:40:59.236+02:00  INFO 19428 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-25T11:41:02.041+02:00  WARN 19428 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-25T11:41:03.007+02:00  INFO 19428 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-25T11:41:07.738+02:00  INFO 19428 --- [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-25T11:41:07.787+02:00  INFO 19428 --- [restartedMain] c.g.giardini.GiardiniApplication         : Started GiardiniApplication in 40.033 seconds (process running for 43.375)
+2026-08-25T11:41:08.566+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono from utente u1_0
+2026-08-25T11:41:09.177+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:09.187+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [1]
+2026-08-25T11:41:09.316+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:09.333+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:09.337+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Marco]
+2026-08-25T11:41:09.339+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [admin@giardiniere.it]
+2026-08-25T11:41:09.340+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:09.345+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:09.347+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Admin]
+2026-08-25T11:41:09.348+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$GCFEYFjNrl47VEfsSiTqyeQalOHZshzlFtJJEUT5B6idOsJI2GPFq]
+2026-08-25T11:41:09.351+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [ADMIN]
+2026-08-25T11:41:09.353+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [3330000000]
+2026-08-25T11:41:09.416+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [1]
+2026-08-25T11:41:09.698+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:09.701+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [2]
+2026-08-25T11:41:09.724+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:09.727+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:09.728+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Rossi]
+2026-08-25T11:41:09.731+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [mario.rossi@email.it]
+2026-08-25T11:41:09.732+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:09.736+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:09.745+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Mario]
+2026-08-25T11:41:09.747+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$84bfqn9nM8gU0FncXomAnuHgR/uL92wCgNrTzpYBQVYCacI4GCytW]
+2026-08-25T11:41:09.785+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:09.787+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 347 2849103]
+2026-08-25T11:41:09.788+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [2]
+2026-08-25T11:41:10.044+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:10.046+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [3]
+2026-08-25T11:41:10.055+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:10.056+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:10.059+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Bianchi]
+2026-08-25T11:41:10.064+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [luca.bianchi@email.it]
+2026-08-25T11:41:10.068+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:10.070+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:10.071+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Luca]
+2026-08-25T11:41:10.072+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$dLRpuPnpsx87SJ4FxEVXpOQHz7PkRTMOAShT.XZycJf1dpGx6liT6]
+2026-08-25T11:41:10.073+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:10.073+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 334 8920145]
+2026-08-25T11:41:10.074+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [3]
+2026-08-25T11:41:10.316+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:10.318+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [4]
+2026-08-25T11:41:10.323+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:10.326+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:10.328+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Verdi]
+2026-08-25T11:41:10.329+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [anna.verdi@email.it]
+2026-08-25T11:41:10.331+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:10.332+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:10.333+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Anna]
+2026-08-25T11:41:10.335+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$BTB50anwfU9XOpbGuA9Ik.7U7wCStGDWn9s5JTI0kdwN.mf0S88hy]
+2026-08-25T11:41:10.336+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:10.336+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 340 5193820]
+2026-08-25T11:41:10.337+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [4]
+2026-08-25T11:41:10.638+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:10.677+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [5]
+2026-08-25T11:41:10.689+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:10.708+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:10.712+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Ferrari]
+2026-08-25T11:41:10.714+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [paolo.ferrari@email.it]
+2026-08-25T11:41:10.714+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:10.724+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:10.738+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Paolo]
+2026-08-25T11:41:10.738+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$QMwjfg3fZ/VjJeij.Y8bVu667S8.bOPRgMURPPU/O5Doib6xuASom]
+2026-08-25T11:41:10.739+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:10.750+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 328 7304912]
+2026-08-25T11:41:10.752+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [5]
+2026-08-25T11:41:11.024+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:11.031+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [6]
+2026-08-25T11:41:11.041+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:11.052+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:11.053+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Romano]
+2026-08-25T11:41:11.054+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [giulia.romano@email.it]
+2026-08-25T11:41:11.054+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:11.057+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:11.059+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Giulia]
+2026-08-25T11:41:11.087+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$g4C0pUObFlwBZ/DNsT9cO.M28b29kRFCbpCf/8dIZxgXFOMu2Ezh.]
+2026-08-25T11:41:11.088+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:11.098+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 338 6412957]
+2026-08-25T11:41:11.106+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [6]
+2026-08-25T11:41:11.348+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:11.354+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [7]
+2026-08-25T11:41:11.363+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:11.366+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:11.367+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Esposito]
+2026-08-25T11:41:11.368+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [marco.esposito@email.it]
+2026-08-25T11:41:11.369+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:11.370+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:11.373+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Marco]
+2026-08-25T11:41:11.378+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$6ZxhC79Ys7PayVdJwfe.hueJnLEhkPe6Z8yFzKdU3eqTaS8PsX5IW]
+2026-08-25T11:41:11.380+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:11.383+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 349 1058392]
+2026-08-25T11:41:11.390+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [7]
+2026-08-25T11:41:11.634+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:11.639+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [8]
+2026-08-25T11:41:11.647+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:11.653+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:11.669+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Russo]
+2026-08-25T11:41:11.671+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [sara.russo@email.it]
+2026-08-25T11:41:11.675+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:11.704+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:11.706+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Sara]
+2026-08-25T11:41:11.714+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$YaWxJVSpmf0/rbd2cEe2cOqrkRMQVHNIPPuSy8kjdjlqMNCD0o.S6]
+2026-08-25T11:41:11.719+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:11.733+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 333 4729104]
+2026-08-25T11:41:11.737+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [8]
+2026-08-25T11:41:12.079+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:12.084+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [9]
+2026-08-25T11:41:12.098+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:12.099+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:12.103+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Conti]
+2026-08-25T11:41:12.113+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [davide.conti@email.it]
+2026-08-25T11:41:12.114+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:12.127+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:12.134+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Davide]
+2026-08-25T11:41:12.148+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$6ZQD6szInkf1D64pcthQbOlJ/c2t7cJwviJim/U3V1njwmd75bw2y]
+2026-08-25T11:41:12.152+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:12.153+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 366 9283014]
+2026-08-25T11:41:12.155+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [9]
+2026-08-25T11:41:12.444+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:12.454+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [10]
+2026-08-25T11:41:12.480+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:12.486+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:12.487+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Marino]
+2026-08-25T11:41:12.489+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [elena.marino@email.it]
+2026-08-25T11:41:12.490+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:12.492+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:12.493+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Elena]
+2026-08-25T11:41:12.494+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$B1dngiUIJ3deanaRYi30xuCphHJ3fZQPsfSOQymFpeAfa3mXgmVcW]
+2026-08-25T11:41:12.494+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:12.506+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 329 8401923]
+2026-08-25T11:41:12.508+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [10]
+2026-08-25T11:41:12.786+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : select u1_0.id_utente,u1_0.attivo,u1_0.cognome,u1_0.email,u1_0.guest,u1_0.indirizzo,u1_0.nome,u1_0.password,u1_0.ruolo,u1_0.telefono,p1_0.id_utente,p1_0.id_preventivo,p1_0.costo_stimato,p1_0.data_emissione,p1_0.data_intervento,p1_0.data_scadenza,p1_0.descrizione,p1_0.indirizzo,p1_0.stato,p1_0.superficie_mq from utente u1_0 left join preventivo p1_0 on u1_0.id_utente=p1_0.id_utente where u1_0.id_utente=?
+2026-08-25T11:41:12.794+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [11]
+2026-08-25T11:41:12.814+02:00 DEBUG 19428 --- [restartedMain] org.hibernate.SQL                        : update utente set attivo=?,cognome=?,email=?,guest=?,indirizzo=?,nome=?,password=?,ruolo=?,telefono=? where id_utente=?
+2026-08-25T11:41:12.816+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (1:BOOLEAN) <- [true]
+2026-08-25T11:41:12.817+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [Archetti]
+2026-08-25T11:41:12.819+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [archettigiacomoarchetti@gmail.com]
+2026-08-25T11:41:12.820+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (4:BOOLEAN) <- [false]
+2026-08-25T11:41:12.823+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2026-08-25T11:41:12.832+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [Giacomo]
+2026-08-25T11:41:12.837+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (7:VARCHAR) <- [$2a$10$PNVsidBkULDOCzRMDoXk9.i.Kq4lb0qiCrPgDNik8daXRg8PV77Bq]
+2026-08-25T11:41:12.840+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (8:ENUM) <- [UTENTE]
+2026-08-25T11:41:12.841+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [+39 333 9876543]
+2026-08-25T11:41:12.885+02:00 TRACE 19428 --- [restartedMain] org.hibernate.orm.jdbc.bind              : binding parameter (10:BIGINT) <- [11]
+2026-08-25T11:41:39.742+02:00  INFO 19428 --- [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-25T11:41:39.817+02:00  INFO 19428 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-25T11:41:39.845+02:00  INFO 19428 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2026-08-25T11:41:40.358+02:00 DEBUG 19428 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select s1_0.id_servizio,s1_0.attivo,s1_0.descrizione,s1_0.minuti_al_mq,s1_0.nome,s1_0.prezzo_al_mq from servizio s1_0
+2026-08-25T11:41:40.441+02:00 DEBUG 19428 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select r1_0.id_recensione,r1_0.commento,r1_0.data_recensione,r1_0.id_prenotazione,r1_0.voto from recensione r1_0
+2026-08-25T11:41:43.057+02:00 DEBUG 19428 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select s1_0.id_servizio,s1_0.attivo,s1_0.descrizione,s1_0.minuti_al_mq,s1_0.nome,s1_0.prezzo_al_mq from servizio s1_0
+2026-08-25T11:41:43.127+02:00 DEBUG 19428 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select r1_0.id_recensione,r1_0.commento,r1_0.data_recensione,r1_0.id_prenotazione,r1_0.voto from recensione r1_0
