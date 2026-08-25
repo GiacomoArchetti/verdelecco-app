@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +33,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PreventivoServiceImpl implements PreventivoService {
 
-    private final PreventivoMapper mapper;
-    private final PreventivoRepository repository;
+    private final PreventivoMapper preventivoMapper;
+    private final PreventivoRepository preventivoRepository;
     private final ServizioRepository servizioRepository;
     private final UtenteRepository utenteRepository;
     private final PasswordEncoder passwordEncoder;
@@ -44,8 +46,8 @@ public class PreventivoServiceImpl implements PreventivoService {
         }
 
         try {
-            Preventivo entity = mapper.toEntity(dto);
-            repository.save(entity);
+            Preventivo entity = preventivoMapper.toEntity(dto);
+            preventivoRepository.save(entity);
             return true;
             
         } catch (Exception e) {
@@ -84,7 +86,7 @@ public class PreventivoServiceImpl implements PreventivoService {
             entity.setDataIntervento(request.getDataIntervento().atStartOfDay());
             entity.setDataEmissione(LocalDate.now());
             entity.setStatoPreventivo(StatoPreventivo.IN_ATTESA);
-            repository.save(entity);
+            preventivoRepository.save(entity);
             return true;
         } catch (Exception e) {
             throw new PreventivoCreateException("Errore imprevisto durante la creazione del preventivo.", e);
@@ -119,8 +121,8 @@ public class PreventivoServiceImpl implements PreventivoService {
     @Transactional(readOnly = true)
     public List<PreventivoDTO> readAll() {
         List<PreventivoDTO> lista = new ArrayList<>();
-        for (Preventivo e : repository.findAll()) {
-            lista.add(mapper.toDto(e));
+        for (Preventivo e : preventivoRepository.findAll()) {
+            lista.add(preventivoMapper.toDto(e));
         }
         return lista;
     }
@@ -129,10 +131,10 @@ public class PreventivoServiceImpl implements PreventivoService {
     @Transactional(readOnly = true)
     public List<PreventivoDTO> readAllByUtente(Long idUtente) {
         List<PreventivoDTO> lista = new ArrayList<>();
-        for (Preventivo e : repository.findAll()) {
+        for (Preventivo e : preventivoRepository.findAll()) {
             // Filtro basato sull'utente associato al preventivo
             if (e.getUtente() != null && e.getUtente().getIdUtente().equals(idUtente)) {
-                lista.add(mapper.toDto(e));
+                lista.add(preventivoMapper.toDto(e));
             }
         }
         return lista;
@@ -141,31 +143,31 @@ public class PreventivoServiceImpl implements PreventivoService {
     @Override
     @Transactional(readOnly = true)
     public PreventivoDTO readById(Long id) {
-        Preventivo entity = repository.findById(id)
+        Preventivo entity = preventivoRepository.findById(id)
                 .orElseThrow(() -> new PreventivoNotFoundException(id));
                 
-        return mapper.toDto(entity);
+        return preventivoMapper.toDto(entity);
     }
 
     @Override
     public boolean delete(Long id) {
-        Preventivo entity = repository.findById(id)
+        Preventivo entity = preventivoRepository.findById(id)
                 .orElseThrow(() -> new PreventivoNotFoundException(id));
                 
         entity.setStatoPreventivo(StatoPreventivo.ANNULLATO); //Setto lo stato su ANNULLATO per un preventivo cancellato/eliminato
-        repository.save(entity);
+        preventivoRepository.save(entity);
 
         return true;
     }
 
     @Override
     public boolean accept(Long id) {
-        Preventivo entity = repository.findById(id)
+        Preventivo entity = preventivoRepository.findById(id)
                 .orElseThrow(() -> new PreventivoNotFoundException(id));
 
         if (entity.getStatoPreventivo() == StatoPreventivo.IN_ATTESA) {
             entity.setStatoPreventivo(StatoPreventivo.ACCETTATO);
-            repository.save(entity);
+            preventivoRepository.save(entity);
             return true;
         }
 
@@ -174,15 +176,21 @@ public class PreventivoServiceImpl implements PreventivoService {
 
     @Override
     public boolean reject(Long id) {
-        Preventivo entity = repository.findById(id)
+        Preventivo entity = preventivoRepository.findById(id)
                 .orElseThrow(() -> new PreventivoNotFoundException(id));
 
         if (entity.getStatoPreventivo() == StatoPreventivo.IN_ATTESA) {
             entity.setStatoPreventivo(StatoPreventivo.RIFIUTATO);
-            repository.save(entity);
+            preventivoRepository.save(entity);
             return true;
         }
 
         return false;
+    }
+
+    @Override
+    public Page<PreventivoDTO> readAll(Pageable pageRequest) {
+        Page<Preventivo> pagePreventivi = preventivoRepository.findAll(pageRequest);
+        return pagePreventivi.map(preventivoMapper::toDto);
     }
 }

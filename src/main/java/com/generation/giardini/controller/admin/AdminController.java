@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.generation.giardini.repository.PrenotazioneRepository;
 import com.generation.giardini.repository.PreventivoRepository;
 import com.generation.giardini.repository.RecensioneRepository;
-import com.generation.giardini.repository.UtenteRepository;
 import com.generation.giardini.service.prenotazione.PrenotazioneService;
 import com.generation.giardini.service.preventivo.PreventivoService;
 import com.generation.giardini.service.utente.UtenteService;
@@ -46,7 +45,7 @@ public class AdminController {
                             @RequestParam(name = "recensioniPage", defaultValue = "0") int recensioniPage) {
             int pageSize = 5;
             model.addAttribute("clienti", utenteService.readAll(PageRequest.of(clientiPage, pageSize)));
-            model.addAttribute("preventivi", preventivoRepository.findAll(PageRequest.of(preventiviPage, pageSize)));
+            model.addAttribute("preventivi", preventivoService.readAll(PageRequest.of(preventiviPage, pageSize)));
             model.addAttribute("prenotazioni", prenotazioneRepository.findAll(PageRequest.of(prenotazioniPage, pageSize)));
             model.addAttribute("recensioni", recensioneRepository.findAll(PageRequest.of(recensioniPage, pageSize)));
             return "admin";
