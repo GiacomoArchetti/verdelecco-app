@@ -144,6 +144,13 @@ public class PreventivoServiceImpl implements PreventivoService {
 
     @Override
     @Transactional(readOnly = true)
+    public Page<PreventivoDTO> readByUtenteEmail(String email, Pageable pageable) {
+        Page<Preventivo> pagePreventivi = preventivoRepository.findByUtenteEmailIgnoreCase(email, pageable);
+        return pagePreventivi.map(preventivoMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public PreventivoDTO readById(Long id) {
         Preventivo entity = preventivoRepository.findById(id)
                 .orElseThrow(() -> new PreventivoNotFoundException(id));
@@ -199,5 +206,13 @@ public class PreventivoServiceImpl implements PreventivoService {
     public Page<PreventivoDTO> readAll(Pageable pageRequest) {
         Page<Preventivo> pagePreventivi = preventivoRepository.findAll(pageRequest);
         return pagePreventivi.map(preventivoMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public String readLatestIndirizzoByUtenteEmail(String email) {
+        return preventivoRepository.findFirstByUtenteEmailIgnoreCaseOrderByDataEmissioneDesc(email)
+                .map(preventivo -> preventivo.getIndirizzo())
+                .orElse("");
     }
 }

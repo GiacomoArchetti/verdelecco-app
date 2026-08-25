@@ -14,7 +14,7 @@
     <!-- SCRIPT ESTERNO -->
     <script th:src="@{/js/scroll-restore.js}" defer></script>
 
-    <!-- LIBRERIE FULLCALENDAR (Indispensabili per renderizzare il calendario) -->
+    <!-- LIBRERIE FULLCALENDAR -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/it.global.min.js"></script>
     
@@ -113,17 +113,16 @@
                     </thead>
                     <tbody>
                         <tr th:each="preventivo : ${preventivi.content}">
-                            <td th:text="${preventivo.dataEmissione}"></td>
-                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>                            
+                            <td th:text="${preventivo.dataEmissione != null ? #temporals.format(preventivo.dataEmissione, 'dd/MM/yyyy') : '-'}"></td>
+                            <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd/MM/yyyy') : '-'}"></td>
                             <td th:text="${preventivo.indirizzo}"></td>
                             <td th:text="${preventivo.costoStimato != null ? preventivo.costoStimato + ' EUR' : '-'}"></td>
-                            <td th:text="${preventivo.statoPreventivo.name() == 'IN_ATTESA' ? 'IN ATTESA' : #strings.replace(preventivo.statoPreventivo.name(), '_', ' ')}"></td>
+                            <td th:text="${preventivo.stato != null ? preventivo.stato : '-'}"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             
-            <!-- ANCORE NEI LINK DI PAGINAZIONE CORRETTE -->
             <nav class="pagination" th:unless="${preventivi == null or preventivi.empty}" aria-label="Paginazione preventivi">
                 <a th:if="${preventivi.hasPrevious}"
                 th:href="@{/client#preventivi(preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number})}">Precedente</a>
@@ -155,16 +154,15 @@
                         <tr th:each="prenotazione : ${prenotazioni.content}">
                             <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                             <td th:text="${prenotazione.indirizzo}"></td>
-                            <td th:text="${prenotazione.preventivo.idPreventivo}"></td>
+                            <td th:text="${prenotazione.idPreventivo != null ? prenotazione.idPreventivo : '-'}"></td>
                             <td th:text="${prenotazione.stato}"></td>
                             <td>
-                                <span th:if="${prenotazione.recensione != null}">Recensione già inviata</span>
-                                <form th:if="${prenotazione.stato.name() == 'COMPLETATA' and prenotazione.recensione == null}"
+                                <form th:if="${prenotazione.stato == 'COMPLETATA'}"
                                       th:action="@{/client/prenotazioni/{id}/recensione(id=${prenotazione.idPrenotazione})}"
                                       method="post" class="review-form">
                                     
-                                    <input type="hidden" name="preventiviPage" th:value="${preventivi.number}">
-                                    <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni.number}">
+                                    <input type="hidden" name="preventiviPage" th:value="${preventivi != null ? preventivi.number : 0}">
+                                    <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni != null ? prenotazioni.number : 0}">
 
                                     <label>
                                         Voto
@@ -183,20 +181,19 @@
                                     </label>
                                     <button type="submit">Invia recensione</button>
                                 </form>
-                                <span th:if="${prenotazione.stato.name() != 'COMPLETATA' and prenotazione.recensione == null}">Disponibile con stato completata</span>
+                                <span th:if="${prenotazione.stato != 'COMPLETATA'}">Disponibile con stato completata</span>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             
-            <!-- ANCORE NEI LINK DI PAGINAZIONE CORRETTE -->
             <nav class="pagination" th:unless="${prenotazioni == null or prenotazioni.empty}" aria-label="Paginazione prenotazioni">
                 <a th:if="${prenotazioni.hasPrevious}"
-                th:href="@{/client#prenotazioni(preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1})}">Precedente</a>
+                th:href="@{/client#prenotazioni(preventiviPage=${preventivi != null ? preventivi.number : 0}, prenotazioniPage=${prenotazioni.number - 1})}">Precedente</a>
                 <span th:text="|Pagina ${prenotazioni.number + 1} di ${prenotazioni.totalPages}|"></span>
                 <a th:if="${prenotazioni.hasNext}"
-                th:href="@{/client#prenotazioni(preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1})}">Successiva</a>
+                th:href="@{/client#prenotazioni(preventiviPage=${preventivi != null ? preventivi.number : 0}, prenotazioniPage=${prenotazioni.number + 1})}">Successiva</a>
             </nav>
         </section>
 

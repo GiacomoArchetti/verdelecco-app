@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.generation.giardini.dto.PreventivoRequestDto;
 import com.generation.giardini.dto.UtenteDTO;
 
 /**
@@ -34,4 +35,13 @@ public interface UtenteService {
 
     //DELETE -> true -> msg = cliente registrato eliminato, false -> exception e Msg = errore, servizio non creato
     boolean delete(Long id);
+
+    // READ BY EMAIL -> Restituisce l'UtenteDTO tramite email
+    UtenteDTO readByEmail(String email);
+
+    // UPDATE CONTATTI -> Aggiorna telefono e indirizzo del cliente autenticato
+    void updateDatiContatto(String email, String telefono, String indirizzo);
+
+    // CREATE PREVENTIVO REQUEST FOR USER -> Crea e pre-compila il DTO per la richiesta preventivo
+    PreventivoRequestDto createPreventivoRequestForUser(String email);
 }

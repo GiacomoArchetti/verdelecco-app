@@ -6,7 +6,9 @@ public record UtenteDTO(
     String cognome,
     String email,
     String telefono,
+    String indirizzo,
     Boolean attivo,
+    Boolean guest,
     String ruolo
 ) {
 

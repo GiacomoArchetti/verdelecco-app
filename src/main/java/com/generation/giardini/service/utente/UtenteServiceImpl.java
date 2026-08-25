@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.generation.giardini.dto.PreventivoRequestDto;
 import com.generation.giardini.dto.UtenteDTO;
 import com.generation.giardini.entity.utente.Utente;
 import com.generation.giardini.exception.utente.UtenteCreateException;
@@ -109,4 +110,45 @@ public class UtenteServiceImpl implements UtenteService {
         return pageUtenti.map(utenteMapper::toDto);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public UtenteDTO readByEmail(String email) {
+        Utente utente = utenteRepository.findByEmailIgnoreCase(email)
+                .orElseThrow(() -> new UtenteNotFoundException("Utente non trovato con email: " + email));
+        return utenteMapper.toDto(utente);
+    }
+
+    @Override
+    public void updateDatiContatto(String email, String telefono, String indirizzo) {
+        Utente utente = utenteRepository.findByEmailIgnoreCase(email)
+                .orElseThrow(() -> new UtenteNotFoundException("Utente non trovato con email: " + email));
+                
+        utente.setTelefono(normalizzaTelefono(telefono));
+        utente.setIndirizzo(indirizzo == null ? null : indirizzo.trim());
+        utenteRepository.save(utente);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PreventivoRequestDto createPreventivoRequestForUser(String email) {
+        PreventivoRequestDto request = new PreventivoRequestDto();
+        utenteRepository.findByEmailIgnoreCase(email).ifPresent(utente -> {
+            request.setNome((utente.getNome() + " " + utente.getCognome()).trim());
+            request.setEmail(utente.getEmail());
+            request.setTelefono(normalizzaTelefono(utente.getTelefono()));
+            request.setIndirizzo(utente.getIndirizzo());
+        });
+        return request;
+    }
+
+    private String normalizzaTelefono(String telefono) {
+        if (telefono == null || telefono.isBlank()) {
+            return null;
+        }
+        String valore = telefono.trim().replaceAll("\\s+", " ");
+        if (valore.startsWith("0039")) {
+            valore = "+39" + valore.substring(4).trim();
+        }
+        return valore.startsWith("+39") ? valore : "+39 " + valore;
+    }
 }
