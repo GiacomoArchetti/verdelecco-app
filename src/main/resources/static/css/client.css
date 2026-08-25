@@ -281,6 +281,7 @@
 /* Impedisce alla textarea di allargarsi orizzontalmente rompendo la griglia */
 .client-quote-form textarea {
     resize: vertical !important;
+    min-height: 100px !important;
 }
 
 /* Limita il ridimensionamento del commento nella recensione */
@@ -289,4 +290,5 @@
     width: 100% !important;      /* Mantiene la larghezza ancorata al contenitore */
     max-width: 100% !important;  /* Impedisce che esca dai bordi orizzontali */
     box-sizing: border-box !important;
+    min-height: 100px !important;
 }

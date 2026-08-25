@@ -161,7 +161,14 @@ public class ClientController {
             request.setNome((utente.getNome() + " " + utente.getCognome()).trim());
             request.setEmail(utente.getEmail());
             request.setTelefono(normalizzaTelefono(utente.getTelefono()));
-            request.setIndirizzo(utente.getIndirizzo());
+            // Se l'indirizzo del profilo è vuoto, recupera l'indirizzo dell'ultimo preventivo
+            String indirizzo = utente.getIndirizzo();
+            if (indirizzo == null || indirizzo.isBlank()) {
+                indirizzo = preventivoRepository.findFirstByUtenteEmailIgnoreCaseOrderByDataEmissioneDesc(email)
+                        .map(preventivo -> preventivo.getIndirizzo())
+                        .orElse("");
+            }
+            request.setIndirizzo(indirizzo);
         });
         return request;
     }

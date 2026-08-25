@@ -202,6 +202,7 @@ li,
     resize: vertical !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    min-height: 120px !important;
 }
 
 /* Phone prefix + number row */
