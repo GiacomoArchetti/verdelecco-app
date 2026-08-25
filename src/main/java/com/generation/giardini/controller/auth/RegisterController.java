@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,9 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.generation.giardini.dto.RegistrationDTO;
-import com.generation.giardini.entity.utente.Utente;
-import com.generation.giardini.repository.UtenteRepository;
 import com.generation.giardini.security.CustomUserDetailsService;
+import com.generation.giardini.service.utente.UtenteService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -31,8 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RegisterController {
 
-    private final UtenteRepository utenteRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UtenteService utenteService;
     private final CustomUserDetailsService userDetailsService;
 
     // --- METODI GET ---
@@ -69,45 +66,37 @@ public class RegisterController {
             BindingResult bindingResult,
             Model model,
             HttpServletRequest request) {
-        
-        String emailClean = form.email() != null ? form.email().trim().toLowerCase() : "";
 
-        // 1. Controllo se l'email esiste già a DB
-        if (!emailClean.isEmpty() && utenteRepository.findByEmailIgnoreCase(emailClean).isPresent()) {
-            bindingResult.rejectValue("email", "error.registrazione", "Questa email è già registrata.");
-        }
-
-        // 2. Controllo coincidenza password
+        // 1. Controllo coincidenza password a livello di form (prima di chiamare il service)
         if (form.password() != null && !form.password().equals(form.passwordConfirm())) {
             bindingResult.rejectValue("passwordConfirm", "error.registrazione", "Le password non coincidono.");
         }
 
-        // 3. Se ci sono errori di validazione (dal DTO o dai controlli manuali), ricarica la pagina
+        // 2. Se ci sono errori strutturali o di password, ricarica la pagina
         if (bindingResult.hasErrors()) {
             return "registrazione";
         }
 
-        // 4. Creazione nuovo Utente
-        Utente utente = new Utente();
-        utente.setNome(form.nome() != null ? form.nome().trim() : "");
-        utente.setCognome(form.cognome() != null ? form.cognome().trim() : "");
-        utente.setEmail(emailClean);
-        utente.setTelefono(form.telefono() != null ? form.telefono().trim() : null);
-        utente.setPassword(passwordEncoder.encode(form.password()));
-        utente.setAttivo(true);
-        utente.setGuest(false);
+        try {
+            // 3. Delega totale al service per la registrazione e validazione email esistente
+            utenteService.register(form);
 
-        utenteRepository.save(utente);
+            // 4. Auto-Login automatico post-registrazione
+            UserDetails userDetails = userDetailsService.loadUserByUsername(form.email().trim().toLowerCase());
+            UsernamePasswordAuthenticationToken authToken = 
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            
+            SecurityContextHolder.getContext().setAuthentication(authToken);
 
-        // 5. Auto-Login automatico post-registrazione
-        UserDetails userDetails = userDetailsService.loadUserByUsername(utente.getEmail());
-        UsernamePasswordAuthenticationToken authToken = 
-                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 
-        HttpSession session = request.getSession(true);
-        session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+        } catch (RuntimeException exception) {
+            log.error("Errore durante la registrazione dell'utente", exception);
+            // Intercettiamo l'eccezione (es. email già esistente lanciata dal service) e la mostriamo nel form
+            bindingResult.rejectValue("email", "error.registrazione", exception.getMessage());
+            return "registrazione";
+        }
 
         return "redirect:/client";
     }

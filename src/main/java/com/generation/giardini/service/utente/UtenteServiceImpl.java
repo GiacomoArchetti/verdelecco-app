@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.generation.giardini.dto.PreventivoRequestDto;
+import com.generation.giardini.dto.RegistrationDTO;
 import com.generation.giardini.dto.UtenteDTO;
 import com.generation.giardini.entity.utente.Utente;
 import com.generation.giardini.exception.utente.UtenteCreateException;
@@ -25,6 +27,7 @@ public class UtenteServiceImpl implements UtenteService {
 
     private final UtenteMapper utenteMapper;
     private final UtenteRepository utenteRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public boolean create(UtenteDTO dto) {
@@ -46,6 +49,36 @@ public class UtenteServiceImpl implements UtenteService {
             // Usiamo il nome del utente (o una stringa di fallback) per dare un messaggio chiaro
             String nomeUtente = dto.nome() != null ? dto.nome() : "Senza nome";
             throw new UtenteCreateException(nomeUtente, e);
+        }
+    }
+
+    @Override
+    public boolean register(RegistrationDTO dto) {
+        if (dto == null) {
+            throw new UtenteCreateException("Impossibile registrare l'utente: il DTO fornito è nullo.");
+        }
+
+        String emailClean = dto.email() != null ? dto.email().trim().toLowerCase() : "";
+
+        // Controllo se l'email esiste già a DB
+        if (!emailClean.isEmpty() && utenteRepository.findByEmailIgnoreCase(emailClean).isPresent()) {
+            throw new UtenteCreateException("Questa email è già registrata.");
+        }
+
+        try {
+            Utente utente = new Utente();
+            utente.setNome(dto.nome() != null ? dto.nome().trim() : "");
+            utente.setCognome(dto.cognome() != null ? dto.cognome().trim() : "");
+            utente.setEmail(emailClean);
+            utente.setTelefono(dto.telefono() != null ? dto.telefono().trim() : null);
+            utente.setPassword(passwordEncoder.encode(dto.password()));
+            utente.setAttivo(true);
+            utente.setGuest(false);
+
+            utenteRepository.save(utente);
+            return true;
+        } catch (Exception e) {
+            throw new UtenteCreateException(emailClean, e);
         }
     }
 

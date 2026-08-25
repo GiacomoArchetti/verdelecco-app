@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.generation.giardini.dto.PreventivoRequestDto;
+import com.generation.giardini.dto.RegistrationDTO;
 import com.generation.giardini.dto.UtenteDTO;
 
 /**
@@ -17,6 +18,9 @@ public interface UtenteService {
 
     // Serve per registrare un nuovo cliente -> true -> Msg = cliente registrato con successo, false -> exception e Msg = errore
     boolean create(UtenteDTO dto);
+
+    // REGISTER -> Registra un nuovo utente a partire dal form di registrazione pubblico
+    boolean register(RegistrationDTO dto);
 
     //READ / FIND ALL -> Restituisce tutti gli utenti registrati
     List<UtenteDTO> readAll();
