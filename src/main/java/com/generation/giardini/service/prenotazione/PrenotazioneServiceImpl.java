@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrenotazioneServiceImpl implements PrenotazioneService {
 
-    private final PrenotazioneMapper mapper;
+    private final PrenotazioneMapper prenotazioneMapper;
     private final PrenotazioneRepository prenotazioneRepository;
     private final PreventivoRepository preventivoRepository;
 
@@ -40,7 +42,7 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
         }
 
         try {
-            Prenotazione entity = mapper.toEntity(dto);
+            Prenotazione entity = prenotazioneMapper.toEntity(dto);
             prenotazioneRepository.save(entity);
             return true;
             
@@ -54,7 +56,7 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     public List<PrenotazioneDTO> readAll() {
         List<PrenotazioneDTO> lista = new ArrayList<>();
         for (Prenotazione e : prenotazioneRepository.findAll()) {
-            lista.add(mapper.toDto(e));
+            lista.add(prenotazioneMapper.toDto(e));
         }
         return lista;
     }
@@ -65,7 +67,7 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
         Prenotazione entity = prenotazioneRepository.findById(id)
                 .orElseThrow(() -> new PrenotazioneNotFoundException(id));
                 
-        return mapper.toDto(entity);
+        return prenotazioneMapper.toDto(entity);
     }
 
     @Override
@@ -126,12 +128,19 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
                 // Se hai uno stato dell'appuntamento (es. ANNULLATO), puoi filtrarlo qui:
                 .filter(p -> p.getStato() != StatoPrenotazione.ANNULLATA)
                 .map(prenotazione -> new EventoCalendarioDTO(
-                        "Occupato",                                                  // title
-                        prenotazione.getDataIntervento().toLocalDate().toString(),         // start: trasformiamo LocalDateTime in LocalDate così il progetto risulti semplificato, strutturando il calendario in slots giornalieri e non in slots orari
-                        null,                                                         // end (null se è un evento a giornata intera)
-                        "background",                                            // display: colora l'intera cella del giorno
-                        "#e74c3c"                                               // color: rosso per giorno occupato
+                        "Occupato",                                                   // title
+                        prenotazione.getDataIntervento().toLocalDate().toString(),          // start: trasformiamo LocalDateTime in LocalDate così il progetto risulti semplificato, strutturando il calendario in slots giornalieri e non in slots orari
+                        null,                                                           // end (null se è un evento a giornata intera)
+                        "background",                                               // display: colora l'intera cella del giorno
+                        "#e74c3c"                                                   // color: rosso per giorno occupato
                 ))
                 .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<PrenotazioneDTO> readAll(Pageable pageRequest) {
+        Page<Prenotazione> pagePrenotazioni = prenotazioneRepository.findAll(pageRequest);
+        return pagePrenotazioni.map(prenotazioneMapper::toDto);
     }
 }

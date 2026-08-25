@@ -14,9 +14,18 @@ public class RecensioneMapper {
             return null;
         }
 
+        // Estrazione sicura dell'email risalendo le relazioni
+        String email = null;
+        if (entity.getPrenotazione() != null 
+                && entity.getPrenotazione().getPreventivo() != null 
+                && entity.getPrenotazione().getPreventivo().getUtente() != null) {
+            email = entity.getPrenotazione().getPreventivo().getUtente().getEmail();
+        }
+
         return new RecensioneDTO(
             entity.getIdRecensione(),
             entity.getPrenotazione() != null ? entity.getPrenotazione().getIdPrenotazione() : null,
+            email,
             entity.getVoto(),
             entity.getCommento(),
             entity.getDataRecensione()

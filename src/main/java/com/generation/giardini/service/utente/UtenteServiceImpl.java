@@ -103,6 +103,7 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<UtenteDTO> readAll(Pageable pageRequest) {
         Page<Utente> pageUtenti = utenteRepository.findAll(pageRequest);
         return pageUtenti.map(utenteMapper::toDto);

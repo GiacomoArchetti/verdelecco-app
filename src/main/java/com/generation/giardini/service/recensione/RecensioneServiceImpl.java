@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +25,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecensioneServiceImpl implements RecensioneService {
 
-    private final RecensioneMapper mapper;
-    private final RecensioneRepository repository;
+    private final RecensioneMapper recensioneMapper;
+    private final RecensioneRepository recensioneRepository;
     private final PrenotazioneRepository prenotazioneRepository;
 
     @Override
@@ -34,8 +36,8 @@ public class RecensioneServiceImpl implements RecensioneService {
         }
 
         try {
-            Recensione entity = mapper.toEntity(dto);
-            repository.save(entity);
+            Recensione entity = recensioneMapper.toEntity(dto);
+            recensioneRepository.save(entity);
             return true;
             
         } catch (Exception e) {
@@ -60,7 +62,7 @@ public class RecensioneServiceImpl implements RecensioneService {
         if (prenotazione.getStato() != StatoPrenotazione.COMPLETATA) {
             throw new RecensioneCreateException("Puoi recensire solo una prenotazione con stato completata.");
         }
-        if (repository.existsByPrenotazioneIdPrenotazione(idPrenotazione)) {
+        if (recensioneRepository.existsByPrenotazioneIdPrenotazione(idPrenotazione)) {
             throw new RecensioneCreateException("Questa prenotazione ha già una recensione.");
         }
 
@@ -69,7 +71,7 @@ public class RecensioneServiceImpl implements RecensioneService {
         recensione.setVoto(voto);
         recensione.setCommento(commento == null ? null : commento.trim());
         recensione.setDataRecensione(LocalDateTime.now());
-        repository.save(recensione);
+        recensioneRepository.save(recensione);
         return true;
     }
 
@@ -77,8 +79,8 @@ public class RecensioneServiceImpl implements RecensioneService {
     @Transactional(readOnly = true)
     public List<RecensioneDTO> readAll() {
         List<RecensioneDTO> lista = new ArrayList<>();
-        for (Recensione e : repository.findAll()) {
-            lista.add(mapper.toDto(e));
+        for (Recensione e : recensioneRepository.findAll()) {
+            lista.add(recensioneMapper.toDto(e));
         }
         return lista;
     }
@@ -86,19 +88,25 @@ public class RecensioneServiceImpl implements RecensioneService {
     @Override
     @Transactional(readOnly = true)
     public RecensioneDTO readById(Long id) {
-        Recensione entity = repository.findById(id)
+        Recensione entity = recensioneRepository.findById(id)
                 .orElseThrow(() -> new RecensioneNotFoundException(id));
                 
-        return mapper.toDto(entity);
+        return recensioneMapper.toDto(entity);
     }
 
     @Override
     public boolean delete(Long id) {
-        Recensione entity = repository.findById(id)
+        Recensione entity = recensioneRepository.findById(id)
                 .orElseThrow(() -> new RecensioneNotFoundException(id));
 
-        repository.delete(entity); //Cancello fisicamente la recensione anche dal db perchè non ha valore storico
+        recensioneRepository.delete(entity); //Cancello fisicamente la recensione anche dal db perchè non ha valore storico
 
         return true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<RecensioneDTO> readAll(Pageable pageRequest) {
+        return recensioneRepository.findAllCustomDTO(pageRequest);
     }
 }

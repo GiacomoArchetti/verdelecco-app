@@ -25,6 +25,7 @@ import com.generation.giardini.mapper.PreventivoMapper;
 import com.generation.giardini.repository.PreventivoRepository;
 import com.generation.giardini.repository.ServizioRepository;
 import com.generation.giardini.repository.UtenteRepository;
+import com.generation.giardini.service.prenotazione.PrenotazioneService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,6 +39,7 @@ public class PreventivoServiceImpl implements PreventivoService {
     private final ServizioRepository servizioRepository;
     private final UtenteRepository utenteRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PrenotazioneService prenotazioneService;
 
     @Override
     public boolean create(PreventivoDTO dto) {
@@ -168,6 +170,10 @@ public class PreventivoServiceImpl implements PreventivoService {
         if (entity.getStatoPreventivo() == StatoPreventivo.IN_ATTESA) {
             entity.setStatoPreventivo(StatoPreventivo.ACCETTATO);
             preventivoRepository.save(entity);
+            
+            // Creazione automatica della prenotazione collegata
+            prenotazioneService.createFromPreventivo(id);
+            
             return true;
         }
 
@@ -189,6 +195,7 @@ public class PreventivoServiceImpl implements PreventivoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<PreventivoDTO> readAll(Pageable pageRequest) {
         Page<Preventivo> pagePreventivi = preventivoRepository.findAll(pageRequest);
         return pagePreventivi.map(preventivoMapper::toDto);

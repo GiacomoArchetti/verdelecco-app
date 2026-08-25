@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.generation.giardini.repository.PrenotazioneRepository;
-import com.generation.giardini.repository.PreventivoRepository;
-import com.generation.giardini.repository.RecensioneRepository;
 import com.generation.giardini.service.prenotazione.PrenotazioneService;
 import com.generation.giardini.service.preventivo.PreventivoService;
+import com.generation.giardini.service.recensione.RecensioneService;
 import com.generation.giardini.service.utente.UtenteService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,10 +25,8 @@ public class AdminController {
     //DIPENDENZE
         private final UtenteService utenteService;
         private final PreventivoService preventivoService;
-        private final PreventivoRepository preventivoRepository;
-        private final PrenotazioneRepository prenotazioneRepository;
-        private final RecensioneRepository recensioneRepository;
         private final PrenotazioneService prenotazioneService;
+        private final RecensioneService recensioneService;
 
 
         
@@ -46,8 +42,8 @@ public class AdminController {
             int pageSize = 5;
             model.addAttribute("clienti", utenteService.readAll(PageRequest.of(clientiPage, pageSize)));
             model.addAttribute("preventivi", preventivoService.readAll(PageRequest.of(preventiviPage, pageSize)));
-            model.addAttribute("prenotazioni", prenotazioneRepository.findAll(PageRequest.of(prenotazioniPage, pageSize)));
-            model.addAttribute("recensioni", recensioneRepository.findAll(PageRequest.of(recensioniPage, pageSize)));
+            model.addAttribute("prenotazioni", prenotazioneService.readAll(PageRequest.of(prenotazioniPage, pageSize)));
+            model.addAttribute("recensioni", recensioneService.readAll(PageRequest.of(recensioniPage, pageSize)));
             return "admin";
         }
 
@@ -59,10 +55,9 @@ public class AdminController {
                                        @RequestParam(name = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
                                        @RequestParam(name = "recensioniPage", defaultValue = "0") int recensioniPage,
                                        RedirectAttributes redirectAttributes) {
-            preventivoRepository.findById(id).ifPresent(p ->    { p.setStatoPreventivo(com.generation.giardini.entity.preventivo.StatoPreventivo.ACCETTATO);
-                                                                  preventivoRepository.save(p);
-                                                                  prenotazioneService.createFromPreventivo(id);
-                                                                });
+            
+            preventivoService.accept(id);
+            
             redirectAttributes.addAttribute("clientiPage", clientiPage);
             redirectAttributes.addAttribute("preventiviPage", preventiviPage);
             redirectAttributes.addAttribute("prenotazioniPage", prenotazioniPage);
@@ -77,7 +72,9 @@ public class AdminController {
                                        @RequestParam(name = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
                                        @RequestParam(name = "recensioniPage", defaultValue = "0") int recensioniPage,
                                        RedirectAttributes redirectAttributes) {
-            preventivoRepository.findById(id).ifPresent(p -> { p.setStatoPreventivo(com.generation.giardini.entity.preventivo.StatoPreventivo.RIFIUTATO); preventivoRepository.save(p); });
+
+            preventivoService.reject(id);
+
             redirectAttributes.addAttribute("clientiPage", clientiPage);
             redirectAttributes.addAttribute("preventiviPage", preventiviPage);
             redirectAttributes.addAttribute("prenotazioniPage", prenotazioniPage);
