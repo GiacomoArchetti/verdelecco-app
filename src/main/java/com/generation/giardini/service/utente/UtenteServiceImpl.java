@@ -3,6 +3,8 @@ package com.generation.giardini.service.utente;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UtenteServiceImpl implements UtenteService {
 
-    private final UtenteMapper mapper;
-    private final UtenteRepository repository;
+    private final UtenteMapper utenteMapper;
+    private final UtenteRepository utenteRepository;
 
     @Override
     public boolean create(UtenteDTO dto) {
@@ -32,8 +34,8 @@ public class UtenteServiceImpl implements UtenteService {
 
         try {
             // 2. Conversione e salvataggio
-            Utente entity = mapper.toEntity(dto);
-            repository.save(entity);
+            Utente entity = utenteMapper.toEntity(dto);
+            utenteRepository.save(entity);
             
             // Se arriviamo qui, il salvataggio è andato a buon fine
             return true;
@@ -50,8 +52,8 @@ public class UtenteServiceImpl implements UtenteService {
     @Transactional(readOnly = true)
     public List<UtenteDTO> readAll() {
     List<UtenteDTO> lista = new ArrayList<>();
-        for(Utente e : repository.findAll()){
-            lista.add(mapper.toDto(e));
+        for(Utente e : utenteRepository.findAll()){
+            lista.add(utenteMapper.toDto(e));
         }
         return lista;
     }
@@ -60,9 +62,9 @@ public class UtenteServiceImpl implements UtenteService {
     @Transactional(readOnly = true)
     public List<UtenteDTO> readAllActive() {
         List<UtenteDTO> lista = new ArrayList<>();
-        for(Utente e : repository.findAll()){
+        for(Utente e : utenteRepository.findAll()){
             if(e.getAttivo() == true){
-                lista.add(mapper.toDto(e));
+                lista.add(utenteMapper.toDto(e));
             }
         }
         return lista;
@@ -72,9 +74,9 @@ public class UtenteServiceImpl implements UtenteService {
     @Transactional(readOnly = true)
     public List<UtenteDTO> readAllNotActive() {
         List<UtenteDTO> lista = new ArrayList<>();
-        for(Utente e : repository.findAll()){
+        for(Utente e : utenteRepository.findAll()){
             if(e.getAttivo() == false){
-                lista.add(mapper.toDto(e));
+                lista.add(utenteMapper.toDto(e));
             }
         }
         return lista;
@@ -83,21 +85,27 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     @Transactional(readOnly = true)
     public UtenteDTO readById(Long id) {
-        Utente entity = repository.findById(id)
+        Utente entity = utenteRepository.findById(id)
                                         .orElseThrow(() -> new UtenteNotFoundException(id)); //Se non trova lancia eccezione custom
                 
-        return mapper.toDto(entity);
+        return utenteMapper.toDto(entity);
     }
 
     @Override
     public boolean delete(Long id) {
-        Utente entity = repository.findById(id)
+        Utente entity = utenteRepository.findById(id)
                                         .orElseThrow(() -> new UtenteNotFoundException(id)); //Se non trova lancia eccezione custom
 
         entity.setAttivo(false);
-        repository.save(entity);
+        utenteRepository.save(entity);
 
         return true;
+    }
+
+    @Override
+    public Page<UtenteDTO> readAll(Pageable pageRequest) {
+        Page<Utente> pageUtenti = utenteRepository.findAll(pageRequest);
+        return pageUtenti.map(utenteMapper::toDto);
     }
 
 }

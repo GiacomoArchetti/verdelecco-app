@@ -2,6 +2,9 @@ package com.generation.giardini.service.utente;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.generation.giardini.dto.UtenteDTO;
 
 /**
@@ -16,6 +19,9 @@ public interface UtenteService {
 
     //READ / FIND ALL -> Restituisce tutti gli utenti registrati
     List<UtenteDTO> readAll();
+
+    // READ / FIND ALL -> Restituisce una pagina di utenti registrati in base ai parametri di paginazione
+    Page<UtenteDTO> readAll(Pageable pageRequest);
 
     //READ ALL ACTIVE -> Restituisce tutti gli utenti registrati attivi
     List<UtenteDTO> readAllActive();

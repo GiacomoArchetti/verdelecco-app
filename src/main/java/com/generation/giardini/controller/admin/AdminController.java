@@ -15,6 +15,8 @@ import com.generation.giardini.repository.PreventivoRepository;
 import com.generation.giardini.repository.RecensioneRepository;
 import com.generation.giardini.repository.UtenteRepository;
 import com.generation.giardini.service.prenotazione.PrenotazioneService;
+import com.generation.giardini.service.preventivo.PreventivoService;
+import com.generation.giardini.service.utente.UtenteService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +26,8 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 
     //DIPENDENZE
-        private final UtenteRepository utenteRepository;
+        private final UtenteService utenteService;
+        private final PreventivoService preventivoService;
         private final PreventivoRepository preventivoRepository;
         private final PrenotazioneRepository prenotazioneRepository;
         private final RecensioneRepository recensioneRepository;
@@ -42,7 +45,7 @@ public class AdminController {
                             @RequestParam(name = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
                             @RequestParam(name = "recensioniPage", defaultValue = "0") int recensioniPage) {
             int pageSize = 5;
-            model.addAttribute("clienti", utenteRepository.findAll(PageRequest.of(clientiPage, pageSize)));
+            model.addAttribute("clienti", utenteService.readAll(PageRequest.of(clientiPage, pageSize)));
             model.addAttribute("preventivi", preventivoRepository.findAll(PageRequest.of(preventiviPage, pageSize)));
             model.addAttribute("prenotazioni", prenotazioneRepository.findAll(PageRequest.of(prenotazioniPage, pageSize)));
             model.addAttribute("recensioni", recensioneRepository.findAll(PageRequest.of(recensioniPage, pageSize)));
