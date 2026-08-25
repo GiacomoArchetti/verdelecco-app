@@ -120,3 +120,21 @@ button.nav-btn {
     }
 }
 
+/* Allinea la base del logo e la base del testo sullo stesso piano */
+.logo a {
+    display: flex !important;
+    align-items: baseline !important;   /* Allinea il bordo inferiore sulla linea di base del testo */
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Gestisce le dimensioni, la distanza e il posizionamento del logo */
+.logo-img {
+    height: 30px;                       /* Aggiusta l'altezza se necessario */
+    width: auto;
+    margin-right: 7px;                 /* Spazio di stacco orizzontale tra logo e scritta */
+    object-fit: contain;
+    filter: brightness(0) invert(1);    /* Rende il logo bianco */
+    display: inline-block;
+}
+
