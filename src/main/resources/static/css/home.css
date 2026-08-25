@@ -34,42 +34,6 @@ section {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 40px;
-    align-items: center;
-}
-/* 
-.hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Avvicina i due elementi verso l'alto 
-    gap: 12px; /* Riduce leggermente anche la distanza tra titolo e testo 
-    min-height: auto; /* Evita che il blocco si forzi in altezza 
-} */
-
-/* Sostituisci .hero-left (riga ~46) */
-
-/* 
-.hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centra verticalmente il blocco testo rispetto all'immagine 
-    gap: 20px;
-}
-
-.hero-left h1 {
-    font-size: 2.6rem; /* Aumenta il titolo per riempire l'altezza 
-    line-height: 1.2;
-}
-
-.hero-left .btn-primary {
-    align-self: flex-start; /* Bottone allineato a sinistra sotto il testo 
-    margin-top: 10px;
-} */
-
-/* Sostituisci .hero (riga ~39) */
-.hero {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 40px;
     align-items: center; /* Allinea perfettamente al centro verticale testo e immagine */
 }
 
@@ -742,10 +706,11 @@ footer p {
 
 
 /* ==========================================================================
-   ALERT MESSAGES (Spring Security Error/Success Notifications)
+   FEEDBACK & FORM ERRORS (UNIFICATI PER TUTTO IL SITO)
    ========================================================================== */
 
-/* Regola generale per tutti gli alert */
+/* Notifiche globali (Successo / Errore generale) */
+.feedback,
 .alert {
     padding: 14px 18px;
     border-radius: 16px;
@@ -755,37 +720,59 @@ footer p {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Stile specifico per errori di autenticazione / credenziali errate */
+/* Stato di errore globale (Compatibile sia con .feedback-error che con .alert-danger) */
+.feedback-error,
 .alert-danger {
-    background: rgba(180, 60, 60, 0.18);
-    border: 1px solid rgba(230, 100, 100, 0.4);
-    color: #f8d7da;
+    background: rgba(180, 60, 60, 0.22);
+    border: 1px solid rgba(230, 100, 100, 0.45);
+    color: #fca5a5;
 }
 
-/* Opzionale: icona o punto d'attenzione prima del testo dell'errore */
+.feedback-error::before,
 .alert-danger::before {
     content: "⚠️";
     font-size: 1.1rem;
 }
 
-/* Colorazione giorni occupati (background events) */
-.fc-bg-event {
-    background-color: #e74c3c !important; /* Il rosso configurato nel tuo DTO */
-    opacity: 0.8 !important;
-    border-radius: 4px;
+/* Stato di successo globale */
+.feedback-success,
+.alert-success,
+.alert-info {
+    background: rgba(46, 125, 50, 0.25);
+    border: 1px solid rgba(129, 199, 132, 0.45);
+    color: #a7f3d0;
 }
 
-/* Rende il cursore 'non cliccabile' sui giorni occupati */
-.fc-bg-event {
-    cursor: not-allowed;
-    pointer-events: none;
+.feedback-success::before,
+.alert-success::before {
+    content: "✓";
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
+/* Errori di validazione sui singoli campi DTO */
+.form-error {
+    color: #ff6b6b;
+    font-size: 0.825rem;
+    font-weight: 600;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Bordo rosso ed evidenziazione sugli input con errore */
+input.input-error,
+select.input-error,
+textarea.input-error {
+    border: 1.5px solid #ff6b6b !important;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2) !important;
+}
 
 /* Animazione di comparsa soft */
 @keyframes fadeIn {
@@ -797,4 +784,16 @@ footer p {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ==========================================================================
+   FULLCALENDAR STYLES
+   ========================================================================== */
+
+.fc-bg-event {
+    background-color: #e74c3c !important;
+    opacity: 0.8 !important;
+    border-radius: 4px;
+    cursor: not-allowed;
+    pointer-events: none;
 }

@@ -7,12 +7,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
 
+import com.generation.giardini.dto.RegistrationDTO;
 import com.generation.giardini.entity.utente.Utente;
 import com.generation.giardini.repository.UtenteRepository;
 import com.generation.giardini.security.CustomUserDetailsService;
@@ -21,24 +23,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/register")
 @RequiredArgsConstructor
+@Slf4j
 public class RegisterController {
 
     private final UtenteRepository utenteRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService userDetailsService;
 
+    // --- METODI GET ---
 
-    //METODI GET
-
-    // Restituisce la pagina di registrazione
     @GetMapping("")
     public String registrazione(Model model, Authentication authentication) {
 
-        // MODIFICA: Controllo RBAC - Se l'utente è già autenticato, viene reindirizzato
+        // Controllo RBAC: Se già autenticato, redirect alla propria dashboard
         if (authentication != null && authentication.isAuthenticated() 
                 && !(authentication instanceof AnonymousAuthenticationToken)) {
             
@@ -52,122 +54,61 @@ public class RegisterController {
                 return "redirect:/admin";
             }
         }
-        // FINE MODIFICA
 
         if (!model.containsAttribute("registrazione")) {
-            model.addAttribute("registrazione", new RegistrationForm());
+            model.addAttribute("registrazione", new RegistrationDTO("", "", "", "", "", ""));
         }
         return "registrazione";
     }
 
+    // --- METODI POST ---
 
-    // METODI POST
-    
-    // Gestisce l'invio del modulo di registrazione
     @PostMapping("")
-    public String submitRegistrazione(@Valid @ModelAttribute("registrazione") RegistrationForm form,
+    public String submitRegistrazione(
+            @Valid @ModelAttribute("registrazione") RegistrationDTO form,
+            BindingResult bindingResult,
             Model model,
-            HttpServletRequest request) { // 2. Aggiunto HttpServletRequest
+            HttpServletRequest request) {
         
-        if (form.getPassword() == null || !form.getPassword().equals(form.getPasswordConfirm())) {
-            model.addAttribute("passwordError", "Le password non coincidono.");
+        String emailClean = form.email() != null ? form.email().trim().toLowerCase() : "";
+
+        // 1. Controllo se l'email esiste già a DB
+        if (!emailClean.isEmpty() && utenteRepository.findByEmailIgnoreCase(emailClean).isPresent()) {
+            bindingResult.rejectValue("email", "error.registrazione", "Questa email è già registrata.");
+        }
+
+        // 2. Controllo coincidenza password
+        if (form.password() != null && !form.password().equals(form.passwordConfirm())) {
+            bindingResult.rejectValue("passwordConfirm", "error.registrazione", "Le password non coincidono.");
+        }
+
+        // 3. Se ci sono errori di validazione (dal DTO o dai controlli manuali), ricarica la pagina
+        if (bindingResult.hasErrors()) {
             return "registrazione";
         }
 
-        String email = form.getEmail() == null ? null : form.getEmail().trim().toLowerCase();
-        Utente u = email == null ? new Utente() : utenteRepository.findByEmailIgnoreCase(email).orElseGet(Utente::new);
-        
-        // Sostituisci la logica dello split con questa:
-        u.setNome(form.getNome() != null ? form.getNome().trim() : "");
-        u.setCognome(form.getCognome() != null ? form.getCognome().trim() : "");
-        u.setEmail(email);
-        u.setTelefono(form.getTelefono());
-        u.setPassword(passwordEncoder.encode(form.getPassword()));
-        u.setAttivo(true);
-        u.setGuest(false);
+        // 4. Creazione nuovo Utente
+        Utente utente = new Utente();
+        utente.setNome(form.nome() != null ? form.nome().trim() : "");
+        utente.setCognome(form.cognome() != null ? form.cognome().trim() : "");
+        utente.setEmail(emailClean);
+        utente.setTelefono(form.telefono() != null ? form.telefono().trim() : null);
+        utente.setPassword(passwordEncoder.encode(form.password()));
+        utente.setAttivo(true);
+        utente.setGuest(false);
 
-        // Salvataggio utente nel Database
-        utenteRepository.save(u);
+        utenteRepository.save(utente);
 
-        // 3. LOGICA DI AUTENTICAZIONE AUTOMATICA (Auto-Login)
-        UserDetails userDetails = userDetailsService.loadUserByUsername(u.getEmail());
+        // 5. Auto-Login automatico post-registrazione
+        UserDetails userDetails = userDetailsService.loadUserByUsername(utente.getEmail());
         UsernamePasswordAuthenticationToken authToken = 
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
-        // Salva la sessione di login nel browser
         HttpSession session = request.getSession(true);
         session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 
-        // 4. Redirect diretto alla dashboard cliente
         return "redirect:/client";
     }
-
-    /**
-     * Modello utilizzato per raccogliere i dati inseriti dall'utente
-     * durante la fase di registrazione.
-     *
-     * <p>
-     * Contiene i dati anagrafici e di contatto dell'utente,
-     * oltre alle credenziali necessarie per la creazione dell'account.
-     * </p>
-     */
-    public static class RegistrationForm {
-        private String nome;
-        private String cognome;
-        private String email;
-        private String telefono;
-        private String password;
-        private String passwordConfirm;
-
-        public String getNome() {
-            return nome;
-        }
-
-        public void setNome(String nome) {
-            this.nome = nome;
-        }
-
-        public String getCognome() {
-            return cognome;
-        }
-
-        public void setCognome(String cognome) {
-            this.cognome = cognome;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getTelefono() {
-            return telefono;
-        }
-
-        public void setTelefono(String telefono) {
-            this.telefono = telefono;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public String getPasswordConfirm() {
-            return passwordConfirm;
-        }
-
-        public void setPasswordConfirm(String passwordConfirm) {
-            this.passwordConfirm = passwordConfirm;
-        }
-    }
-
 }

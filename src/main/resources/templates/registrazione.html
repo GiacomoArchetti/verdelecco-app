@@ -1,5 +1,4 @@
-﻿<!-- 
-template: client portal registration page -->
+﻿<!-- template: client portal registration page -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -23,32 +22,45 @@ template: client portal registration page -->
 
             <form class="registration-form" th:action="@{/register}" th:object="${registrazione}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                
                 <label>
                     Nome
-                    <input type="text" th:field="*{nome}" placeholder=" Nome " required>
+                    <input type="text" th:field="*{nome}" placeholder="Nome" required>
                 </label>
+                
                 <label>
                     Cognome
-                    <input type="text" th:field="*{cognome}" placeholder=" Cognome" required>
+                    <input type="text" th:field="*{cognome}" placeholder="Cognome" required>
                 </label>
+                
                 <label>
                     Email
-                    <input type="email" th:field="*{email}" placeholder="tuo@email.com" required>
+                    <input type="email" th:field="*{email}" 
+                        th:classappend="${#fields.hasErrors('email')} ? 'input-error' : ''" 
+                        placeholder="tuo@email.com" required>
+                    <p class="form-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                 </label>
-                <label>
-                    Cellulare
-                    <input id="phoneNumber" name="telefono" class="phone-number" type="tel" placeholder="123 456 7890"
-                        required>
-                </label>
+
                 <label>
                     Password
-                    <input type="password" th:field="*{password}" placeholder="Password" required>
+                    <input type="password" th:field="*{password}" 
+                        th:classappend="${#fields.hasErrors('password')} ? 'input-error' : ''" 
+                        placeholder="Password" required>
+                    <!-- Mostra il messaggio di errore personalizzato del DTO (es. min 6 caratteri) -->
+                    <p class="form-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                 </label>
+
                 <label>
                     Conferma la password
-                    <input type="password" th:field="*{passwordConfirm}" placeholder="Conferma la password" required>
+                    <input type="password" th:field="*{passwordConfirm}" 
+                        th:classappend="${#fields.hasErrors('passwordConfirm')} ? 'input-error' : ''" 
+                        placeholder="Conferma la password" required>
+                    <p class="form-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></p>
                 </label>
-                <p class="form-error" th:if="${passwordError}" th:text="${passwordError}"></p>
+                
+                <!-- Messaggio di errore generico (se presente) -->
+                <p class="form-error" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
+
                 <div class="form-actions">
                     <button type="submit" class="btn-primary">Registrati</button>
                 </div>

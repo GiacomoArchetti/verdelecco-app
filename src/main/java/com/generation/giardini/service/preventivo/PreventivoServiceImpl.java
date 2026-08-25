@@ -2,6 +2,7 @@ package com.generation.giardini.service.preventivo;
 
 import java.util.ArrayList;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -66,14 +67,15 @@ public class PreventivoServiceImpl implements PreventivoService {
         try {
             String email = request.getEmail().trim().toLowerCase();
             Utente utente = utenteRepository.findByEmailIgnoreCase(email).orElseGet(() -> createGuest(request, email));
-                BigDecimal superficie = new BigDecimal(request.getDimensioni());
-                NomeServizio nomeServizio = NomeServizio.valueOf(request.getServizio());
-                Servizio servizio = servizioRepository.findFirstByNomeAndAttivoTrueOrderByPrezzoAlMqAsc(nomeServizio)
-                    .orElseThrow(() -> new IllegalArgumentException("Servizio senza prezzo attivo: " + request.getServizio()));
+            
+            BigDecimal superficie = new BigDecimal(request.getDimensioni());
+            NomeServizio nomeServizio = NomeServizio.valueOf(request.getServizio());
+            Servizio servizio = servizioRepository.findFirstByNomeAndAttivoTrueOrderByPrezzoAlMqAsc(nomeServizio)
+                .orElseThrow(() -> new IllegalArgumentException("Servizio senza prezzo attivo: " + request.getServizio()));
 
             if (!Boolean.TRUE.equals(utente.getGuest())) {
-                utente.setNome(firstName(request.getNome()));
-                utente.setCognome(lastName(request.getNome()));
+                utente.setNome(request.getNome() != null ? request.getNome().trim() : "");
+                utente.setCognome(request.getCognome() != null ? request.getCognome().trim() : "");
                 utente.setTelefono(request.getTelefono());
             }
 
@@ -81,24 +83,33 @@ public class PreventivoServiceImpl implements PreventivoService {
             entity.setUtente(utente);
             entity.setIndirizzo(request.getIndirizzo());
             entity.setSuperficieMq(superficie);
-            entity.setCostoStimato(servizio.getPrezzoAlMq().multiply(superficie).setScale(2, java.math.RoundingMode.HALF_UP));
+            entity.setCostoStimato(servizio.getPrezzoAlMq().multiply(superficie).setScale(2, RoundingMode.HALF_UP));
             entity.setDescrizione("Servizio richiesto: " + request.getServizio()
                     + (request.getDettagli() == null || request.getDettagli().isBlank()
                             ? "" : "\n" + request.getDettagli()));
-            entity.setDataIntervento(request.getDataIntervento().atStartOfDay());
+            
+            // CONTROLLO DI SICUREZZA SULLA DATA
+            if (request.getDataIntervento() != null) {
+                entity.setDataIntervento(request.getDataIntervento().atStartOfDay());
+            } else {
+                entity.setDataIntervento(LocalDate.now().plusDays(1).atStartOfDay()); // Fallback sicuro
+            }
+
             entity.setDataEmissione(LocalDate.now());
             entity.setStatoPreventivo(StatoPreventivo.IN_ATTESA);
             preventivoRepository.save(entity);
             return true;
         } catch (Exception e) {
+            // Stampa lo stacktrace in console per capire subito se c'è un errore di DB o altro
+            e.printStackTrace();
             throw new PreventivoCreateException("Errore imprevisto durante la creazione del preventivo.", e);
         }
     }
 
     private Utente createGuest(PreventivoRequestDto request, String email) {
         Utente guest = new Utente();
-        guest.setNome(firstName(request.getNome()));
-        guest.setCognome(lastName(request.getNome()));
+        guest.setNome(request.getNome() != null ? request.getNome().trim() : "");
+        guest.setCognome(request.getCognome() != null ? request.getCognome().trim() : ""); // CORRETTO
         guest.setEmail(email);
         guest.setTelefono(request.getTelefono());
         guest.setPassword(passwordEncoder.encode(java.util.UUID.randomUUID().toString()));

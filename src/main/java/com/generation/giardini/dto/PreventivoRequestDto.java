@@ -1,16 +1,24 @@
 package com.generation.giardini.dto;
 
 import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.validation.constraints.NotNull;
 
 public class PreventivoRequestDto {
 
     private String nome;
+    private String cognome;
     private String email;
     private String telefono;
     private String indirizzo;
     private String servizio;
     private String dimensioni;
+
+    @NotNull(message = "La data dell intervento è obbligatoria.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataIntervento;
+    
     private String dettagli;
 
     public PreventivoRequestDto() {
@@ -22,6 +30,14 @@ public class PreventivoRequestDto {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
 
     public String getEmail() {

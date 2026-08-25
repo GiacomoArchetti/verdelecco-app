@@ -23,6 +23,9 @@ public interface ServizioService {
     // READ ALL ATTIVI PER SELECT -> Restituisce la lista di opzioni (label/value) dei soli servizi attivi per le select della UI
     List<Map<String, String>> readAllAttiviOptions();
 
+    // READ DETAILED SERVIZI OPTIONS -> Restituisce la lista di opzioni arricchite (value, label, image, descrizione) dei servizi attivi
+    List<Map<String, String>> readDetailedServizioOptions();
+
     //READ ALL NOT ACTIVE -> Restituisce tutti i servizi presenti NON attivi
     List<ServizioDTO> readAllNotActive();
 

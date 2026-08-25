@@ -23,6 +23,6 @@ public class PreventivoCreateException extends RuntimeException {
     @param preventivo   il preventivo che ha generato l'errore
     @param cause        la causa principale dell'eccezione (es. errore di persistenza)*/
     public PreventivoCreateException(String preventivo, Throwable cause) {
-        super("Impossibile creare il utente '" + preventivo + "'.", cause);
+        super("Impossibile creare il preventivo '" + preventivo + "'.", cause);
     }
 }
