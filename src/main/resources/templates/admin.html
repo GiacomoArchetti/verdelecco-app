@@ -130,7 +130,7 @@
                                 </form>
                             </div>
                         </td>
-                        <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                        <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                     </tr>
                 </tbody>
             </table>
@@ -169,7 +169,7 @@
                         <td th:text="${prenotazione.idPrenotazione}"></td>
                         <td th:text="${prenotazione.idPreventivo != null ? prenotazione.idPreventivo : '-'}"></td>
                         <td th:text="${prenotazione.indirizzo}"></td>
-                        <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                        <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                         <td th:text="${prenotazione.stato}"></td>
                     </tr>
                 </tbody>
