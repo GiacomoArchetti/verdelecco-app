@@ -42,8 +42,18 @@ section {
     background: var(--section-bg);
 }
 
-section[id] {
-    scroll-margin-top: 112px;
+/* Layout Desktop standard */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 105px;
+}
+
+/* Layout Smartphone (schermi inferiori a 768px) */
+@media (max-width: 768px) {
+    html {
+        /* Riduci l'offset per mobile (es. 50px o 60px in base all'altezza della navbar mobile) */
+        scroll-padding-top: 25px;
+    }
 }
 
 /* Ripristina la struttura monocolonna centrata del form */
