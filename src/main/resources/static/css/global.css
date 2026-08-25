@@ -42,8 +42,9 @@ section {
     background: var(--section-bg);
 }
 
-section[id] {
-    scroll-margin-top: 112px;
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 110px;
 }
 
 /* Ripristina la struttura monocolonna centrata del form */
