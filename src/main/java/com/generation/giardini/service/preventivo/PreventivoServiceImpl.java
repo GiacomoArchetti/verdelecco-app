@@ -119,17 +119,6 @@ public class PreventivoServiceImpl implements PreventivoService {
         return utenteRepository.save(guest);
     }
 
-    private String firstName(String fullName) {
-        String value = fullName == null ? "" : fullName.trim();
-        return value.isEmpty() ? "Guest" : value.split("\\s+", 2)[0];
-    }
-
-    private String lastName(String fullName) {
-        String value = fullName == null ? "" : fullName.trim();
-        String[] parts = value.isEmpty() ? new String[0] : value.split("\\s+", 2);
-        return parts.length > 1 ? parts[1] : "";
-    }
-
     @Override
     @Transactional(readOnly = true)
     public List<PreventivoDTO> readAll() {
