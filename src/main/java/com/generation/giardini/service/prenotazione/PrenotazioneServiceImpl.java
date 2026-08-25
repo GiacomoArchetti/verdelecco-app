@@ -143,4 +143,11 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
         Page<Prenotazione> pagePrenotazioni = prenotazioneRepository.findAll(pageRequest);
         return pagePrenotazioni.map(prenotazioneMapper::toDto);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<PrenotazioneDTO> readByUtenteEmail(String email, Pageable pageable) {
+        Page<Prenotazione> page = prenotazioneRepository.findByPreventivoUtenteEmailIgnoreCase(email, pageable);
+        return page.map(prenotazioneMapper::toDto);
+    }
 }

@@ -10,7 +10,7 @@ import com.generation.giardini.entity.utente.Utente;
 public class UtenteMapper {
 
     public UtenteDTO toDto(Utente entity) {
-        if(entity == null) {
+        if (entity == null) {
             return null;
         }
         return new UtenteDTO(
@@ -19,13 +19,15 @@ public class UtenteMapper {
             entity.getCognome(),
             entity.getEmail(),
             entity.getTelefono(),
+            entity.getIndirizzo(),
             entity.getAttivo(),
+            entity.getGuest(),
             entity.getRuolo() != null ? entity.getRuolo().name() : null 
         );
     }
 
     public Utente toEntity(UtenteDTO dto) {
-        if(dto == null) {
+        if (dto == null) {
             return null;
         }
         Utente entity = new Utente();
@@ -34,20 +36,24 @@ public class UtenteMapper {
         entity.setCognome(dto.cognome());
         entity.setEmail(dto.email());
         entity.setTelefono(dto.telefono());
-        if(dto.attivo() != null) {
+        entity.setIndirizzo(dto.indirizzo());
+        
+        if (dto.attivo() != null) {
             entity.setAttivo(dto.attivo());
         }
-        if(dto.ruolo() == null) {
+        if (dto.guest() != null) {
+            entity.setGuest(dto.guest());
+        }
+        
+        if (dto.ruolo() == null) {
             entity.setRuolo(Ruolo.UTENTE);
-        }else{
-            entity.setRuolo(switch (dto.ruolo().toUpperCase()){
+        } else {
+            entity.setRuolo(switch (dto.ruolo().toUpperCase()) {
                 case "ADMIN" -> Ruolo.ADMIN;
                 default -> Ruolo.UTENTE;
-            }); //Sintassi switch da java 14+
+            });
         }
-        // Controlli per prevenire il fatto che se attivo o ruolo sono null, il valore di default non viene sovrascritto con null
         
         return entity;
     }
-
 }

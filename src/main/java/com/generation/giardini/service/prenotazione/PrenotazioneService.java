@@ -29,6 +29,9 @@ public interface PrenotazioneService {
     // READ / FIND ALL -> Restituisce una pagina di prenotazioni registrate in base ai parametri di paginazione
     Page<PrenotazioneDTO> readAll(Pageable pageRequest);
 
+    // READ BY UTENTE EMAIL -> Restituisce una pagina di prenotazioni associate all'email dell'utente
+    Page<PrenotazioneDTO> readByUtenteEmail(String email, Pageable pageable);
+
     // FIND BY ID -> Restituisce il dettaglio della prenotazione tramite il suo ID
     PrenotazioneDTO readById(Long id);
 

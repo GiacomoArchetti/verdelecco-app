@@ -30,8 +30,14 @@ public interface PreventivoService {
     // READ BY UTENTE -> Restituisce la lista dei preventivi associati a uno specifico utente
     List<PreventivoDTO> readAllByUtente(Long idUtente);
 
+    // READ BY UTENTE EMAIL -> Restituisce una pagina di preventivi associati all'email di uno specifico utente
+    Page<PreventivoDTO> readByUtenteEmail(String email, Pageable pageable);
+
     // FIND BY ID -> Restituisce il dettaglio del preventivo tramite il suo ID
     PreventivoDTO readById(Long id);
+
+    // READ LATEST INDIRIZZO BY UTENTE EMAIL -> Restituisce l'indirizzo del preventivo più recente dell'utente o una stringa vuota
+    String readLatestIndirizzoByUtenteEmail(String email);
 
     // DELETE -> true -> msg = preventivo eliminato, false -> exception e Msg = errore
     boolean delete(Long id);

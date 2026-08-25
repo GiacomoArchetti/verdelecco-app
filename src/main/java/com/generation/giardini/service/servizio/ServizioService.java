@@ -1,6 +1,7 @@
 package com.generation.giardini.service.servizio;
 
 import java.util.List;
+import java.util.Map;
 
 import com.generation.giardini.dto.ServizioDTO;
 
@@ -18,6 +19,9 @@ public interface ServizioService {
 
     //READ ALL ACTIVE -> Restituisce tutti i servizi presenti attivi
     List<ServizioDTO> readAllActive();
+
+    // READ ALL ATTIVI PER SELECT -> Restituisce la lista di opzioni (label/value) dei soli servizi attivi per le select della UI
+    List<Map<String, String>> readAllAttiviOptions();
 
     //READ ALL NOT ACTIVE -> Restituisce tutti i servizi presenti NON attivi
     List<ServizioDTO> readAllNotActive();

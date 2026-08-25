@@ -1,7 +1,10 @@
 package com.generation.giardini.service.servizio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +23,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ServizioServiceImpl implements ServizioService{
 
-    private final ServizioMapper mapper;
-    private final ServizioRepository repository;
+    private final ServizioMapper servizioMapper;
+    private final ServizioRepository servizioRepository;
 
     @Override
     public boolean create(ServizioDTO dto) {
@@ -32,8 +35,8 @@ public class ServizioServiceImpl implements ServizioService{
 
         try {
             // 2. Conversione e salvataggio
-            Servizio entity = mapper.toEntity(dto);
-            repository.save(entity);
+            Servizio entity = servizioMapper.toEntity(dto);
+            servizioRepository.save(entity);
             
             // Se arriviamo qui, il salvataggio è andato a buon fine
             return true;
@@ -50,8 +53,8 @@ public class ServizioServiceImpl implements ServizioService{
     @Transactional(readOnly = true)
     public List<ServizioDTO> readAll() {
     List<ServizioDTO> lista = new ArrayList<>();
-        for(Servizio e : repository.findAll()){
-            lista.add(mapper.toDto(e));
+        for(Servizio e : servizioRepository.findAll()){
+            lista.add(servizioMapper.toDto(e));
         }
         return lista;
     }
@@ -60,9 +63,9 @@ public class ServizioServiceImpl implements ServizioService{
     @Transactional(readOnly = true)
     public List<ServizioDTO> readAllActive() {
         List<ServizioDTO> lista = new ArrayList<>();
-        for(Servizio e : repository.findAll()){
+        for(Servizio e : servizioRepository.findAll()){
             if(e.getAttivo() == true){
-                lista.add(mapper.toDto(e));
+                lista.add(servizioMapper.toDto(e));
             }
         }
         return lista;
@@ -72,9 +75,9 @@ public class ServizioServiceImpl implements ServizioService{
     @Transactional(readOnly = true)
     public List<ServizioDTO> readAllNotActive() {
         List<ServizioDTO> lista = new ArrayList<>();
-        for(Servizio e : repository.findAll()){
+        for(Servizio e : servizioRepository.findAll()){
             if(e.getAttivo() == false){
-                lista.add(mapper.toDto(e));
+                lista.add(servizioMapper.toDto(e));
             }
         }
         return lista;
@@ -83,21 +86,52 @@ public class ServizioServiceImpl implements ServizioService{
     @Override
     @Transactional(readOnly = true)
     public ServizioDTO readById(Long id) {
-        Servizio entity = repository.findById(id)
+        Servizio entity = servizioRepository.findById(id)
                                         .orElseThrow(() -> new ServizioNotFoundException(id)); //Se non trova lancia eccezione custom
                 
-        return mapper.toDto(entity);
+        return servizioMapper.toDto(entity);
     }
 
     @Override
     public boolean delete(Long id) {
-        Servizio entity = repository.findById(id)
+        Servizio entity = servizioRepository.findById(id)
                                         .orElseThrow(() -> new ServizioNotFoundException(id));
 
         entity.setAttivo(false);
-        repository.save(entity);
+        servizioRepository.save(entity);
 
         return true;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Map<String, String>> readAllAttiviOptions() {
+        return servizioRepository.findAll().stream()
+                .filter(servizio -> Boolean.TRUE.equals(servizio.getAttivo()))
+                .map(servizio -> {
+                    Map<String, String> option = new HashMap<>();
+                    String nomeEnum = servizio.getNome().name();
+                    option.put("value", nomeEnum);
+                    option.put("label", humanizeServiceName(nomeEnum));
+                    return option;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private String humanizeServiceName(String enumName) {
+        if (enumName == null) {
+            return "";
+        }
+        String[] parts = enumName.replace('_', ' ').toLowerCase().split(" ");
+        StringBuilder result = new StringBuilder();
+        for (String part : parts) {
+            if (!part.isEmpty()) {
+                if (result.length() > 0) {
+                    result.append(' ');
+                }
+                result.append(Character.toUpperCase(part.charAt(0))).append(part.substring(1));
+            }
+        }
+        return result.toString();
+    }
 }
