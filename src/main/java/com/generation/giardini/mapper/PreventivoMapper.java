@@ -39,7 +39,7 @@ public class PreventivoMapper {
             entity.getDataIntervento(),
             entity.getDataEmissione(),
             entity.getDataScadenza(),
-            entity.getStatoPreventivo() != null ? entity.getStatoPreventivo().name() : null,
+            entity.getStatoPreventivo() != null ? entity.getStatoPreventivo().getLabel() : null,
             listaDettagliPreventiviDto
         );
     }
