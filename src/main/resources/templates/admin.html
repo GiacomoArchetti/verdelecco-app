@@ -11,6 +11,10 @@
     <link rel="icon" th:href="@{/images/gardening.png}" type="image/png">
     
     <script th:src="@{/js/scroll-restore.js}" defer></script>
+
+    <script th:src="@{/js/scroll-restore.js}" defer></script>
+    <!-- Aggiungi questa riga per gestire il menu hamburger -->
+    <script th:src="@{/js/main.js}" defer></script>
 </head>
 
 <body>
@@ -60,13 +64,13 @@
             </table>
         </div>
         
-        <div class="pagination" th:unless="${clienti == null or clienti.empty}">
+        <nav class="pagination" th:unless="${clienti == null or clienti.empty}">
             <a th:if="${clienti.hasPrevious}"
                th:href="@{/admin#clienti(clientiPage=${clienti.number - 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}">Precedente</a>
             <span th:text="|Pagina ${clienti.number + 1} di ${clienti.totalPages}|"></span>
                <a th:if="${clienti.hasNext}"
                th:href="@{/admin#clienti(clientiPage=${clienti.number + 1}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}">Successivo</a>
-        </div>
+        </nav>
     </section>
 
     <!-- SECTION PREVENTIVI -->
@@ -136,13 +140,15 @@
             </table>
         </div>
 
-        <div class="pagination" th:unless="${preventivi == null or preventivi.empty}">
+        <nav class="pagination" th:unless="${preventivi == null or preventivi.empty}">
             <a th:if="${preventivi.hasPrevious}"
                th:href="@{/admin#preventivi(clientiPage=${clienti.number}, preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}">Precedente</a>
+            
             <span th:text="|Pagina ${preventivi.number + 1} di ${preventivi.totalPages}|"></span>
+            
             <a th:if="${preventivi.hasNext}"
                th:href="@{/admin#preventivi(clientiPage=${clienti.number}, preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number})}">Successivo</a>
-        </div>
+        </nav>
     </section>
 
     <!-- SECTION PRENOTAZIONI -->
@@ -176,13 +182,13 @@
             </table>
         </div>
 
-        <div class="pagination" th:unless="${prenotazioni == null or prenotazioni.empty}">
+        <nav class="pagination" th:unless="${prenotazioni == null or prenotazioni.empty}">
             <a th:if="${prenotazioni.hasPrevious}"
                th:href="@{/admin#prenotazioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1}, recensioniPage=${recensioni.number})}">Precedente</a>
             <span th:text="|Pagina ${prenotazioni.number + 1} di ${prenotazioni.totalPages}|"></span>
             <a th:if="${prenotazioni.hasNext}"
                th:href="@{/admin#prenotazioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1}, recensioniPage=${recensioni.number})}">Successivo</a>
-        </div>
+        </nav>
     </section>
 
     <!-- SECTION RECENSIONI -->
@@ -210,19 +216,19 @@
                         <td th:text="${recensione.emailUtente != null ? recensione.emailUtente : '-'}"></td>
                         <td th:text="${recensione.voto != null ? recensione.voto : '-'}"></td>
                         <td th:text="${recensione.commento != null and !recensione.commento.isBlank() ? recensione.commento : '-'}"></td>
-                        <td th:text="${recensione.dataRecensione != null ? #temporals.format(recensione.dataRecensione, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                        <td th:text="${recensione.dataRecensione != null ? #temporals.format(recensione.dataRecensione, 'dd-MM-yyyy') : '-'}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="pagination" th:unless="${recensioni == null or recensioni.empty}">
+        <nav class="pagination" th:unless="${recensioni == null or recensioni.empty}">
             <a th:if="${recensioni.hasPrevious}"
                th:href="@{/admin#recensioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number - 1})}">Precedente</a>
             <span th:text="|Pagina ${recensioni.number + 1} di ${recensioni.totalPages}|"></span>
             <a th:if="${recensioni.hasNext}"
                th:href="@{/admin#recensioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number}, recensioniPage=${recensioni.number + 1})}">Successivo</a>
-        </div>
+        </nav>
     </section>
 </main>
 
