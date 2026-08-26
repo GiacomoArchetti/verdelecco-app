@@ -112,12 +112,16 @@
                             <p class="form-error" th:if="${#fields.hasErrors('servizio')}" th:errors="*{servizio}"></p>
                         </label>
 
-                        <label>
-                            Dimensioni del giardino (mq)
-                            <input type="number" th:field="*{dimensioni}" 
-                                   th:classappend="${#fields.hasErrors('dimensioni')} ? 'input-error' : ''" 
-                                   placeholder="Es. 150" min="0" step="5" required>
-                            <p class="form-error" th:if="${#fields.hasErrors('dimensioni')}" th:errors="*{dimensioni}"></p>
+
+                        <label>Dimensioni del giardino (mq)
+                            <input type="number" 
+                                id="dimensioniInput"
+                                th:field="*{dimensioni}" 
+                                placeholder="Es. 150" 
+                                min="1" 
+                                step="1" 
+                                value="10"
+                                required>
                         </label>
 
                     </div>

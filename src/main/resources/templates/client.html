@@ -76,8 +76,14 @@
                         </select>
                     </label>
                     <label>Dimensioni del giardino (mq)
-                        <input type="number" th:field="*{dimensioni}" placeholder="Es. 150" min="0" step="5" value="5"
-                                required>
+                        <input type="number" 
+                            id="dimensioniInput"
+                            th:field="*{dimensioni}" 
+                            placeholder="Es. 150" 
+                            min="1" 
+                            step="1" 
+                            value="10"
+                            required>
                     </label>
                 </div>
 
