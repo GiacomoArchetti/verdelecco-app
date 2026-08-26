@@ -26,6 +26,10 @@
 
     <!-- STILI DEDICATI AL CALENDARIO PER IL PORTALE CLIENTE -->
     <link rel="stylesheet" th:href="@{/css/calendario.css(v=2.0)}">
+
+    <!-- SCRIPT ESTERNO PER NAVBAR -->
+    <script th:src="@{/js/scroll-restore.js}" defer></script>
+    <script th:src="@{/js/main.js}" defer></script>
 </head>
 
 <body>
@@ -182,7 +186,7 @@
                                     </label>
                                     <label>
                                         Commento
-                                        <textarea name="commento" rows="2" maxlength="1000"></textarea>
+                                        <textarea name="commento" rows="2" maxlength="500"></textarea>
                                     </label>
                                     <button type="submit">Invia recensione</button>
                                 </form>
