@@ -135,29 +135,6 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     }
 
     @Override
-    public List<EventoCalendarioDTO> getEventiCalendario(LocalDate start, LocalDate end) {
-        // Trasforma LocalDate in LocalDateTime per matchare il tipo nel DB/Repository
-        LocalDateTime startDateTime = start.atStartOfDay();           // 2026-08-01T00:00:00
-        LocalDateTime endDateTime = end.atTime(LocalTime.MAX);            // 2026-08-31T23:59:59.999999999
-        
-        // 1. Recupera le prenotazioni esistenti dal database per il periodo selezionato
-        List<Prenotazione> prenotazioni = prenotazioneRepository.findByDataInterventoBetween(startDateTime, endDateTime);
-
-        // 2. Converte la lista di Entità in una lista di EventoCalendarioDTO usando gli Stream
-        return prenotazioni.stream()
-                // Se hai uno stato dell'appuntamento (es. ANNULLATO), puoi filtrarlo qui:
-                .filter(p -> p.getStato() != StatoPrenotazione.ANNULLATA)
-                .map(prenotazione -> new EventoCalendarioDTO(
-                        "Occupato",                                                   // title
-                        prenotazione.getDataIntervento().toLocalDate().toString(),          // start: trasformiamo LocalDateTime in LocalDate così il progetto risulti semplificato, strutturando il calendario in slots giornalieri e non in slots orari
-                        null,                                                           // end (null se è un evento a giornata intera)
-                        "background",                                               // display: colora l'intera cella del giorno
-                        "#e74c3c"                                                   // color: rosso per giorno occupato
-                ))
-                .toList();
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public Page<PrenotazioneDTO> readAll(Pageable pageRequest) {
         Page<Prenotazione> pagePrenotazioni = prenotazioneRepository.findAll(pageRequest);
@@ -185,5 +162,46 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
             prenotazione.getStato() != null ? prenotazione.getStato().name() : null,
             recensioneRepository.existsByPrenotazioneIdPrenotazione(prenotazione.getIdPrenotazione())
         ));
+    }
+
+    @Override
+    public boolean complete(Long id) {
+        Prenotazione entity = prenotazioneRepository.findById(id)
+                .orElseThrow(() -> new PrenotazioneNotFoundException(id));
+
+        LocalDate dataIntervento = entity.getDataIntervento() != null 
+                ? entity.getDataIntervento().toLocalDate() 
+                : null;
+
+        if (dataIntervento == null || dataIntervento.isAfter(LocalDate.now())) {
+            return false;
+        }
+
+        entity.setStato(StatoPrenotazione.COMPLETATA);
+        prenotazioneRepository.save(entity);
+        return true;
+    }
+
+    @Override
+    public List<EventoCalendarioDTO> getEventiCalendario(LocalDate start, LocalDate end) {
+        // Trasforma LocalDate in LocalDateTime per matchare il tipo nel DB/Repository
+        LocalDateTime startDateTime = start.atStartOfDay();           // 2026-08-01T00:00:00
+        LocalDateTime endDateTime = end.atTime(LocalTime.MAX);            // 2026-08-31T23:59:59.999999999
+        
+        // 1. Recupera le prenotazioni esistenti dal database per il periodo selezionato
+        List<Prenotazione> prenotazioni = prenotazioneRepository.findByDataInterventoBetween(startDateTime, endDateTime);
+
+        // 2. Converte la lista di Entità in una lista di EventoCalendarioDTO usando gli Stream
+        return prenotazioni.stream()
+                // Se hai uno stato dell'appuntamento (es. ANNULLATO), puoi filtrarlo qui:
+                .filter(p -> p.getStato() != StatoPrenotazione.ANNULLATA)
+                .map(prenotazione -> new EventoCalendarioDTO(
+                        "Occupato",                                                   // title
+                        prenotazione.getDataIntervento().toLocalDate().toString(),          // start: trasformiamo LocalDateTime in LocalDate così il progetto risulti semplificato, strutturando il calendario in slots giornalieri e non in slots orari
+                        null,                                                           // end (null se è un evento a giornata intera)
+                        "background",                                               // display: colora l'intera cella del giorno
+                        "#e74c3c"                                                   // color: rosso per giorno occupato
+                ))
+                .toList();
     }
 }

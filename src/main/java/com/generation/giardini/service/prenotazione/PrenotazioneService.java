@@ -38,6 +38,9 @@ public interface PrenotazioneService {
     // DELETE -> true -> msg = prenotazione eliminata, false -> exception e Msg = errore
     boolean delete(Long id);
 
+    // COMPLETE -> Imposta lo stato della prenotazione come completata se la data dell'intervento è trascorsa
+    boolean complete(Long id);
+
     // CALENDARIO -> Restituisce la lista degli eventi prenotati in un determinato intervallo di date
     List<EventoCalendarioDTO> getEventiCalendario(LocalDate start, LocalDate end);
 

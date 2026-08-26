@@ -166,6 +166,7 @@
                         <th>Indirizzo</th>
                         <th>Data intervento</th>
                         <th>Stato</th>
+                        <th>Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -175,6 +176,34 @@
                         <td th:text="${prenotazione.indirizzo}"></td>
                         <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                         <td th:text="${prenotazione.stato}"></td>
+                        <td>
+                            <!-- Mostra il blocco azioni solo se lo stato è diverso da COMPLETATA e ANNULLATA -->
+                            <div class="preventivo-actions" th:if="${prenotazione.stato != 'COMPLETATA' and prenotazione.stato != 'ANNULLATA'}">
+                                
+                                <!-- Pulsante attivo solo se la data dell'intervento è nel passato rispetto ad oggi -->
+                                <form th:if="${prenotazione.dataIntervento != null and prenotazione.dataIntervento.toLocalDate().isBefore(#temporals.createToday())}"
+                                    th:action="@{/admin/prenotazioni/{id}/complete(id=${prenotazione.idPrenotazione})}" method="post">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <input type="hidden" name="clientiPage" th:value="${clienti.number}" />
+                                    <input type="hidden" name="preventiviPage" th:value="${preventivi.number}" />
+                                    <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni.number}" />
+                                    <input type="hidden" name="recensioniPage" th:value="${recensioni.number}" />
+                                    <button type="submit" class="btn-accept" title="Segna come completata" aria-label="Segna come completata">
+                                        <img th:src="@{/images/accept.png}" alt="Accetta">
+                                    </button>
+                                </form>
+
+                                <!-- Messaggio se la data non è ancora trascorsa -->
+                                <span th:unless="${prenotazione.dataIntervento != null and prenotazione.dataIntervento.toLocalDate().isBefore(#temporals.createToday())}" 
+                                    class="text-muted" style="font-size: 0.85rem;">
+                                    Data non ancora trascorsa
+                                </span>
+                            </div>
+
+                            <!-- Testi fissi per stati terminali -->
+                            <span th:if="${prenotazione.stato == 'COMPLETATA'}" class="text-muted">Completata</span>
+                            <span th:if="${prenotazione.stato == 'ANNULLATA'}" class="text-muted">Annullata</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -182,10 +211,10 @@
 
         <nav class="pagination" th:unless="${prenotazioni == null or prenotazioni.empty}">
             <a th:if="${prenotazioni.hasPrevious}"
-               th:href="@{/admin#prenotazioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1}, recensioniPage=${recensioni.number})}">Precedente</a>
+            th:href="@{/admin#prenotazioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number - 1}, recensioniPage=${recensioni.number})}">Precedente</a>
             <span th:text="|Pagina ${prenotazioni.number + 1} di ${prenotazioni.totalPages}|"></span>
             <a th:if="${prenotazioni.hasNext}"
-               th:href="@{/admin#prenotazioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1}, recensioniPage=${recensioni.number})}">Successivo</a>
+            th:href="@{/admin#prenotazioni(clientiPage=${clienti.number}, preventiviPage=${preventivi.number}, prenotazioniPage=${prenotazioni.number + 1}, recensioniPage=${recensioni.number})}">Successivo</a>
         </nav>
     </section>
 

@@ -130,4 +130,36 @@ public class AdminController {
         return "redirect:/admin#preventivi";
     }
 
+    /**
+     * Imposta lo stato di una prenotazione come 'COMPLETATA' da parte dell'amministratore.
+     * Mantiene gli indici di paginazione attuali durante il redirect.
+     * 
+     * @param id L'identificativo unico della prenotazione da completare
+     * @param clientiPage Indice pagina Clienti da preservare nel redirect
+     * @param preventiviPage Indice pagina Preventivi da preservare nel redirect
+     * @param prenotazioniPage Indice pagina Prenotazioni da preservare nel redirect
+     * @param recensioniPage Indice pagina Recensioni da preservare nel redirect
+     * @param redirectAttributes Oggetto per mantenere i parametri nella query string post-redirect
+     * @return Redirect all'ancora #prenotazioni della dashboard admin
+     */
+    @PostMapping("/prenotazioni/{id}/complete")
+    public String completePrenotazione(@PathVariable Long id,
+                                       @RequestParam(name = "clientiPage", defaultValue = "0") int clientiPage,
+                                       @RequestParam(name = "preventiviPage", defaultValue = "0") int preventiviPage,
+                                       @RequestParam(name = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
+                                       @RequestParam(name = "recensioniPage", defaultValue = "0") int recensioniPage,
+                                       RedirectAttributes redirectAttributes) {
+        
+        // Esegue la logica di business per impostare la prenotazione come completata
+        prenotazioneService.complete(id);
+        
+        // Preserva lo stato di paginazione di tutte le sezioni
+        redirectAttributes.addAttribute("clientiPage", clientiPage);
+        redirectAttributes.addAttribute("preventiviPage", preventiviPage);
+        redirectAttributes.addAttribute("prenotazioniPage", prenotazioniPage);
+        redirectAttributes.addAttribute("recensioniPage", recensioniPage);
+        
+        return "redirect:/admin#prenotazioni";
+    }
+
 }
