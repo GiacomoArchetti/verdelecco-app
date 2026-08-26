@@ -1,12 +1,11 @@
-
 -- =====================================================
 -- INSERIMENTO ADMIN
 -- =====================================================
 
 INSERT INTO utente
-(nome, cognome, email, password, telefono, attivo, ruolo)
+(nome, cognome, email, password, telefono, attivo, guest, ruolo)
 VALUES
-('Admin','Marco','admin@giardiniere.it','giardinobello','3330000000',1,'ADMIN');
+('Marco','Archetti','admin@giardiniere.it','giardinobello','+39 347 3849453', 1, 0, 'ADMIN');
 
 
 -- =====================================================
@@ -35,7 +34,6 @@ INSERT INTO servizio
 (nome, prezzo_al_mq, minuti_al_mq, descrizione, attivo)
 VALUES
 ('MANUTENZIONE_TAPPETO_ERBOSO', 1.80, 2, 'Taglio del prato con rifinitura dei bordi per un manto erboso sempre curato, sano e in ordine.', 1),
-('SFALCIO_RIVE_E_SCARPATE', 4.00, 3, 'Taglio dell''erba e pulizia di terreni in pendenza, scarpate e zone difficili da raggiungere.', 1),
 ('POTATURA_ALBERI_DA_FRUTTO', 3.50, 5, 'Potatura specifica per migliorare la produzione dei frutti e mantenere l''albero in salute.', 1),
 ('POTATURA_ALBERI_ORNAMENTALI', 4.50, 7, 'Cura della chioma e rimozione dei rami secchi per garantire sicurezza ed estetica alla pianta.', 1),
 ('POTATURA_SIEPI', 4.00, 6, 'Rifilatura e sagomatura di siepi perimetrali per mantenere un aspetto ordinato e compatto.', 1),
@@ -44,7 +42,7 @@ VALUES
 
 
 -- =====================================================
--- PREVENTIVI (9)
+-- PREVENTIVI (19)
 -- =====================================================
 
 INSERT INTO preventivo
@@ -52,115 +50,147 @@ INSERT INTO preventivo
 data_intervento, data_emissione, data_scadenza, stato)
 VALUES
 
-(2,'Via Milano 20 Roma',200,360,
+(2,'Via Milano 20 Roma', 200, 3600,
 'Taglio giardino',
 '2026-08-02 10:00:00',
 '2026-07-30',
 '2026-08-06',
 'IN_ATTESA'),
 
-(3,'Via Torino 15 Torino',80,280,
+(3,'Via Torino 15 Torino', 80, 2000,
 'Potatura siepi',
 '2026-08-03 08:30:00',
 '2026-07-30',
 '2026-08-07',
 'ACCETTATO'),
 
-(4,'Via Firenze 8 Firenze',150,330,
+(4,'Via Firenze 8 Firenze', 15, 330,
 'Semina prato',
 '2026-08-04 09:30:00',
 '2026-07-30',
 '2026-08-08',
 'RIFIUTATO'),
 
-(5,'Via Venezia 5 Venezia',90,252,
+(5,'Via Venezia 5 Venezia', 90, 1500,
 'Pulizia giardino',
-'2026-08-05 11:00:00',
+'2026-11-05 11:00:00',
 '2026-07-30',
 '2026-08-09',
 'ACCETTATO'),
 
-(6,'Via Napoli 30 Napoli',300,540,
+(6,'Via Napoli 30 Napoli', 300, 5400,
 'Taglio area verde',
-'2026-08-06 07:30:00',
+'2026-09-06 07:30:00',
 '2026-07-30',
 '2026-08-10',
 'IN_ATTESA'),
 
-(7,'Via Bari 12 Bari',60,180,
+(7,'Via Bari 12 Bari', 60, 1800,
 'Potatura',
 '2026-08-07 10:00:00',
 '2026-07-30',
 '2026-08-11',
 'ACCETTATO'),
 
-(8,'Via Genova 25 Genova',170,400,
+(8,'Via Genova 25 Genova', 80,450,
 'Manutenzione',
 '2026-08-08 09:00:00',
 '2026-07-30',
-'2026-08-12',
+'2026-08-23',
 'SCADUTO'),
 
-(9,'Via Palermo 18 Palermo',220,500,
+(9,'Via Palermo 18 Palermo',220,3500,
 'Pulizia completa',
 '2026-08-09 08:00:00',
 '2026-07-30',
 '2026-08-13',
 'ANNULLATO'),
 
-(10,'Via Como 7 Como',110,250,
+(4,'Via Como 7 Como',110,2500,
 'Taglio e semina',
 '2026-08-10 09:00:00',
 '2026-07-30',
 '2026-08-14',
-'ACCETTATO');
+'ACCETTATO'),
+
+(3,'Via Lecco 13 Lecco', 15, 220,
+'Taglio e semina',
+'2026-08-02 09:00:00',
+'2026-07-30',
+'2026-08-17',
+'ACCETTATO'),
+
+-- 10 NUOVI PREVENTIVI ACCETTATI (Agosto, Settembre, Ottobre 2026)
+(2, 'Via Roma 101 Roma', 120, 216.00, 'Manutenzione prato', '2026-08-28 09:00:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(3, 'Corso Francia 45 Torino', 150, 600.00, 'Manutenzione prato', '2026-08-31 10:30:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(4, 'Via Bologna 12 Firenze', 90, 315.00, 'Potatura alberi frutta', '2026-09-03 08:00:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(5, 'Piazza San Marco 3 Venezia', 200, 900.00, 'Potatura ornamentale', '2026-09-08 14:00:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(6, 'Via Toledo 50 Napoli', 110, 440.00, 'Potatura siepi', '2026-09-11 09:30:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(7, 'Corso Vittorio 14 Bari', 130, 286.00, 'Semina prato', '2026-09-18 11:00:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(8, 'Via Garibaldi 88 Genova', 250, 700.00, 'Pulizia giardino', '2026-09-24 08:30:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(9, 'Via Libertà 22 Palermo', 160, 288.00, 'Manutenzione prato', '2026-09-29 10:00:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(2, 'Via Appia 33 Roma', 180, 720.00, 'Manutenzione prato', '2026-10-05 09:00:00', '2026-08-26', '2026-09-02', 'ACCETTATO'),
+(4, 'Via Pistoia 7 Firenze', 100, 350.00, 'Potatura alberi frutta', '2026-10-12 15:00:00', '2026-08-26', '2026-09-02', 'ACCETTATO');
 
 
 -- =====================================================
--- DETTAGLI_PREVENTIVO (9)
+-- DETTAGLI_PREVENTIVO (19)
 -- =====================================================
 
 INSERT INTO dettaglio_preventivo
 (id_preventivo, id_servizio, quantita)
 VALUES
 (1, 1, 200),
-(2, 2, 80),
+(2, 1, 80),
 (3, 3, 150),
 (4, 4, 90),
 (5, 1, 300),
-(6, 2, 60),
+(6, 1, 60),
 (7, 3, 170),
 (8, 4, 220),
-(9, 3, 110);
+(9, 3, 110),
+(11, 1, 120),
+(12, 1, 150),
+(13, 3, 90),
+(14, 4, 200),
+(15, 5, 110),
+(16, 6, 130),
+(17, 6, 250),
+(18, 1, 160),
+(19, 1, 180),
+(20, 3, 100);
 
 
 
 -- =====================================================
--- PRENOTAZIONI (9)
+-- PRENOTAZIONI (15)
 -- =====================================================
 
 INSERT INTO prenotazione
 (id_preventivo,data_intervento,indirizzo,stato)
 VALUES
 
-(1,'2026-08-02 10:00:00','Via Milano 20 Roma','PROGRAMMATA'),
+(2,'2026-08-03 08:30:00','Via Torino 15 Torino','COMPLETATA'),
 
-(2,'2026-08-03 08:30:00','Via Torino 15 Torino','PROGRAMMATA'),
+(3,'2026-08-02 09:00:00','Via Lecco 13 Lecco','COMPLETATA'),
 
-(3,'2026-08-04 09:30:00','Via Firenze 8 Firenze','COMPLETATA'),
+(4,'2026-11-05 11:00:00','Via Venezia 5 Venezia','PROGRAMMATA'),
 
-(4,'2026-08-05 11:00:00','Via Venezia 5 Venezia','ANNULLATA'),
+(6,'2026-08-07 10:00:00','Via Bari 12 Bari','COMPLETATA'),
 
-(5,'2026-08-06 07:30:00','Via Napoli 30 Napoli','COMPLETATA'),
+(9,'2026-08-10 09:00:00','Via Como 7 Como','ANNULLATA'),
 
-(6,'2026-08-07 10:00:00','Via Bari 12 Bari','PROGRAMMATA'),
-
-(7,'2026-08-08 09:00:00','Via Genova 25 Genova','PROGRAMMATA'),
-
-(8,'2026-08-09 08:00:00','Via Palermo 18 Palermo','COMPLETATA'),
-
-(9,'2026-08-10 09:00:00','Via Como 7 Como','ANNULLATA');
-
+-- Prenotazioni collegate ai 10 nuovi preventivi accettati
+(11, '2026-08-28 09:00:00', 'Via Roma 101 Roma', 'PROGRAMMATA'),
+(12, '2026-08-31 10:30:00', 'Corso Francia 45 Torino', 'PROGRAMMATA'),
+(13, '2026-09-03 08:00:00', 'Via Bologna 12 Firenze', 'PROGRAMMATA'),
+(14, '2026-09-08 14:00:00', 'Piazza San Marco 3 Venezia', 'PROGRAMMATA'),
+(15, '2026-09-11 09:30:00', 'Via Toledo 50 Napoli', 'PROGRAMMATA'),
+(16, '2026-09-18 11:00:00', 'Corso Vittorio 14 Bari', 'PROGRAMMATA'),
+(17, '2026-09-24 08:30:00', 'Via Garibaldi 88 Genova', 'PROGRAMMATA'),
+(18, '2026-09-29 10:00:00', 'Via Libertà 22 Palermo', 'PROGRAMMATA'),
+(19, '2026-10-05 09:00:00', 'Via Appia 33 Roma', 'PROGRAMMATA'),
+(20, '2026-10-12 15:00:00', 'Via Pistoia 7 Firenze', 'PROGRAMMATA');
 
 
 -- =====================================================
@@ -171,8 +201,8 @@ INSERT INTO recensione
 (id_prenotazione,voto,commento,data_recensione)
 VALUES
 
-(3,5,'Molto professionali','2026-08-04 18:00:00'),
+(2, 5, 'Servizio impeccabile e personale estremamente preparato. Mi hanno seguito passo dopo passo con grande attenzione ai dettagli. Super consigliato!', '2026-08-04 18:00:00'),
 
-(5,5,'Consigliato','2026-08-06 18:00:00'),
+(3, 4, 'Ottima esperienza complessiva. Marco è sicuramente molto preparato e sa dove mettere le mani.', '2026-08-09 11:00:00'),
 
-(8,4,'Soddisfatto','2026-08-09 11:00:00');
+(6, 5, 'Li ho contattati per un preventivo e un sopralluogo prima di sistemare il giardino. Sono stati puntualissimi e mi hanno dato ottimi consigli sulla cura delle piante. Lavoro pulito e professionale, consigliatissimo a tutti!', '2026-08-06 18:00:00');

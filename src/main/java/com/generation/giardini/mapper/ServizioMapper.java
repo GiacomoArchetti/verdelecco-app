@@ -32,7 +32,6 @@ public class ServizioMapper {
 
         entity.setNome(switch (dto.nome()){
             case "MANUTENZIONE_TAPPETO_ERBOSO" -> NomeServizio.MANUTENZIONE_TAPPETO_ERBOSO;
-            case "SFALCIO_RIVE_E_SCARPATE" -> NomeServizio.SFALCIO_RIVE_E_SCARPATE;
             case "POTATURA_ALBERI_DA_FRUTTO" -> NomeServizio.POTATURA_ALBERI_DA_FRUTTO;
             case "POTATURA_ALBERI_ORNAMENTALI" -> NomeServizio.POTATURA_ALBERI_ORNAMENTALI;
             case "POTATURA_SIEPI" -> NomeServizio.POTATURA_SIEPI;

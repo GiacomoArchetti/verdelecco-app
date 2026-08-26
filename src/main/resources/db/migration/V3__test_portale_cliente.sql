@@ -31,7 +31,7 @@ VALUES
     (@utente_id, 'Via Corso Italia 3, Milano', 200.00, 1000.00, 'Semina nuovo manto erboso', '2026-02-20 10:30:00', '2026-02-15', '2026-02-28', 'ACCETTATO'),
     (@utente_id, 'Via Roma 15, Milano', 80.00, 144.00, 'Manutenzione ordinaria', '2026-02-25 11:00:00', '2026-02-18', '2026-03-01', 'IN_ATTESA'),
     (@utente_id, 'Via Roma 15, Milano', 30.00, 60.00, 'Pulizia cortile', '2026-03-01 16:00:00', '2026-02-20', '2026-03-05', 'RIFIUTATO'),
-    (@utente_id, 'Via Roma 15, Milano', 120.00, 240.00, 'Sfalcio scarpata laterale', '2026-03-05 09:30:00', '2026-02-22', '2026-03-10', 'ACCETTATO'),
+    (@utente_id, 'Via Roma 15, Milano', 80.00, 144.00, 'Sfalcio scarpata laterale', '2026-02-25 11:00:00', '2026-02-18', '2026-03-01', 'IN_ATTESA'),
     (@utente_id, 'Via Milano 44, Milano', 60.00, 210.00, 'Potatura alberi da frutto', '2026-03-10 15:00:00', '2026-02-23', '2026-03-12', 'ACCETTATO')
 ON DUPLICATE KEY UPDATE stato = VALUES(stato);
 
@@ -43,12 +43,12 @@ ON DUPLICATE KEY UPDATE stato = VALUES(stato);
 INSERT INTO dettaglio_preventivo (id_preventivo, id_servizio, quantita)
 VALUES 
     ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Prato molto alto' AND id_utente = @utente_id LIMIT 1), 1, 1), -- MANUTENZIONE_TAPPETO_ERBOSO
-    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Siepe di lauro ceraso' AND id_utente = @utente_id LIMIT 1), 2, 1), -- POTATURA_SIEPI
-    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Semina nuovo manto erboso' AND id_utente = @utente_id LIMIT 1), 6, 1), -- SEMINA
+    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Siepe di lauro ceraso' AND id_utente = @utente_id LIMIT 1), 2, 1), -- POTATURA_SIEPI (o il nuovo ID della potatura siepi)
+    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Semina nuovo manto erboso' AND id_utente = @utente_id LIMIT 1), 5, 1), -- SEMINA (ID aggiornato)
     ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Manutenzione ordinaria' AND id_utente = @utente_id LIMIT 1), 1, 1), -- MANUTENZIONE_TAPPETO_ERBOSO
-    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Pulizia cortile' AND id_utente = @utente_id LIMIT 1), 7, 1), -- PULIZIA_GIARDINO
-    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Sfalcio scarpata laterale' AND id_utente = @utente_id LIMIT 1), 5, 1), -- SFALCIO_RIVE_E_SCARPATE
-    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Potatura alberi da frutto' AND id_utente = @utente_id LIMIT 1), 3, 1)  -- POTATURA_ALBERI_DA_FRUTTO
+    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Pulizia cortile' AND id_utente = @utente_id LIMIT 1), 6, 1), -- PULIZIA_GIARDINO (ID aggiornato)
+    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Sfalcio scarpata laterale' AND id_utente = @utente_id LIMIT 1), 4, 1), -- Scelto un ID servizio valido rimasto (es. 4)
+    ((SELECT id_preventivo FROM preventivo WHERE descrizione = 'Potatura alberi da frutto' AND id_utente = @utente_id LIMIT 1), 3, 1)  -- POTATURA_ALBERI_DA_FRUTTO (ID aggiornato)
 ON DUPLICATE KEY UPDATE quantita = VALUES(quantita);
 
 

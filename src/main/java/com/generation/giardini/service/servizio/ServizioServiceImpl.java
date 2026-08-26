@@ -141,7 +141,6 @@ public class ServizioServiceImpl implements ServizioService {
             case "SEMINA" -> "Semina";
             case "PULIZIA_GIARDINO" -> "Pulizia giardino";
             case "MANUTENZIONE_TAPPETO_ERBOSO" -> "Manutenzione tappeto erboso";
-            case "SFALCIO_RIVE_E_SCARPATE" -> "Sfalcio rive e scarpate";
             case "POTATURA_ALBERI_DA_FRUTTO" -> "Potatura alberi da frutto";
             case "POTATURA_ALBERI_ORNAMENTALI" -> "Potatura alberi ornamentali";
             case "POTATURA_SIEPI" -> "Potatura siepi";
