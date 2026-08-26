@@ -23,6 +23,6 @@ public class UtenteCreateException extends RuntimeException {
     @param nomeUtente   il nome dell'utente che ha generato l'errore
     @param cause        la causa principale dell'eccezione (es. errore di persistenza)*/
     public UtenteCreateException(String nomeUtente, Throwable cause) {
-        super("Impossibile creare il utente '" + nomeUtente + "'.", cause);
+        super("Impossibile creare l'utente '" + nomeUtente + "'.", cause);
     }
 }

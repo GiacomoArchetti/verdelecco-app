@@ -29,10 +29,12 @@ import com.generation.giardini.repository.UtenteRepository;
 import com.generation.giardini.service.prenotazione.PrenotazioneService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class PreventivoServiceImpl implements PreventivoService {
 
     private final PreventivoMapper preventivoMapper;
@@ -61,26 +63,33 @@ public class PreventivoServiceImpl implements PreventivoService {
     @Override
     public boolean createGuestRequest(PreventivoRequestDto request) {
         if (request == null || request.getEmail() == null || request.getEmail().isBlank()) {
-            throw new PreventivoCreateException("L'email è obbligatoria per una richiesta anonima.");
+            throw new PreventivoCreateException("L'email è obbligatoria.");
         }
 
         try {
             String email = request.getEmail().trim().toLowerCase();
+            
+            // 1. Recuperiamo o creiamo l'utente
             Utente utente = utenteRepository.findByEmailIgnoreCase(email).orElseGet(() -> createGuest(request, email));
             
+            // 2. Aggiorniamo i campi dell'utente
+            utente.setNome(request.getNome() != null ? request.getNome().trim() : "");
+            utente.setCognome(request.getCognome() != null ? request.getCognome().trim() : "");
+            utente.setTelefono(normalizzaTelefono(request.getTelefono()));
+            utente.setIndirizzo(request.getIndirizzo());
+
+            log.info(">>> TELEFONO PRIMA DEL SALVATAGGIO UTENTE: " + utente.getTelefono());
+
+            // 3. Salviamo, flushiamo e riassegniamo l'utente per blindare l'istanza
+            utente = utenteRepository.saveAndFlush(utente);
+
             BigDecimal superficie = new BigDecimal(request.getDimensioni());
             NomeServizio nomeServizio = NomeServizio.valueOf(request.getServizio());
             Servizio servizio = servizioRepository.findFirstByNomeAndAttivoTrueOrderByPrezzoAlMqAsc(nomeServizio)
-                .orElseThrow(() -> new IllegalArgumentException("Servizio senza prezzo attivo: " + request.getServizio()));
-
-            if (!Boolean.TRUE.equals(utente.getGuest())) {
-                utente.setNome(request.getNome() != null ? request.getNome().trim() : "");
-                utente.setCognome(request.getCognome() != null ? request.getCognome().trim() : "");
-                utente.setTelefono(request.getTelefono());
-            }
+                    .orElseThrow(() -> new IllegalArgumentException("Servizio senza prezzo attivo: " + request.getServizio()));
 
             Preventivo entity = new Preventivo();
-            entity.setUtente(utente);
+            entity.setUtente(utente); // Usiamo l'utente salvato e sincronizzato
             entity.setIndirizzo(request.getIndirizzo());
             entity.setSuperficieMq(superficie);
             entity.setCostoStimato(servizio.getPrezzoAlMq().multiply(superficie).setScale(2, RoundingMode.HALF_UP));
@@ -97,10 +106,11 @@ public class PreventivoServiceImpl implements PreventivoService {
 
             entity.setDataEmissione(LocalDate.now());
             entity.setStatoPreventivo(StatoPreventivo.IN_ATTESA);
+            
             preventivoRepository.save(entity);
             return true;
+            
         } catch (Exception e) {
-            // Stampa lo stacktrace in console per capire subito se c'è un errore di DB o altro
             e.printStackTrace();
             throw new PreventivoCreateException("Errore imprevisto durante la creazione del preventivo.", e);
         }
@@ -109,9 +119,10 @@ public class PreventivoServiceImpl implements PreventivoService {
     private Utente createGuest(PreventivoRequestDto request, String email) {
         Utente guest = new Utente();
         guest.setNome(request.getNome() != null ? request.getNome().trim() : "");
-        guest.setCognome(request.getCognome() != null ? request.getCognome().trim() : ""); // CORRETTO
+        guest.setCognome(request.getCognome() != null ? request.getCognome().trim() : "");
         guest.setEmail(email);
-        guest.setTelefono(request.getTelefono());
+        guest.setTelefono(request.getTelefono() != null ? normalizzaTelefono(request.getTelefono()) : ""); // <-- Assicurati che non sia nullo
+        guest.setIndirizzo(request.getIndirizzo());
         guest.setPassword(passwordEncoder.encode(java.util.UUID.randomUUID().toString()));
         guest.setAttivo(false);
         guest.setGuest(true);
@@ -214,5 +225,17 @@ public class PreventivoServiceImpl implements PreventivoService {
         return preventivoRepository.findFirstByUtenteEmailIgnoreCaseOrderByDataEmissioneDesc(email)
                 .map(preventivo -> preventivo.getIndirizzo())
                 .orElse("");
+    }
+
+    private String normalizzaTelefono(String telefono) {
+        if (telefono == null || telefono.isBlank()) {
+            return null;
+        }
+        String valore = telefono.trim().replaceAll("\\s+", " ");
+        if (valore.startsWith("0039")) {
+            valore = "+39" + valore.substring(4).trim();
+        }
+
+        return valore.startsWith("+39") ? valore : "+39 " + valore;
     }
 }
