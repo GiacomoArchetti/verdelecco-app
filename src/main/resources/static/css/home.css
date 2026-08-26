@@ -30,6 +30,11 @@ section {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);
 }
 
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
 .hero {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
@@ -51,7 +56,7 @@ section {
     grid-column: 1 / -1;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .hero-right {
@@ -65,54 +70,28 @@ section {
     width: min(100%, 500px);
     display: block;
     border-radius: 24px;
-    box-shadow: 0 28px 42px rgba(7, 18, 10, 0.48), 0 8px 0 rgba(113, 143, 103, 0.45);
-    /* transform: translateY(-14px) rotate(1deg);
-    transition: transform 0.35s ease, box-shadow 0.35s ease; */
-
     box-shadow: 0 20px 35px rgba(7, 18, 10, 0.45), 
                 0 0 20px 3px rgba(113, 143, 103, 0.20);
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .hero-right img:hover {
-    /* transform: translateY(-20px) rotate(0deg); */
-    /* box-shadow: 0 34px 50px rgba(7, 18, 10, 0.48), 0 10px 0 rgba(113, 143, 103, 0.5); */
-
     box-shadow: 0 25px 45px rgba(7, 18, 10, 0.4), 
                 0 0 28px 5px rgba(113, 143, 103, 0.32);
 }
 
-h1,
-h2,
-h3 {
+/* ==========================================================================
+   TYPOGRAPHY & BUTTONS
+   ========================================================================== */
+h1, h2, h3 {
     margin: 0 0 18px;
     color: #eef4e6;
     font-weight: 800;
 }
 
-p,
-li,
-.review p,
-.faq-item p,
-.process-step p {
+p, li, .review p, .faq-item p, .process-step p {
     color: #c9d7b6;
     line-height: 1.8;
-}
-
-.registration-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 24px;
-}
-
-.success-actions {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    margin-top: 24px;
-    justify-content: flex-end;
-    align-items: center;
 }
 
 .btn-primary {
@@ -132,17 +111,30 @@ li,
     transform: translateY(-2px);
 }
 
+/* ==========================================================================
+   FORMS (PREVENTIVO & REGISTRAZIONE)
+   ========================================================================== */
+.registration-form,
+.preventivo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
 .preventivo-form .form-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
 }
 
+.registration-form label,
 .preventivo-form label {
-    display: block;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    font-weight: 600;
     color: #edf3df;
+    font-weight: 600;
 }
 
 .preventivo-form input,
@@ -158,23 +150,24 @@ li,
     background: rgba(31, 50, 34, 0.9);
     color: #eef4e0;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
-/* Blocco ridimensionamento orizzontale textarea preventivo e registrazione */
 .preventivo-form textarea,
 .registration-form textarea {
     resize: vertical !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
     min-height: 120px !important;
+    max-height: 280px !important;
 }
 
-/* Phone prefix + number row */
 .phone-row {
     display: flex;
     gap: 8px;
     align-items: center;
 }
+
 .phone-prefix {
     width: 80px;
     padding: 10px 8px;
@@ -184,9 +177,10 @@ li,
     color: #eef4e0;
     font-size: 0.95rem;
 }
+
 .phone-number {
     flex: 1 1 auto;
-    min-width: 0; /* allow flex child to shrink in narrow containers */
+    min-width: 0;
     padding: 14px 16px;
     border-radius: 16px;
 }
@@ -225,15 +219,6 @@ li,
     margin-bottom: 14px;
 }
 
-.registration-form label,
-.preventivo-form label {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    color: #edf3df;
-    font-weight: 600;
-}
-
 .registration-form button,
 .preventivo-form button {
     width: fit-content;
@@ -245,10 +230,22 @@ li,
     gap: 12px;
 }
 
+.success-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin-top: 24px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* ==========================================================================
+   SEZIONE CONTATTI (RESPONSIVE)
+   ========================================================================== */
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    gap: 20px;
 }
 
 .contact-column {
@@ -265,6 +262,13 @@ li,
     border-radius: 20px;
     background: var(--panel-bg);
     border: 1px solid rgba(184, 206, 168, 0.26);
+    transition: transform 0.2s ease, background 0.2s ease;
+    cursor: pointer;
+}
+
+.contact-card:hover {
+    transform: translateY(-2px);
+    background: rgba(154, 167, 122, 0.22);
 }
 
 .contact-icon {
@@ -276,11 +280,12 @@ li,
     font-size: 24px;
     border-radius: 18px;
     background: rgba(154, 167, 122, 0.3);
+    flex-shrink: 0;
 }
 
 .contact-icon-img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
     display: block;
 }
@@ -288,14 +293,42 @@ li,
 .contact-card strong {
     display: block;
     color: #eef4de;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    font-size: 1rem;
 }
 
 .contact-card p {
     margin: 0;
     color: #cdd7bb;
+    font-size: 0.9rem;
+    word-break: break-word; /* Evita rotture di layout per mail lunghe su schermi piccoli */
 }
 
+/* Responsive Contatti per Tablet & Smartphone */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr; /* Passa a 1 singola colonna */
+        gap: 16px;
+    }
+
+    .contact-card {
+        padding: 16px;
+    }
+
+    .contact-icon {
+        width: 46px;
+        height: 46px;
+    }
+
+    .contact-icon-img {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+/* ==========================================================================
+   SERVIZI CAROUSEL
+   ========================================================================== */
 .services-content {
     position: relative;
 }
@@ -344,17 +377,9 @@ li,
     display: none;
 }
 
-.service-card.is-previous {
-    order: 1;
-}
-
-.service-card.is-active {
-    order: 2;
-}
-
-.service-card.is-next {
-    order: 3;
-}
+.service-card.is-previous { order: 1; }
+.service-card.is-active   { order: 2; }
+.service-card.is-next     { order: 3; }
 
 .service-image {
     width: 100%;
@@ -426,39 +451,48 @@ li,
     transform: scale(1.35);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
     .services-carousel {
-        grid-template-columns: 42px minmax(0, 1fr) 42px;
-        gap: 8px;
-        min-height: 390px;
+        grid-template-columns: 36px minmax(0, 1fr) 36px !important;
+        gap: 6px !important;
+        min-height: 380px !important;
     }
 
     .services-track {
-        min-height: 370px;
-        display: block;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        min-height: 370px !important;
+        overflow: hidden !important;
     }
 
-    .service-card,
-    .service-card.is-active {
-        min-height: 360px;
-        transform: scale(1);
-    }
-
+    /* Nasconde completamente tutte le card che non sono attive */
     .service-card:not(.is-active) {
-        display: none;
+        display: none !important;
+    }
+
+    /* La card attiva occupa il 100% dello spazio disponibile al centro */
+    .service-card.is-active {
+        width: 100% !important;
+        min-height: 360px !important;
+        transform: scale(1) !important;
+        margin: 0 !important;
     }
 
     .service-card.is-active .service-image {
-        height: 210px;
+        height: 200px !important;
     }
 
     .carousel-button {
-        width: 40px;
-        height: 40px;
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 1.1rem !important;
     }
 }
 
-/* CTA section: align button with heading/text (desktop: same row, mobile: stacked) */
+/* ==========================================================================
+   CTA SECTION & REVIEWS
+   ========================================================================== */
 .cta {
     display: flex;
     flex-direction: row;
@@ -468,33 +502,10 @@ li,
     padding: 12px 18px;
 }
 
-@media(max-width: 768px) {
-    .cta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-}
-
-/* Keep hero button aligned bottom-right; CTA button placed to the right of the heading */
-/* .hero-left .btn-primary {
-    align-self: flex-end;
-} */
-
-
-.hero-action {
-    grid-column: 1 / -1; /* Fa occupare al pulsante tutta la larghezza delle 2 colonne */
-    display: flex;
-    justify-content: center; /* Centra il pulsante orizzontalmente */
-    margin-top: 20px;
-}
-
-
 .cta .btn-primary {
     margin-left: 16px;
 }
 
-/* For other sections on the home page, push CTA buttons to the right and add spacing from text */
 section:not(.hero):not(.cta) .btn-primary {
     display: inline-block;
     margin-left: auto;
@@ -568,66 +579,9 @@ section:not(.hero):not(.cta) .btn-primary {
     margin: 0;
 }
 
-#scrollButton {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    display: none;
-    width: 48px;
-    height: 48px;
-    border: none;
-    border-radius: 50%;
-    background: #7e9d73;
-    color: #eef4e6;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-}
-
-#scrollButton.show {
-    display: block;
-}
-
-@media(max-width: 980px) {
-    .registration-card,
-    .preventivo-card,
-    .success-card {
-        width: 100%;
-        padding: 28px 20px;
-        border-radius: 22px;
-    }
-}
-
-@media(max-width: 768px) {
-    .registration-page,
-    .preventivo-page {
-        padding: 20px 14px;
-    }
-
-    .btn-primary,
-    .nav-btn {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-@media(max-width: 480px) {
-    .phone-prefix {
-        width: 64px;
-        font-size: 0.9rem;
-    }
-}
-
-footer {
-    text-align: center;
-    padding: 24px 0;
-    color: #cdd7bb;
-}
-
-footer p {
-    margin: 0;
-}
-
+/* ==========================================================================
+   FAQ ACCORDION
+   ========================================================================== */
 .faq-item {
     border: 1px solid rgba(177, 196, 161, 0.2);
     border-radius: 16px;
@@ -680,13 +634,51 @@ footer p {
     padding: 16px 24px 24px;
 }
 
-@media(max-width: 768px) {
-    .faq-question {
-        font-size: 16px;
-    }
+/* ==========================================================================
+   SCROLL TO TOP BUTTON & FOOTER
+   ========================================================================== */
+#scrollButton {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: none;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: #7e9d73;
+    color: #eef4e6;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
 
+#scrollButton.show {
+    display: block;
+}
+
+footer {
+    text-align: center;
+    padding: 24px 0;
+    color: #cdd7bb;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES GLOBALI
+   ========================================================================== */
 @media(max-width: 980px) {
+    .registration-card,
+    .preventivo-card,
+    .success-card {
+        width: 100%;
+        padding: 28px 20px;
+        border-radius: 22px;
+    }
+
     .hero {
         grid-template-columns: 1fr;
     }
@@ -698,12 +690,38 @@ footer p {
         padding: 40px 18px;
     }
 
+    .cta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .registration-page,
+    .preventivo-page {
+        padding: 20px 14px;
+    }
+
+    .btn-primary,
+    .nav-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .faq-question {
+        font-size: 16px;
+    }
+
     .gallery-grid {
         grid-template-columns: 1fr;
     }
 }
 
-
+@media(max-width: 480px) {
+    .phone-prefix {
+        width: 64px;
+        font-size: 0.9rem;
+    }
+}
 
 /* ==========================================================================
    FEEDBACK & FORM ERRORS (UNIFICATI PER TUTTO IL SITO)
@@ -727,11 +745,13 @@ footer p {
 
 /* Stato di errore globale (Compatibile sia con .feedback-error che con .alert-danger) */
 .feedback-error,
+
 .alert-danger {
     background: rgba(180, 60, 60, 0.22);
     border: 1px solid rgba(230, 100, 100, 0.45);
     color: #fca5a5;
 }
+
 
 .feedback-error::before,
 .alert-danger::before {
@@ -775,6 +795,14 @@ textarea.input-error {
 }
 
 /* Animazione di comparsa soft */
+.fc-bg-event {
+    background-color: #e74c3c !important;
+    opacity: 0.8 !important;
+    border-radius: 4px;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -796,4 +824,80 @@ textarea.input-error {
     border-radius: 4px;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+.char-counter {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+    color: rgba(238, 244, 222, 0.7);
+    margin-top: 4px;
+}
+
+/* Correzione allineamento e centraggio pulsante CTA su mobile */
+@media (max-width: 768px) {
+    /* Trova la scheda contenitore della CTA e la centra */
+    .cta-card, 
+    .home-cta,
+    .quote-cta-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Centra il pulsante al suo interno impedendo che esca a destra */
+    .cta-card .btn-primary,
+    .home-cta .btn-primary,
+    .quote-cta-box .btn-primary {
+        width: 100% !important;
+        max-width: 280px !important;
+        margin: 16px auto 0 auto !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Evita sovrapposizioni tra la freccia e il testo del footer su mobile */
+@media (max-width: 768px) {
+    #back-to-top,
+    .scroll-to-top {
+        bottom: 16px !important;
+        right: 12px !important;
+        width: 38px !important;
+        height: 38px !important;
+    }
+
+    footer {
+        padding-bottom: 36px !important;
+        padding-right: 50px !important;
+    }
+}
+
+/* Correzione definitiva per il pulsante Richiedi Preventivo su mobile */
+@media (max-width: 768px) {
+    /* Si assicura che il contenitore interno della card sia centrato e non sbordi */
+    .hero-card,
+    .cta-card,
+    .quote-cta-box,
+    .home-cta,
+    section:has(.btn-primary) {
+        box-sizing: border-box !important;
+        overflow: hidden !important; /* Taglia eventuali elementi che fuoriescono */
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    /* Centra perfettamente il pulsante ed evita che esca a destra */
+    .btn-primary,
+    a.btn-primary {
+        display: block !important;
+        width: 100% !important;
+        max-width: calc(100% - 24px) !important; /* Mantiene un margine di respiro dai bordi della scheda */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+    }
 }
