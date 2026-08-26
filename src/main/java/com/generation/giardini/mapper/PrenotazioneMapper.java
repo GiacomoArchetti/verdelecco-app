@@ -21,7 +21,9 @@ public class PrenotazioneMapper {
             entity.getPreventivo() != null ? entity.getPreventivo().getIdPreventivo() : null,
             entity.getDataIntervento(),
             entity.getIndirizzo(),
-            entity.getStato() != null ? entity.getStato().name() : null
+            entity.getStato() != null ? entity.getStato().name() : null,
+            // MODIFICA: valorizziamo il campo recensita (se l'entità ha la relazione o controllando la presenza)
+            false // Valore impostato di default
         );
     }
 
@@ -46,6 +48,8 @@ public class PrenotazioneMapper {
                 default -> StatoPrenotazione.PROGRAMMATA;
             }); //Sintassi switch da java 14+
         }
+
+        // NOTA: Nessuna modifica necessaria qui in toEntity poichè 'recensita' è un flag derivato/di sola lettura per la vista.
 
         return entity;
     }

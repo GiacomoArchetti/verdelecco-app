@@ -23,6 +23,7 @@ import com.generation.giardini.exception.preventivo.PreventivoNotFoundException;
 import com.generation.giardini.mapper.PrenotazioneMapper;
 import com.generation.giardini.repository.PrenotazioneRepository;
 import com.generation.giardini.repository.PreventivoRepository;
+import com.generation.giardini.repository.RecensioneRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +35,7 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     private final PrenotazioneMapper prenotazioneMapper;
     private final PrenotazioneRepository prenotazioneRepository;
     private final PreventivoRepository preventivoRepository;
+    private final RecensioneRepository recensioneRepository;
 
     @Override
     public boolean create(PrenotazioneDTO dto) {
@@ -56,7 +58,16 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     public List<PrenotazioneDTO> readAll() {
         List<PrenotazioneDTO> lista = new ArrayList<>();
         for (Prenotazione e : prenotazioneRepository.findAll()) {
-            lista.add(prenotazioneMapper.toDto(e));
+            
+            boolean recensita = recensioneRepository.existsByPrenotazioneIdPrenotazione(e.getIdPrenotazione());
+            lista.add(new PrenotazioneDTO(
+                e.getIdPrenotazione(),
+                e.getPreventivo() != null ? e.getPreventivo().getIdPreventivo() : null,
+                e.getDataIntervento(),
+                e.getIndirizzo(),
+                e.getStato() != null ? e.getStato().name() : null,
+                recensita
+            ));
         }
         return lista;
     }
@@ -67,7 +78,16 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
         Prenotazione entity = prenotazioneRepository.findById(id)
                 .orElseThrow(() -> new PrenotazioneNotFoundException(id));
                 
-        return prenotazioneMapper.toDto(entity);
+                
+        boolean recensita = recensioneRepository.existsByPrenotazioneIdPrenotazione(entity.getIdPrenotazione());
+        return new PrenotazioneDTO(
+            entity.getIdPrenotazione(),
+            entity.getPreventivo() != null ? entity.getPreventivo().getIdPreventivo() : null,
+            entity.getDataIntervento(),
+            entity.getIndirizzo(),
+            entity.getStato() != null ? entity.getStato().name() : null,
+            recensita
+        );
     }
 
     @Override
@@ -117,7 +137,7 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     @Override
     public List<EventoCalendarioDTO> getEventiCalendario(LocalDate start, LocalDate end) {
         // Trasforma LocalDate in LocalDateTime per matchare il tipo nel DB/Repository
-        LocalDateTime startDateTime = start.atStartOfDay();              // 2026-08-01T00:00:00
+        LocalDateTime startDateTime = start.atStartOfDay();           // 2026-08-01T00:00:00
         LocalDateTime endDateTime = end.atTime(LocalTime.MAX);            // 2026-08-31T23:59:59.999999999
         
         // 1. Recupera le prenotazioni esistenti dal database per il periodo selezionato
@@ -141,13 +161,29 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     @Transactional(readOnly = true)
     public Page<PrenotazioneDTO> readAll(Pageable pageRequest) {
         Page<Prenotazione> pagePrenotazioni = prenotazioneRepository.findAll(pageRequest);
-        return pagePrenotazioni.map(prenotazioneMapper::toDto);
+        
+        return pagePrenotazioni.map(prenotazione -> new PrenotazioneDTO(
+            prenotazione.getIdPrenotazione(),
+            prenotazione.getPreventivo() != null ? prenotazione.getPreventivo().getIdPreventivo() : null,
+            prenotazione.getDataIntervento(),
+            prenotazione.getIndirizzo(),
+            prenotazione.getStato() != null ? prenotazione.getStato().name() : null,
+            recensioneRepository.existsByPrenotazioneIdPrenotazione(prenotazione.getIdPrenotazione())
+        ));
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<PrenotazioneDTO> readByUtenteEmail(String email, Pageable pageable) {
         Page<Prenotazione> page = prenotazioneRepository.findByPreventivoUtenteEmailIgnoreCase(email, pageable);
-        return page.map(prenotazioneMapper::toDto);
+        
+        return page.map(prenotazione -> new PrenotazioneDTO(
+            prenotazione.getIdPrenotazione(),
+            prenotazione.getPreventivo() != null ? prenotazione.getPreventivo().getIdPreventivo() : null,
+            prenotazione.getDataIntervento(),
+            prenotazione.getIndirizzo(),
+            prenotazione.getStato() != null ? prenotazione.getStato().name() : null,
+            recensioneRepository.existsByPrenotazioneIdPrenotazione(prenotazione.getIdPrenotazione())
+        ));
     }
 }

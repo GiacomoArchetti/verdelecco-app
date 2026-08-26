@@ -7,7 +7,7 @@ public record PrenotazioneDTO(
     Long idPreventivo,
     LocalDateTime dataIntervento,
     String indirizzo,
-    String stato
+    String stato,
+    boolean recensita
 ) {
-
 }

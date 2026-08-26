@@ -111,6 +111,7 @@
                 <table class="client-table">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Data emissione</th>
                             <th>Data intervento</th>
                             <th>Indirizzo</th>
@@ -120,6 +121,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="preventivo : ${preventivi.content}">
+                            <td th:text="${preventivo.idPreventivo}"></td>
                             <td th:text="${preventivo.dataEmissione != null ? #temporals.format(preventivo.dataEmissione, 'dd-MM-yyyy') : '-'}"></td>
                             <td th:text="${preventivo.dataIntervento != null ? #temporals.format(preventivo.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                             <td th:text="${preventivo.indirizzo}"></td>
@@ -152,21 +154,21 @@
                 <table class="client-table">
                     <thead>
                         <tr>
+                            <th>ID Preventivo</th>
                             <th>Data intervento</th>
                             <th>Indirizzo</th>
-                            <th>Preventivo</th>
                             <th>Stato</th>
                             <th>Recensione</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="prenotazione : ${prenotazioni.content}">
+                            <td th:text="${prenotazione.idPreventivo != null ? prenotazione.idPreventivo : '-'}"></td>
                             <td th:text="${prenotazione.dataIntervento != null ? #temporals.format(prenotazione.dataIntervento, 'dd-MM-yyyy') : '-'}"></td>
                             <td th:text="${prenotazione.indirizzo}"></td>
-                            <td th:text="${prenotazione.idPreventivo != null ? prenotazione.idPreventivo : '-'}"></td>
                             <td th:text="${prenotazione.stato}"></td>
                             <td>
-                                <form th:if="${prenotazione.stato == 'COMPLETATA'}"
+                                <form th:if="${prenotazione.stato == 'COMPLETATA' and !prenotazione.recensita}"
                                       th:action="@{/client/prenotazioni/{id}/recensione(id=${prenotazione.idPrenotazione})}"
                                       method="post" class="review-form">
                                     
@@ -190,7 +192,12 @@
                                     </label>
                                     <button type="submit">Invia recensione</button>
                                 </form>
-                                <span th:if="${prenotazione.stato != 'COMPLETATA'}">Disponibile con stato completata</span>
+                                <span th:if="${prenotazione.stato == 'COMPLETATA' and prenotazione.recensita}" class="text-muted">
+                                    Recensione già inviata
+                                </span>
+                                <span th:if="${prenotazione.stato != 'COMPLETATA'}">
+                                    Disponibile con stato completata
+                                </span>
                             </td>
                         </tr>
                     </tbody>
