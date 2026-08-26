@@ -52,7 +52,7 @@ html {
 @media (max-width: 768px) {
     html {
         /* Riduci l'offset per mobile (es. 50px o 60px in base all'altezza della navbar mobile) */
-        scroll-padding-top: 25px;
+        scroll-padding-top: 85px;
     }
 }
 
