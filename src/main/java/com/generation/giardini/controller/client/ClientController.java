@@ -1,5 +1,7 @@
 package com.generation.giardini.controller.client;
 
+import java.security.Principal;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -75,6 +77,10 @@ public class ClientController {
         return "client";
     }
 
+
+
+
+
     @PostMapping("/preventivo")
     public String richiediPreventivo(@ModelAttribute PreventivoRequestDto preventivoRequest,
             @AuthenticationPrincipal UserDetails userDetails,
@@ -95,23 +101,26 @@ public class ClientController {
         return String.format("redirect:/client?preventiviPage=%d&prenotazioniPage=%d#richiedi-preventivo", preventiviPage, prenotazioniPage);
     }
 
-    @PostMapping("/profilo")
-    public String aggiornaProfilo(@AuthenticationPrincipal UserDetails userDetails,
-            @RequestParam(required = false) String telefono,
-            @RequestParam(required = false) String indirizzo,
-            @RequestParam(value = "preventiviPage", defaultValue = "0") int preventiviPage,
-            @RequestParam(value = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
-            RedirectAttributes redirectAttributes) {
-            
-        try {
-            utenteService.updateDatiContatto(userDetails.getUsername(), telefono, indirizzo);
-            redirectAttributes.addFlashAttribute("profileSuccessMessage", "Profilo aggiornato correttamente.");
-        } catch (RuntimeException exception) {
-            log.error("Errore durante l'aggiornamento del profilo per l'utente: " + userDetails.getUsername(), exception);
-            redirectAttributes.addFlashAttribute("profileErrorMessage", 
-                    "Si è verificato un errore durante il salvataggio dei dati. Riprova più tardi.");
+    @PostMapping("/preventivi/{id}/cancel")
+    public String cancelPreventivoAsClient(@PathVariable Long id, Principal principal, 
+                                           @RequestParam(value = "preventiviPage", defaultValue = "0") int preventiviPage,
+                                           @RequestParam(value = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
+                                           RedirectAttributes redirectAttributes) {
+        if (principal == null) {
+            return "redirect:/login";
         }
-        return String.format("redirect:/client?preventiviPage=%d&prenotazioniPage=%d#profilo", preventiviPage, prenotazioniPage);
+        
+        String emailUtente = principal.getName();
+        
+        boolean successo = preventivoService.cancelAsClient(id, emailUtente);
+        
+        if (successo) {
+            redirectAttributes.addFlashAttribute("successMessage", "Preventivo annullato con successo.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Impossibile annullare il preventivo.");
+        }
+        
+        return String.format("redirect:/client?preventiviPage=%d&prenotazioniPage=%d#preventivi", preventiviPage, prenotazioniPage);
     }
 
     @PostMapping("/prenotazioni/{id}/recensione")
@@ -132,5 +141,58 @@ public class ClientController {
         }
         
         return String.format("redirect:/client?preventiviPage=%d&prenotazioniPage=%d#prenotazioni", preventiviPage, prenotazioniPage);
+    }
+
+    /**
+     * Permette al cliente autenticato di annullare una propria prenotazione.
+     * 
+     * @param id L'identificativo della prenotazione da annullare
+     * @param principal Oggetto per identificare l'utente attualmente loggato
+     * @param preventiviPage Pagina corrente della tabella preventivi
+     * @param prenotazioniPage Pagina corrente della tabella prenotazioni
+     * @param redirectAttributes Attributi per messaggi flash di feedback
+     * @return Redirect alla pagina del profilo/area riservata del cliente con mantenimento della paginazione
+     */
+    @PostMapping("/prenotazioni/{id}/cancel")
+    public String cancelPrenotazioneAsClient(@PathVariable Long id, Principal principal, 
+                                           @RequestParam(value = "preventiviPage", defaultValue = "0") int preventiviPage,
+                                           @RequestParam(value = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
+                                           RedirectAttributes redirectAttributes) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        
+        String emailUtente = principal.getName();
+        
+        // Esegue la logica di business verificando che la prenotazione appartenga al cliente
+        boolean successo = prenotazioneService.cancelAsClient(id, emailUtente);
+        
+        if (successo) {
+            redirectAttributes.addFlashAttribute("successMessage", "Prenotazione annullata con successo.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Impossibile annullare la prenotazione.");
+        }
+        
+        // Reindirizza alla tabella prenotazioni del portale cliente preservando la paginazione
+        return String.format("redirect:/client?preventiviPage=%d&prenotazioniPage=%d#prenotazioni", preventiviPage, prenotazioniPage);
+    }
+
+    @PostMapping("/profilo")
+    public String aggiornaProfilo(@AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(required = false) String telefono,
+            @RequestParam(required = false) String indirizzo,
+            @RequestParam(value = "preventiviPage", defaultValue = "0") int preventiviPage,
+            @RequestParam(value = "prenotazioniPage", defaultValue = "0") int prenotazioniPage,
+            RedirectAttributes redirectAttributes) {
+            
+        try {
+            utenteService.updateDatiContatto(userDetails.getUsername(), telefono, indirizzo);
+            redirectAttributes.addFlashAttribute("profileSuccessMessage", "Profilo aggiornato correttamente.");
+        } catch (RuntimeException exception) {
+            log.error("Errore durante l'aggiornamento del profilo per l'utente: " + userDetails.getUsername(), exception);
+            redirectAttributes.addFlashAttribute("profileErrorMessage", 
+                    "Si è verificato un errore durante il salvataggio dei dati. Riprova più tardi.");
+        }
+        return String.format("redirect:/client?preventiviPage=%d&prenotazioniPage=%d#profilo", preventiviPage, prenotazioniPage);
     }
 }

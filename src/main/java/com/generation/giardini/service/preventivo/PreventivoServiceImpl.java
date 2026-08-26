@@ -213,6 +213,26 @@ public class PreventivoServiceImpl implements PreventivoService {
     }
 
     @Override
+    public boolean cancelAsClient(Long id, String userEmail) {
+        Preventivo entity = preventivoRepository.findById(id)
+                .orElseThrow(() -> new PreventivoNotFoundException(id));
+
+        if (entity.getUtente() == null || !entity.getUtente().getEmail().equalsIgnoreCase(userEmail)) {
+            throw new IllegalArgumentException("Non sei autorizzato ad annullare questo preventivo.");
+        }
+
+        // Il preventivo può essere annullato dal cliente solo se si trova nello stato IN_ATTESA.
+        // Se si trova in ACCETTATO, RIFIUTATO, SCADUTO o ANNULLATO, l'annullamento non è consentito.
+        if (entity.getStatoPreventivo() == StatoPreventivo.IN_ATTESA) {
+            entity.setStatoPreventivo(StatoPreventivo.ANNULLATO);
+            preventivoRepository.save(entity);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Page<PreventivoDTO> readAll(Pageable pageRequest) {
         Page<Preventivo> pagePreventivi = preventivoRepository.findAll(pageRequest);

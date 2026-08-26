@@ -1,38 +1,47 @@
 .user-dashboard {
-    width: min(1200px, calc(100% - 32px));
-    margin: 32px auto 64px;
-}
-
-.dashboard-hero,
-.dashboard-section {
-    max-width: none;
-    margin: 24px 0;
-    padding: 32px;
+    max-width: 1200px;
+    margin: 104px auto 40px;
+    padding: 0 20px 80px;
 }
 
 .dashboard-hero {
-    background: rgba(122, 155, 88, 0.2);
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    margin-bottom: 30px;
 }
 
-.dashboard-section h2 {
-    margin-bottom: 22px;
+.dashboard-hero-content h1,
+.dashboard-hero-content p {
+    color: #eef4e0;
 }
 
-.section-heading {
+.dashboard-section {
+    margin-bottom: 40px;
+    padding: 24px;
+    background: rgba(70, 86, 73, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    border-radius: 18px;
+}
+
+.section-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 18px;
-    margin-bottom: 22px;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
 }
 
-.section-heading h2 {
-    margin-bottom: 0;
-}
-
-.section-heading .btn-primary {
+.section-header h3 {
+    font-size: 1.25rem;
+    color: #eef4e0;
     margin: 0;
-    white-space: nowrap;
+}
+
+.section-header p {
+    color: #c6d3b8;
+    font-size: 0.95rem;
 }
 
 .client-quote-form {
@@ -41,9 +50,9 @@
     gap: 10px !important;
     margin-bottom: 28px;
     padding: 22px;
-    border: 1px solid rgba(184, 206, 168, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
-    background: rgba(31, 50, 34, 0.35);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .client-quote-form h3 {
@@ -68,9 +77,9 @@
 .client-quote-form textarea {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid rgba(184, 206, 168, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
-    background: rgba(31, 50, 34, 0.9);
+    background: rgba(255, 255, 255, 0.08);
     color: #eef4e0;
 }
 
@@ -93,9 +102,9 @@
     display: grid;
     gap: 6px;
     padding: 16px;
-    border: 1px solid rgba(184, 206, 168, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    background: rgba(31, 50, 34, 0.35);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .profile-field span {
@@ -115,9 +124,9 @@
 .profile-field input {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid rgba(184, 206, 168, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
-    background: rgba(31, 50, 34, 0.9);
+    background: rgba(255, 255, 255, 0.08);
     color: #eef4e0;
 }
 
@@ -126,30 +135,50 @@
     margin: 0;
 }
 
-.table-wrapper {
+.table-responsive {
     overflow-x: auto;
 }
 
-.client-table {
+.admin-table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    overflow: hidden;
     min-width: 680px;
 }
 
-.client-table th,
-.client-table td {
-    padding: 14px 12px;
-    border-bottom: 1px solid rgba(184, 206, 168, 0.2);
+.admin-table th,
+.admin-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     text-align: left;
 }
 
-.client-table th {
-    color: #eef4de;
+.admin-table th {
+    background: rgba(64, 87, 72, 0.3);
+    color: #edf6e9;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     font-size: 0.9rem;
 }
 
-.client-table td {
-    color: #c9d7b6;
+.admin-table tbody tr:nth-child(odd) td {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-table tbody tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-table td {
+    color: #d8e4cf;
+}
+
+.admin-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.12);
 }
 
 .review-form {
@@ -169,9 +198,9 @@
 .review-form textarea {
     width: 100%;
     padding: 7px;
-    border: 1px solid rgba(184, 206, 168, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
-    background: rgba(31, 50, 34, 0.9);
+    background: rgba(255, 255, 255, 0.08);
     color: #eef4e0;
 }
 
@@ -183,6 +212,11 @@
     background: var(--moss-green);
     color: #eef4e0;
     cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.review-form button:hover {
+    background: var(--olive-drab);
 }
 
 .feedback {
@@ -193,10 +227,12 @@
 
 .feedback-success {
     background: rgba(91, 148, 91, 0.25);
+    color: #eef4e0;
 }
 
 .feedback-error {
     background: rgba(180, 75, 75, 0.25);
+    color: #eef4e0;
 }
 
 .pagination {
@@ -213,6 +249,8 @@
     border-radius: 999px;
     padding: 9px 16px;
     text-decoration: none;
+    border: none;
+    transition: background 0.2s ease;
 }
 
 .pagination a:hover {
@@ -224,9 +262,64 @@
     color: #c9d7b6;
 }
 
+.preventivo-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.preventivo-actions form {
+    display: flex;
+    margin: 0;
+}
+
+.btn-reject {
+    width: 38px;
+    height: 38px;
+    padding: 7px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg,#e27a6a,#c84b3a);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(200,75,58,0.22);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-reject img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.btn-reject:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+@media (max-width: 900px) {
+    .dashboard-section {
+        padding: 18px;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 10px 12px;
+    }
+
+    .pagination {
+        gap: 10px;
+        font-size: 0.9rem;
+    }
+}
+
 @media (max-width: 600px) {
     .user-dashboard {
-        width: min(100% - 20px, 1200px);
+        padding: 0 12px 60px;
     }
 
     .dashboard-hero,
@@ -234,17 +327,8 @@
         padding: 24px 16px;
     }
 
-    .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .section-heading .btn-primary {
-        width: 100%;
-    }
-
     .client-quote-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
 
     .profile-grid {
@@ -284,13 +368,13 @@
 /* Blocco rigido per la textarea dei Dettagli Aggiuntivi */
 .client-quote-form textarea,
 .quote-bottom-group textarea {
-    resize: vertical !important; /* Ridimensionamento SOLO verticale */
-    width: 100% !important;      /* Ancorata al contenitore, non esce più a destra */
-    max-width: 100% !important;  /* Impedisce l'allargamento orizzontale */
-    min-width: 100% !important;  /* Impedisce che si rimpicciolisca in larghezza */
+    resize: vertical !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     box-sizing: border-box !important;
-    min-height: 100px !important; /* Altezza minima bloccata */
-    max-height: 280px !important; /* Altezza massima bloccata */
+    min-height: 100px !important;
+    max-height: 280px !important;
 }
 
 /* Pulsante posizionato a sinistra sotto la textarea */

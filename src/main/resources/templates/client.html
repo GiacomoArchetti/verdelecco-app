@@ -37,6 +37,7 @@
     <div th:replace="~{navbar/navbar-client :: navbar}"></div>
 
     <main class="user-dashboard">
+        <!-- ================= STATO / HERO SECTION ================= -->
         <section class="dashboard-hero">
             <div class="dashboard-hero-content">
                 <h1>Benvenuto <span th:text="${nomeUtente != null ? #strings.capitalize(nomeUtente.toLowerCase()) : 'Cliente'}">Cliente</span>!</h1>
@@ -44,9 +45,10 @@
             </div>
         </section>
 
+        <!-- ================= SEZIONE: RICHIEDI UN PREVENTIVO ================= -->
         <section id="richiedi-preventivo" class="dashboard-section">
-            <div class="section-heading">
-                <h2>Richiedi un preventivo</h2>
+            <div class="section-header">
+                <h3>Richiedi un preventivo</h3>
             </div>
             <p th:if="${successMessage}" class="feedback feedback-success" th:text="${successMessage}"></p>
             <p th:if="${errorMessage}" class="feedback feedback-error" th:text="${errorMessage}"></p>
@@ -102,13 +104,14 @@
             </form>
         </section>
 
+        <!-- ================= SEZIONE: I MIEI PREVENTIVI ================= -->
         <section id="preventivi" class="dashboard-section">
-            <div class="section-heading">
-                <h2>I miei preventivi</h2>
+            <div class="section-header">
+                <h3>I miei preventivi</h3>
             </div>
             <p th:if="${preventivi == null or preventivi.empty}" class="empty-state">Non hai ancora richiesto preventivi.</p>
-            <div class="table-wrapper" th:unless="${preventivi == null or preventivi.empty}">
-                <table class="client-table">
+            <div class="table-responsive" th:unless="${preventivi == null or preventivi.empty}">
+                <table class="admin-table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -117,6 +120,7 @@
                             <th>Indirizzo</th>
                             <th>Costo stimato</th>
                             <th>Stato</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -127,6 +131,24 @@
                             <td th:text="${preventivo.indirizzo}"></td>
                             <td th:text="${preventivo.costoStimato != null ? preventivo.costoStimato + ' EUR' : '-'}"></td>
                             <td th:text="${preventivo.stato != null ? preventivo.stato : '-'}"></td>
+                            <td>
+                                <div class="preventivo-actions">
+                                    <form th:if="${preventivo.stato == 'IN ATTESA'}"
+                                          th:action="@{/client/preventivi/{id}/cancel(id=${preventivo.idPreventivo})}" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                        <input type="hidden" name="preventiviPage" th:value="${preventivi != null ? preventivi.number : 0}" />
+                                        <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni != null ? prenotazioni.number : 0}" />
+                                        <button type="submit" class="btn-reject" title="Annulla preventivo" aria-label="Annulla preventivo"
+                                                onclick="return confirm('Sei sicuro di voler annullare questo preventivo?');">
+                                            <img th:src="@{/images/delete.png}" alt="Rifiuta">
+                                        </button>
+                                    </form>
+                                </div>
+                                <span th:if="${preventivo.stato == 'ANNULLATO'}" class="text-muted">Annullato</span>
+                                <span th:if="${preventivo.stato == 'ACCETTATO'}" class="text-muted">Accettato</span>
+                                <span th:if="${preventivo.stato == 'RIFIUTATO'}" class="text-muted">Rifiutato</span>
+                                <span th:if="${preventivo.stato == 'SCADUTO'}" class="text-muted">Scaduto</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -134,24 +156,27 @@
             
             <nav class="pagination" th:unless="${preventivi == null or preventivi.empty}" aria-label="Paginazione preventivi">
                 <a th:if="${preventivi.hasPrevious}"
-                   th:href="@{/client#preventivi(preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni.number})}">Precedente</a>
+                   th:href="@{/client#preventivi(preventiviPage=${preventivi.number - 1}, prenotazioniPage=${prenotazioni != null ? prenotazioni.number : 0})}">Precedente</a>
 
                 <span th:text="|Pagina ${preventivi.number + 1} di ${preventivi.totalPages}|"></span>
 
                 <a th:if="${preventivi.hasNext}"
-                   th:href="@{/client#preventivi(preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni.number})}">Successiva</a>
+                   th:href="@{/client#preventivi(preventiviPage=${preventivi.number + 1}, prenotazioniPage=${prenotazioni != null ? prenotazioni.number : 0})}">Successiva</a>
             </nav>
         </section>
 
+        <!-- ================= SEZIONE: LE MIE PRENOTAZIONI ================= -->
         <section id="prenotazioni" class="dashboard-section">
-            <h2>Le mie prenotazioni</h2>
+            <div class="section-header">
+                <h3>Le mie prenotazioni</h3>
+            </div>
 
             <p th:if="${reviewSuccessMessage}" class="feedback feedback-success" th:text="${reviewSuccessMessage}"></p>
             <p th:if="${reviewErrorMessage}" class="feedback feedback-error" th:text="${reviewErrorMessage}"></p>
 
             <p th:if="${prenotazioni == null or prenotazioni.empty}" class="empty-state">Non hai ancora prenotazioni.</p>
-            <div class="table-wrapper" th:unless="${prenotazioni == null or prenotazioni.empty}">
-                <table class="client-table">
+            <div class="table-responsive" th:unless="${prenotazioni == null or prenotazioni.empty}">
+                <table class="admin-table">
                     <thead>
                         <tr>
                             <th>ID Preventivo</th>
@@ -159,6 +184,7 @@
                             <th>Indirizzo</th>
                             <th>Stato</th>
                             <th>Recensione</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -168,36 +194,54 @@
                             <td th:text="${prenotazione.indirizzo}"></td>
                             <td th:text="${prenotazione.stato}"></td>
                             <td>
-                                <form th:if="${prenotazione.stato == 'COMPLETATA' and !prenotazione.recensita}"
-                                      th:action="@{/client/prenotazioni/{id}/recensione(id=${prenotazione.idPrenotazione})}"
-                                      method="post" class="review-form">
+                                <div class="preventivo-actions">
+                                    <form th:if="${prenotazione.stato == 'COMPLETATA' and !prenotazione.recensita}"
+                                          th:action="@{/client/prenotazioni/{id}/recensione(id=${prenotazione.idPrenotazione})}"
+                                          method="post" class="review-form">
                                     
-                                    <input type="hidden" name="preventiviPage" th:value="${preventivi != null ? preventivi.number : 0}">
-                                    <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni != null ? prenotazioni.number : 0}">
+                                        <input type="hidden" name="preventiviPage" th:value="${preventivi != null ? preventivi.number : 0}">
+                                        <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni != null ? prenotazioni.number : 0}">
 
-                                    <label>
-                                        Voto
-                                        <select name="voto" required>
-                                            <option value="">Scegli</option>
-                                            <option value="5">5 - Eccellente</option>
-                                            <option value="4">4 - Molto buona</option>
-                                            <option value="3">3 - Buona</option>
-                                            <option value="2">2 - Sufficiente</option>
-                                            <option value="1">1 - Insufficiente</option>
-                                        </select>
-                                    </label>
-                                    <label>
-                                        Commento
-                                        <textarea name="commento" rows="2" maxlength="500"></textarea>
-                                    </label>
-                                    <button type="submit">Invia recensione</button>
-                                </form>
+                                        <label>
+                                            Voto
+                                            <select name="voto" required>
+                                                <option value="">Scegli</option>
+                                                <option value="5">5 - Eccellente</option>
+                                                <option value="4">4 - Molto buona</option>
+                                                <option value="3">3 - Buona</option>
+                                                <option value="2">2 - Sufficiente</option>
+                                                <option value="1">1 - Insufficiente</option>
+                                            </select>
+                                        </label>
+                                        <label>
+                                            Commento
+                                            <textarea name="commento" rows="2" maxlength="500"></textarea>
+                                        </label>
+                                        <button type="submit">Invia recensione</button>
+                                    </form>
+                                </div>
                                 <span th:if="${prenotazione.stato == 'COMPLETATA' and prenotazione.recensita}" class="text-muted">
                                     Recensione già inviata
                                 </span>
                                 <span th:if="${prenotazione.stato != 'COMPLETATA'}">
                                     Disponibile con stato completata
                                 </span>
+                            </td>
+                            <td>
+                                <div class="preventivo-actions">
+                                    <form th:if="${prenotazione.stato != 'COMPLETATA' and prenotazione.stato != 'ANNULLATA'}"
+                                          th:action="@{/client/prenotazioni/{id}/cancel(id=${prenotazione.idPrenotazione})}" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                        <input type="hidden" name="preventiviPage" th:value="${preventivi != null ? preventivi.number : 0}" />
+                                        <input type="hidden" name="prenotazioniPage" th:value="${prenotazioni != null ? prenotazioni.number : 0}" />
+                                        <button type="submit" class="btn-reject" title="Annulla prenotazione" aria-label="Annulla prenotazione"
+                                                onclick="return confirm('Sei sicuro di voler annullare questa prenotazione?');">
+                                            <img th:src="@{/images/delete.png}" alt="Rifiuta">
+                                        </button>
+                                    </form>
+                                </div>
+                                <span th:if="${prenotazione.stato == 'COMPLETATA'}" class="text-muted">Completata</span>
+                                <span th:if="${prenotazione.stato == 'ANNULLATA'}" class="text-muted">Annullata</span>
                             </td>
                         </tr>
                     </tbody>
@@ -213,8 +257,11 @@
             </nav>
         </section>
 
+        <!-- ================= SEZIONE: PROFILO ================= -->
         <section id="profilo" class="dashboard-section">
-            <h2>Profilo</h2>
+            <div class="section-header">
+                <h3>Profilo</h3>
+            </div>
 
             <p th:if="${profileSuccessMessage}" class="feedback feedback-success" th:text="${profileSuccessMessage}"></p>
             <p th:if="${profileErrorMessage}" class="feedback feedback-error" th:text="${profileErrorMessage}"></p>

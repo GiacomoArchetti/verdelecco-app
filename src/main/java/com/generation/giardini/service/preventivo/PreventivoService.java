@@ -47,4 +47,7 @@ public interface PreventivoService {
 
     // REJECT -> Rifiuta il preventivo cambiando il suo stato -> true -> success, false -> exception e Msg = errore
     boolean reject(Long id);
+
+    // CANCEL AS CLIENT -> Annulla il preventivo da parte dell'utente verificando l'email -> true -> success, false -> errore/stato non valido
+    boolean cancelAsClient(Long id, String userEmail);
 }

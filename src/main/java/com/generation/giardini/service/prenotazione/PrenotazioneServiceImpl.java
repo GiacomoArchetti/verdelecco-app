@@ -183,6 +183,28 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     }
 
     @Override
+    public boolean cancelAsClient(Long id, String emailUtente) {
+        Prenotazione entity = prenotazioneRepository.findById(id)
+                .orElseThrow(() -> new PrenotazioneNotFoundException(id));
+
+        // Controllo di sicurezza: verifica che la prenotazione appartenga effettivamente all'utente loggato
+        if (entity.getPreventivo() == null || 
+            entity.getPreventivo().getUtente() == null || 
+            !entity.getPreventivo().getUtente().getEmail().equalsIgnoreCase(emailUtente)) {
+            return false; // O lancia un'eccezione di accesso non autorizzato
+        }
+
+        // Verifica che lo stato attuale permetta l'annullamento (es. solo se è PROGRAMMATA)
+        if (entity.getStato() == StatoPrenotazione.COMPLETATA || entity.getStato() == StatoPrenotazione.ANNULLATA) {
+            return false;
+        }
+
+        entity.setStato(StatoPrenotazione.ANNULLATA);
+        prenotazioneRepository.save(entity);
+        return true;
+    }
+ 
+    @Override
     public List<EventoCalendarioDTO> getEventiCalendario(LocalDate start, LocalDate end) {
         // Trasforma LocalDate in LocalDateTime per matchare il tipo nel DB/Repository
         LocalDateTime startDateTime = start.atStartOfDay();           // 2026-08-01T00:00:00

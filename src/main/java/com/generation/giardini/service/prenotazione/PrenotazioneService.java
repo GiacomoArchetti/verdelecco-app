@@ -41,6 +41,9 @@ public interface PrenotazioneService {
     // COMPLETE -> Imposta lo stato della prenotazione come completata se la data dell'intervento è trascorsa
     boolean complete(Long id);
 
+    // ANNULLAMENTO LATO CLIENTE -> Imposta lo stato della prenotazione come ANNULLATA
+    boolean cancelAsClient(Long id, String emailUtente);
+
     // CALENDARIO -> Restituisce la lista degli eventi prenotati in un determinato intervallo di date
     List<EventoCalendarioDTO> getEventiCalendario(LocalDate start, LocalDate end);
 
