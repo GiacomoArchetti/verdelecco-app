@@ -109,7 +109,7 @@
                         
                         <td>
                             <!-- Controllo sullo stato 'IN_ATTESA' usando la proprietà 'stato' del DTO -->
-                            <div class="preventivo-actions" th:if="${preventivo.stato == 'IN_ATTESA'}">
+                            <div class="preventivo-actions" th:if="${preventivo.stato == 'IN ATTESA'}">
                                 <form th:action="@{/admin/preventivi/{id}/accept(id=${preventivo.idPreventivo})}" method="post">
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                     <input type="hidden" name="clientiPage" th:value="${clienti.number}" />
