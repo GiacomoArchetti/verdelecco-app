@@ -1,4 +1,4 @@
-/* Stile unificato FullCalendar - Layout Naturale */
+/* Stile unificato FullCalendar - Tavolozza Verde Naturale */
 .calendar-section {
     grid-column: span 2;
     margin-top: 15px;
@@ -15,16 +15,15 @@
 
 #calendar {
     background-color: transparent;
-    border: 1px solid rgba(184, 206, 168, 0.35);
-    border-radius: 12px;
-    padding: 12px;
-    color: var(--text-light, #edf3df);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    padding: 10px;
+    color: #edf3df;
     width: 100%;
-    height: auto !important; /* Rimuove l'altezza fissa che taglia le celle */
+    height: auto !important;
     box-sizing: border-box;
 }
 
-/* Rimuove ogni blocco di scorrimento o taglio verticale interno */
 .calendar-section .fc-scroller,
 .calendar-section .fc-scroller-liquid-absolute,
 .calendar-section .fc-daygrid-body,
@@ -34,117 +33,174 @@
     overflow: visible !important;
 }
 
-/* Celle ad altezza fluida e proporzionata */
 .calendar-section .fc-daygrid-day-frame {
-    min-height: 45px !important;
+    min-height: 48px !important;
     height: auto !important;
 }
 
-/* Griglia e Bordo Cantiere */
+/* Griglia e Bordi */
 .fc-theme-standard td, 
 .fc-theme-standard th {
-    border-color: rgba(184, 206, 168, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .fc .fc-toolbar-title {
-    color: var(--text-light, #eef4e6);
-    font-size: 1.1rem;
+    color: #edf3df;
+    font-size: 1.25rem;
     font-weight: 700;
+    font-family: inherit;
 }
 
-/* Pulsanti Oggi / Prev / Next */
+/* Pulsanti Toolbar */
 .fc .fc-button,
 .fc .fc-button-primary,
 .fc .fc-button-primary:not(:disabled):active,
-.fc .fc-button-primary:not(:disabled).fc-button-active {
-    background-color: var(--moss-green, #7a9b58) !important;
-    border-color: var(--moss-green, #7a9b58) !important;
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-prev-button,
+.fc .fc-next-button,
+.fc .fc-today-button {
+    background-color: #8da867 !important;
+    border-color: #7a9855 !important;
     color: #ffffff !important;
-    border-radius: 50px !important;
+    border-radius: 6px !important;
     padding: 5px 14px !important;
     font-weight: 600 !important;
-    font-size: 0.85rem !important;
     box-shadow: none !important;
     outline: none !important;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .fc .fc-button-primary:hover,
-.fc .fc-button-primary:not(:disabled):active:hover {
-    background-color: var(--olive-drab, #627e45) !important;
-    border-color: var(--olive-drab, #627e45) !important;
+.fc .fc-prev-button:hover,
+.fc .fc-next-button:hover,
+.fc .fc-today-button:hover {
+    background-color: #7a9855 !important;
+    border-color: #688245 !important;
     cursor: pointer;
 }
 
-.fc .fc-button-primary:disabled {
-    background-color: rgba(122, 155, 88, 0.3) !important;
+.fc .fc-button-primary:disabled,
+.fc .fc-today-button:disabled {
+    background-color: rgba(141, 168, 103, 0.4) !important;
     border-color: transparent !important;
-    color: rgba(255, 255, 255, 0.5) !important;
-    opacity: 0.6;
+    color: rgba(255, 255, 255, 0.6) !important;
+    opacity: 0.7;
+    cursor: not-allowed !important;
 }
 
-/* Numeri dei giorni e Intestazione */
 .fc .fc-daygrid-day-number {
-    color: var(--text-muted, #c9d7b6);
+    color: #edf3df;
     text-decoration: none;
     font-weight: 500;
 }
 
 .fc .fc-col-header-cell-cushion {
-    color: var(--text-light, #edf3df);
+    color: #edf3df;
     font-weight: 600;
 }
 
-/* Cursori e Interazioni */
+/* 1. GIORNI PRENOTABILI STANDARD BASE */
 .calendar-section .fc-daygrid-day {
-    cursor: pointer !important;
+    background-color: rgba(0, 0, 0, 0.15);
+    cursor: pointer;
 }
 
-.calendar-section .fc-daygrid-day.giorno-occupato,
-.calendar-section .fc-daygrid-day.giorno-occupato * {
-    cursor: not-allowed !important;
+/* Hover applicato ESCLUSIVAMENTE sui giorni disponibili e prenotabili */
+.calendar-section .fc-daygrid-day:not(.giorno-disabilitato):not(.giorno-occupato):not(.giorno-weekend):not(.fc-day-sat):not(.fc-day-sun):not(.fc-day-past):not(.giorno-passato):hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Hover e Selezione Giorni */
-.calendar-section .fc-daygrid-day:not(.giorno-occupato):hover {
-    background-color: rgba(122, 155, 88, 0.25) !important;
-    transition: background-color 0.2s ease;
+/* 2. GIORNO DI OGGI (Stesso colore #8da867 del pulsante di invio) */
+.calendar-section .fc-daygrid-day.fc-day-today {
+    background-color: #8da867 !important;
 }
 
-.calendar-section .fc-daygrid-day.giorno-selezionato {
-    background-color: var(--moss-green, #7a9b58) !important;
-}
-
-.giorno-selezionato .fc-daygrid-day-number {
+.calendar-section .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
     color: #ffffff !important;
     font-weight: bold;
 }
 
-.calendar-section .fc-day-past:not(.giorno-selezionato):hover {
-    background-color: transparent !important;
+/* 3. GIORNI PASSATI (Grigio scuro opaco più intenso del weekend) */
+.calendar-section .fc-daygrid-day.giorno-passato,
+.calendar-section .fc-daygrid-day.fc-day-past,
+.calendar-section .fc-daygrid-day.giorno-passato:hover,
+.calendar-section .fc-daygrid-day.fc-day-past:hover {
+    background-color: rgba(35, 40, 35, 0.85) !important;
+    opacity: 1 !important;
+    cursor: not-allowed !important;
 }
 
-/* Giorni Occupati (Rosso Trasparente senza Testo) */
+.calendar-section .fc-daygrid-day.giorno-passato .fc-daygrid-day-number,
+.calendar-section .fc-daygrid-day.fc-day-past .fc-daygrid-day-number {
+    color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* 4. SABATI E DOMENICHE FUTURI O CORRENTI (Grigio chiaro) */
+.calendar-section .fc-daygrid-day.fc-day-sat:not(.fc-day-past):not(.giorno-passato),
+.calendar-section .fc-daygrid-day.fc-day-sun:not(.fc-day-past):not(.giorno-passato),
+.calendar-section .fc-daygrid-day.giorno-weekend:not(.fc-day-past):not(.giorno-passato),
+.calendar-section .fc-daygrid-day.fc-day-sat:not(.fc-day-past):not(.giorno-passato):hover,
+.calendar-section .fc-daygrid-day.fc-day-sun:not(.fc-day-past):not(.giorno-passato):hover,
+.calendar-section .fc-daygrid-day.giorno-weekend:not(.fc-day-past):not(.giorno-passato):hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    opacity: 0.8 !important;
+    cursor: not-allowed !important;
+}
+
+/* 5. GIORNI OCCUPATI */
+.calendar-section .fc-daygrid-day.giorno-occupato,
+.calendar-section .fc-daygrid-day.giorno-occupato:hover {
+    background-color: #5c3328 !important;
+    cursor: not-allowed !important;
+}
+
+/* Priorità weekend grigio chiaro solo sui giorni futuri occupati */
+.calendar-section .fc-daygrid-day.giorno-weekend.giorno-occupato:not(.fc-day-past),
+.calendar-section .fc-daygrid-day.fc-day-sat.giorno-occupato:not(.fc-day-past),
+.calendar-section .fc-daygrid-day.fc-day-sun.giorno-occupato:not(.fc-day-past) {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    opacity: 0.8 !important;
+}
+
+/* Blocca il cursore sui contenuti interni delle celle disabilitate */
+.calendar-section .fc-daygrid-day.giorno-disabilitato *,
+.calendar-section .fc-daygrid-day.giorno-occupato *,
+.calendar-section .fc-daygrid-day.giorno-weekend *,
+.calendar-section .fc-daygrid-day.giorno-passato *,
+.calendar-section .fc-daygrid-day.fc-day-past * {
+    cursor: not-allowed !important;
+    pointer-events: auto !important;
+}
+
+/* Ripristina il cursore sui giorni validi dei mesi adiacenti */
+.calendar-section .fc-daygrid-day.fc-day-other:not(.giorno-disabilitato):not(.giorno-occupato):not(.giorno-weekend):not(.fc-day-sat):not(.fc-day-sun):not(.fc-day-past):not(.giorno-passato) * {
+    cursor: pointer !important;
+}
+
+/* 6. GIORNO SELEZIONATO DALL'UTENTE (Stesso colore del pulsante + bordo di evidenziazione) */
+.calendar-section .fc-daygrid-day.giorno-selezionato {
+    background-color: #8da867 !important;
+    outline: 2px solid #ffffff;
+    outline-offset: -2px;
+}
+
+.calendar-section .fc-daygrid-day.giorno-selezionato .fc-daygrid-day-number {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+/* Nasconde eventi interni */
 .calendar-section .fc-event-title,
 .calendar-section .fc-event-main,
 .calendar-section .fc-event {
     display: none !important;
 }
 
-.calendar-section .fc-daygrid-day.giorno-occupato {
-    background-color: rgba(192, 58, 43, 0.45) !important;
-    transition: background-color 0.2s ease;
-}
-
-.calendar-section .fc-daygrid-day.giorno-occupato:hover {
-    background-color: rgba(192, 58, 43, 0.45) !important;
-}
-
 /* Testo Data Selezionata */
 .data-selected-info {
     margin-top: 10px;
     font-size: 1rem;
-    color: var(--text-light, #ffffff);
-    font-weight: 600;
+    color: #ffffff;
+    font-weight: 500;
     min-height: 24px;
 }

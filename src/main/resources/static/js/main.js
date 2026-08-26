@@ -66,3 +66,26 @@ document.querySelectorAll('a[href*="#"]').forEach((link) => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const inputDimensioni = document.getElementById('dimensioniInput') || document.querySelector('input[name="dimensioni"]');
+    
+    if (inputDimensioni) {
+        // Il terzo argomento `true` attiva la Capture Phase per bloccare il browser all'istante
+        inputDimensioni.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                let val = parseInt(inputDimensioni.value, 10);
+                if (isNaN(val)) val = 0;
+
+                if (e.key === 'ArrowUp') {
+                    inputDimensioni.value = val + 5;
+                } else if (e.key === 'ArrowDown') {
+                    inputDimensioni.value = Math.max(1, val - 5);
+                }
+            }
+        }, true); // <-- FONDAMENTALE: registra l'evento in fase di cattura
+    }
+});
+
