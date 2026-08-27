@@ -204,3 +204,63 @@
     font-weight: 500;
     min-height: 24px;
 }
+
+/* Layout Responsive Completo Calendario */
+@media (max-width: 576px) {
+    /* --- 1. TOOLBAR: Pulsanti in alto affiancati, Titolo mese sotto --- */
+    .fc .fc-toolbar {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    .fc .fc-toolbar-chunk {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+
+    .fc .fc-toolbar-title {
+        text-align: center !important;
+        white-space: nowrap !important;
+        font-size: 1.15rem !important;
+        margin: 0 !important;
+    }
+
+    .fc .fc-button {
+        padding: 6px 12px !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* --- 2. LARGHEZZA: Recupero spazio e rimozione effetto schiacciato --- */
+    .calendar-section,
+    .dashboard-section,
+    .client-quote-form {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    #calendar {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    .fc .fc-daygrid-day-frame {
+        padding: 2px !important;
+        min-height: 48px !important;
+    }
+
+    .fc .fc-col-header-cell-cushion {
+        font-size: 0.75rem !important;
+        padding: 4px 1px !important;
+    }
+
+    .fc .fc-daygrid-day-number {
+        font-size: 0.85rem !important;
+        padding: 2px 4px !important;
+    }
+}

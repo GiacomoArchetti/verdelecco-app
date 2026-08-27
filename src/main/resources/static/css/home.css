@@ -224,6 +224,31 @@ p, li, .review p, .faq-item p, .process-step p {
     width: fit-content;
 }
 
+/* Layout Responsive per la sezione Login nella pagina di Registrazione */
+@media (max-width: 576px) {
+    .registration-card .success-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        margin-top: 20px !important;
+        width: 100% !important;
+    }
+
+    .registration-card .success-actions span {
+        display: block !important;
+        text-align: center !important;
+        margin-top: 12px !important;    /* Spazio dal tasto Registrati sopra */
+        margin-bottom: -10px !important;  /* Avvicina la scritta al tasto Login */
+    }
+
+    .registration-card .success-actions a {
+        width: 100% !important;          /* Rende il tasto Login a tutta larghezza come gli altri */
+        text-align: center !important;
+        box-sizing: border-box !important;
+    }
+}
+
 .form-actions {
     display: flex;
     justify-content: flex-end;
@@ -237,6 +262,23 @@ p, li, .review p, .faq-item p, .process-step p {
     margin-top: 24px;
     justify-content: flex-end;
     align-items: center;
+}
+
+/* Layout Responsive per i pulsanti nella pagina di conferma */
+@media (max-width: 576px) {
+    .success-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        gap: 12px !important;
+    }
+
+    .success-actions .btn-primary {
+        width: 100% !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+    }
 }
 
 /* ==========================================================================

@@ -159,6 +159,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (txtDataMostrata) {
                 txtDataMostrata.innerText = dataFormattata.charAt(0).toUpperCase() + dataFormattata.slice(1);
             }
+
+            // NASCONDE SUBITO L'ERRORE VISIVO
+            const erroreData = document.querySelector('.calendar-section .form-error');
+            if (erroreData) {
+                erroreData.style.display = 'none';
+            }
         }
     });
 
