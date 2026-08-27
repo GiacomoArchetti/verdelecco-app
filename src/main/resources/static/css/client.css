@@ -72,6 +72,7 @@
     color: #eef4de;
 }
 
+/* Select dei servizi nel form Richiedi preventivo */
 .client-quote-form input,
 .client-quote-form select,
 .client-quote-form textarea {
@@ -79,7 +80,20 @@
     padding: 10px 12px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(31, 50, 34, 0.9);
+    color: #eef4e0;
+}
+
+/* Stile comune alle select del preventivo e delle recensioni */
+.client-quote-form select,
+.review-form select {
+    appearance: auto;
+    color-scheme: dark;
+}
+
+.client-quote-form select option,
+.review-form select option {
+    background: #1f3222;
     color: #eef4e0;
 }
 
@@ -184,7 +198,8 @@
 .review-form {
     display: grid;
     gap: 8px;
-    min-width: 220px;
+    min-width: min(220px, 100%);
+    width: 100%;
 }
 
 .review-form label {
@@ -194,13 +209,14 @@
     font-size: 0.85rem;
 }
 
+/* Select del voto nel form delle recensioni */
 .review-form select,
 .review-form textarea {
     width: 100%;
     padding: 7px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(31, 50, 34, 0.9);
     color: #eef4e0;
 }
 
@@ -217,6 +233,20 @@
 
 .review-form button:hover {
     background: var(--olive-drab);
+}
+
+/* Ripristina il layout verticale del form recensione nella tabella cliente */
+.preventivo-actions .review-form {
+    display: grid;
+    flex-direction: column;
+    align-items: stretch;
+    white-space: normal;
+}
+
+.review-form select,
+.review-form textarea,
+.review-form button {
+    box-sizing: border-box;
 }
 
 .feedback {
@@ -340,6 +370,20 @@
     }
 
     .client-quote-form > .btn-primary {
+        width: 100%;
+    }
+
+    /* Responsive del form recensione nella tabella cliente */
+    .preventivo-actions {
+        align-items: stretch;
+        white-space: normal;
+    }
+
+    .preventivo-actions .review-form {
+        min-width: 180px;
+    }
+
+    .review-form button {
         width: 100%;
     }
 

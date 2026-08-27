@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.preventivo-form') || document.querySelector('.client-quote-form');
-    const phoneInput = document.getElementById('phoneNumber');
+    const phoneInput = document.getElementById('telefonoPreventivo') || document.getElementById('phoneNumber');
 
     if (form && phoneInput) {
         phoneInput.addEventListener('input', function () {

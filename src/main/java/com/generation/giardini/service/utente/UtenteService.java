@@ -28,6 +28,9 @@ public interface UtenteService {
     // READ / FIND ALL -> Restituisce una pagina di utenti registrati in base ai parametri di paginazione
     Page<UtenteDTO> readAll(Pageable pageRequest);
 
+    // READ CLIENTI -> Restituisce solo gli utenti con ruolo cliente
+    Page<UtenteDTO> readAllClients(Pageable pageRequest);
+
     //READ ALL ACTIVE -> Restituisce tutti gli utenti registrati attivi
     List<UtenteDTO> readAllActive();
 

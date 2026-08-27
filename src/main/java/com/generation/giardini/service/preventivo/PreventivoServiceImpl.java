@@ -75,10 +75,11 @@ public class PreventivoServiceImpl implements PreventivoService {
             // 2. Aggiorniamo i campi dell'utente
             utente.setNome(request.getNome() != null ? request.getNome().trim() : "");
             utente.setCognome(request.getCognome() != null ? request.getCognome().trim() : "");
-            utente.setTelefono(normalizzaTelefono(request.getTelefono()));
+            String telefonoNormalizzato = normalizzaTelefono(request.getTelefono());
+            if (telefonoNormalizzato != null) {
+                utente.setTelefono(telefonoNormalizzato);
+            }
             utente.setIndirizzo(request.getIndirizzo());
-
-            log.info(">>> TELEFONO PRIMA DEL SALVATAGGIO UTENTE: " + utente.getTelefono());
 
             // 3. Salviamo, flushiamo e riassegniamo l'utente per blindare l'istanza
             utente = utenteRepository.saveAndFlush(utente);

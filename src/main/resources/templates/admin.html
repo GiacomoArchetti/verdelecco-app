@@ -41,7 +41,6 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nome</th>
                         <th>Cognome</th>
                         <th>Email</th>
@@ -52,7 +51,6 @@
                 </thead>
                 <tbody>
                     <tr th:each="cliente : ${clienti.content}">
-                        <td th:text="${cliente.idUtente}"></td>
                         <td th:text="${cliente.nome}"></td>
                         <td th:text="${cliente.cognome}"></td>
                         <td th:text="${cliente.email}"></td>

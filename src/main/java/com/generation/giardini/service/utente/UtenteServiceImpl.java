@@ -178,6 +178,13 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     @Transactional(readOnly = true)
+    public Page<UtenteDTO> readAllClients(Pageable pageRequest) {
+        Page<Utente> pageClienti = utenteRepository.findByRuolo(Ruolo.UTENTE, pageRequest);
+        return pageClienti.map(utenteMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public UtenteDTO readByEmail(String email) {
         Utente utente = utenteRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new UtenteNotFoundException("Utente non trovato con email: " + email));
@@ -188,8 +195,11 @@ public class UtenteServiceImpl implements UtenteService {
     public void updateDatiContatto(String email, String telefono, String indirizzo) {
         Utente utente = utenteRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new UtenteNotFoundException("Utente non trovato con email: " + email));
-                
-        utente.setTelefono(normalizzaTelefono(telefono));
+
+        String telefonoNormalizzato = normalizzaTelefono(telefono);
+        if (telefonoNormalizzato != null) {
+            utente.setTelefono(telefonoNormalizzato);
+        }
         utente.setIndirizzo(indirizzo == null ? null : indirizzo.trim());
         utenteRepository.save(utente);
     }
@@ -201,10 +211,17 @@ public class UtenteServiceImpl implements UtenteService {
         utenteRepository.findByEmailIgnoreCase(email).ifPresent(utente -> {
             request.setNome((utente.getNome() + " " + utente.getCognome()).trim());
             request.setEmail(utente.getEmail());
-            request.setTelefono(normalizzaTelefono(utente.getTelefono()));
+            request.setTelefono(telefonoPerForm(utente.getTelefono()));
             request.setIndirizzo(utente.getIndirizzo());
         });
         return request;
+    }
+
+    private String telefonoPerForm(String telefono) {
+        if (telefono == null || telefono.isBlank()) {
+            return telefono;
+        }
+        return telefono.trim().replaceFirst("^(?:\\+|00)\\d{1,3}[\\s.-]*", "");
     }
 
     private String normalizzaTelefono(String telefono) {

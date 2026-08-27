@@ -56,7 +56,7 @@ public class AdminController {
         int pageSize = 5;
         
         // Popola il Model con le entità paginate per ciascun tab della dashboard
-        model.addAttribute("clienti", utenteService.readAll(PageRequest.of(clientiPage, pageSize)));
+        model.addAttribute("clienti", utenteService.readAllClients(PageRequest.of(clientiPage, pageSize)));
         model.addAttribute("preventivi", preventivoService.readAll(PageRequest.of(preventiviPage, pageSize)));
         model.addAttribute("prenotazioni", prenotazioneService.readAll(PageRequest.of(prenotazioniPage, pageSize)));
         model.addAttribute("recensioni", recensioneService.readAll(PageRequest.of(recensioniPage, pageSize)));

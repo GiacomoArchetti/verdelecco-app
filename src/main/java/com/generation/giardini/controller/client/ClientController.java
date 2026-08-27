@@ -58,18 +58,20 @@ public class ClientController {
                 email, PageRequest.of(safePrenotazioniPage, PAGE_SIZE,
                         Sort.by(Sort.Direction.ASC, "dataIntervento"))));
         
-        model.addAttribute("preventivoRequest", utenteService.createPreventivoRequestForUser(email));
-        
         UtenteDTO utente = utenteService.readByEmail(email);
-        
-        model.addAttribute("nomeUtente", utente.nome());
-        model.addAttribute("cognomeUtente", utente.cognome());
-        model.addAttribute("telefonoUtente", utente.telefono());
-        
+
         String indirizzo = utente.indirizzo();
         if (indirizzo == null || indirizzo.isBlank()) {
             indirizzo = preventivoService.readLatestIndirizzoByUtenteEmail(email);
         }
+
+        PreventivoRequestDto preventivoRequest = utenteService.createPreventivoRequestForUser(email);
+        preventivoRequest.setIndirizzo(indirizzo);
+        model.addAttribute("preventivoRequest", preventivoRequest);
+
+        model.addAttribute("nomeUtente", utente.nome());
+        model.addAttribute("cognomeUtente", utente.cognome());
+        model.addAttribute("telefonoUtente", utente.telefono());
         model.addAttribute("indirizzoUtente", indirizzo);
         
         model.addAttribute("serviziOptions", servizioService.readAllAttiviOptions());
