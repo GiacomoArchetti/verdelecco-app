@@ -4,20 +4,20 @@
 
 INSERT INTO utente (nome, cognome, email, password, telefono, attivo, ruolo)
 VALUES (
-    'Giacomo',
-    'Archetti',
-    'archettigiacomoarchetti@gmail.com',
-    'G14c0m0!01',
+    'Matteo',
+    'Colombo',
+    'matteo.colombo@gmail.com',
+    'bosco2026',
     '+39 333 9876543',
     1,
     'UTENTE'
 )
 ON DUPLICATE KEY UPDATE 
-    nome = 'Giacomo',
-    cognome = 'Archetti',
+    nome = 'Matteo',
+    cognome = 'Colombo',
     telefono = '+39 333 9876543';
 
-SET @utente_id = (SELECT id_utente FROM utente WHERE email = 'archettigiacomoarchetti@gmail.com');
+SET @utente_id = (SELECT id_utente FROM utente WHERE email = 'matteo.colombo@gmail.com');
 
 
 -- =====================================================
