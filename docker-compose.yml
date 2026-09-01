@@ -1,0 +1,38 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: giardini-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: gestionale_giardiniere
+      MYSQL_USER: giardini
+      MYSQL_PASSWORD: giardini
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: giardini-app
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    env_file:
+      - .env
+    environment:
+      PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/gestionale_giardiniere?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: giardini
+      SPRING_DATASOURCE_PASSWORD: giardini
+      SPRING_JPA_SHOW_SQL: "false"
+      SPRING_JPA_FORMAT_SQL: "false"
+      SPRING_FLYWAY_ENABLED: "true"
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
